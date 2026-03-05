@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>私たちについて | smile訪問看護ステーション</title>
+  <style>
+    /* CSS Variables: 温かみのある「smile」ブランディング */
+    :root {
+      --clr-brand: #f97316;
+      --clr-brand-light: #fff7ed;
+      --clr-brand-mute: #fdba74;
+      
+      --clr-text-main: #44403c;
+      --clr-text-muted: #78716c;
+      
+      --clr-bg-page: #fafaf9;
+      --clr-surface: #ffffff;
+      --clr-border: #e7e5e4;
+      
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 32px;
+      
+      --space-xs: 0.5rem;
+      --space-sm: 1rem;
+      --space-md: 2rem;
+      --space-lg: 4rem;
+      --space-xl: 6rem;
+
+      --transition-smooth: 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* Reset & Base */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+      color: var(--clr-text-main);
+      background-color: var(--clr-bg-page);
+      line-height: 1.8;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* ----------------------
+       Header & Footer (共通)
+    ----------------------- */
+    .global-header {
+      background-color: var(--clr-surface);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: var(--clr-brand);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .global-nav { display: none; }
+    @media (min-width: 768px) {
+      .global-nav { display: flex; gap: 1.5rem; }
+      .global-nav a {
+        color: var(--clr-text-main);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+      .global-nav a:hover, .global-nav a.is-active { color: var(--clr-brand); }
+    }
+    
+    .global-footer {
+      background-color: var(--clr-surface);
+      border-top: 1px solid var(--clr-border);
+      padding: var(--space-md) var(--space-sm);
+      text-align: center;
+      margin-top: auto;
+    }
+
+    /* ----------------------
+       Main Content
+    ----------------------- */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: var(--space-xl) var(--space-sm);
+    }
+
+    .section-title {
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      color: var(--clr-brand);
+      text-align: center;
+      margin-bottom: var(--space-lg);
+      font-weight: bold;
+    }
+
+    /* 1. Hero / Philosophy */
+    .hero-section {
+      text-align: center;
+      margin-bottom: var(--space-xl);
+    }
+    .hero-catchphrase {
+      font-size: clamp(1.75rem, 5vw, 2.5rem);
+      color: var(--clr-text-main);
+      font-weight: bold;
+      line-height: 1.4;
+      margin-bottom: var(--space-md);
+      position: relative;
+      display: inline-block;
+    }
+    .hero-catchphrase::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 4px;
+      background-color: var(--clr-brand-mute);
+      border-radius: 2px;
+    }
+    .hero-text {
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      text-align: left;
+    }
+
+    /* 2. Features */
+    .feature-section {
+      margin-bottom: var(--space-xl);
+    }
+    .feature-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+    .feature-card {
+      background-color: var(--clr-surface);
+      border-radius: var(--radius-lg);
+      padding: var(--space-md);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: var(--space-md);
+      align-items: start;
+    }
+    .feature-num {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: var(--clr-brand-mute);
+      line-height: 1;
+      font-family: serif;
+    }
+    .feature-content h3 {
+      font-size: 1.25rem;
+      color: var(--clr-text-main);
+      margin-bottom: var(--space-xs);
+    }
+
+    /* 3. Manager Message */
+    .message-section {
+      background-color: var(--clr-brand-light);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      margin-bottom: var(--space-xl);
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+    }
+    .message-photo-placeholder {
+      aspect-ratio: 1 / 1;
+      background-color: #ffe4e6; /* 温かいダミーカラー */
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--clr-text-muted);
+      max-width: 250px;
+      margin: 0 auto;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+    }
+    .message-content h3 {
+      font-size: 1.5rem;
+      color: var(--clr-brand);
+      margin-bottom: var(--space-sm);
+      line-height: 1.4;
+    }
+
+    /* 4. Company Info */
+    .company-section {
+      background-color: var(--clr-surface);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg) var(--space-md);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    }
+    .info-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+    .info-table th, .info-table td {
+      padding: 1.25rem 0;
+      border-bottom: 1px dashed var(--clr-border);
+    }
+    .info-table th {
+      width: 25%;
+      color: var(--clr-brand);
+      font-weight: bold;
+      vertical-align: top;
+    }
+    .info-table tr:last-child th, .info-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* Scroll Animation */
+    .js-reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity var(--transition-smooth), transform var(--transition-smooth);
+      will-change: opacity, transform;
+    }
+    .js-reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .feature-card {
+        grid-template-columns: 1fr;
+        gap: var(--space-xs);
+      }
+      .feature-num { font-size: 2rem; margin-bottom: 0.5rem; }
+      .message-section { padding: var(--space-md); }
+      .company-section { padding: var(--space-md); }
+      .info-table th, .info-table td { display: block; width: 100%; padding: 0.5rem 0; }
+      .info-table th { padding-top: 1rem; border-bottom: none; }
+      .info-table td { padding-bottom: 1rem; }
+    }
+    @media (min-width: 768px) {
+      .hero-text { text-align: center; }
+      .message-section { grid-template-columns: 250px 1fr; align-items: center; gap: var(--space-lg); }
+      .message-photo-placeholder { margin: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <main class="container">
+    
+    <section class="hero-section js-reveal">
+      <h1 class="hero-catchphrase">1人1人の「やりたい」に<br class="pc-only">向き合う。<br>それが、smileの約束です。</h1>
+      <p class="hero-text" style="margin-top: var(--space-lg);">
+        病気や障害があっても、「住み慣れた家で自分らしく暮らしたい」「もう一度、〇〇ができるようになりたい」——そんなお一人おひとりの想いや目標は違います。<br><br>
+        私たちは、ただ医療的ケアを提供するだけでなく、ご利用者様とご家族様の「やりたい」という気持ちに寄り添い、その実現に向けて一緒に歩むパートナーでありたいと考えています。<br>
+        尼崎市の地域に根ざし、皆さまが笑顔で毎日を過ごせるよう、温かく専門的なサポートをお届けします。
+      </p>
+    </section>
+
+    <section class="feature-section js-reveal">
+      <h2 class="section-title">私たちの3つの特徴</h2>
+      <div class="feature-list">
+        
+        <article class="feature-card js-reveal">
+          <div class="feature-num">01</div>
+          <div class="feature-content">
+            <h3>尼崎市でめずらしい「透析特化型」の訪問看護</h3>
+            <p>当ステーションの大きな強みは、透析治療（腹膜透析など）を受けられている方への専門的なサポートです。ご自宅での体調管理や、シャントの管理、ちょっとした体調変化への不安など、専門知識を持ったスタッフがしっかりと対応し、安心して治療と日常生活を両立できるよう支援します。</p>
+          </div>
+        </article>
+
+        <article class="feature-card js-reveal">
+          <div class="feature-num">02</div>
+          <div class="feature-content">
+            <h3>何でも話せる、明るく親しみやすいスタッフ</h3>
+            <p>ご利用者様から「皆さんが優しくて安心できる」「来てくれるのが楽しみ」というお声を多くいただいています。育児中のスタッフや若い世代、女性スタッフが多数活躍しており、お身体のことだけでなく、日々の些細な悩み事も気軽に相談できる明るい雰囲気を大切にしています。</p>
+          </div>
+        </article>
+
+        <article class="feature-card js-reveal">
+          <div class="feature-num">03</div>
+          <div class="feature-content">
+            <h3>ご家族様の心と時間のサポート</h3>
+            <p>在宅療養においては、ご家族様の心身の健康も非常に重要です。私たちが訪問している間、ご家族様が少しでも自分の時間を持ち、息抜きができるよう配慮しています。介護の不安を一人で抱え込まず、私たちを頼ってください。</p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="message-section js-reveal">
+      <div class="message-photo-placeholder">
+        [ 管理者様の顔写真 ]
+      </div>
+      <div class="message-content">
+        <h3>地域の皆さまが「笑顔（smile）」に<br>なれる場所を目指して</h3>
+        <p style="margin-bottom: var(--space-sm);">
+          はじめまして。smile訪問看護ステーション 管理者の 小嶋早苗 です。<br>
+          当ステーションは、「地域で病を抱える皆さまのサポートをしたい」という強い想いから、2024年4月1日に兵庫県尼崎市にオープンいたしました。
+        </p>
+        <p style="margin-bottom: var(--space-sm);">
+          訪問看護の現場では、医療的な処置が必要な方や、重症な方だけが利用するものだと誤解されていることも少なくありません。しかし私たちは、「もっと気軽に頼ってほしい」「すぐ傍で支える存在でありたい」と願っています。
+        </p>
+        <p style="margin-bottom: var(--space-sm);">
+          ステーション名である「smile」には、ご利用者様、ご家族様、そして働くスタッフも、みんなが笑顔になれるステーションにしたいという想いを込めました。<br>
+          「こんなこと聞いていいのかな？」と思うような小さな心配事でも構いません。どうぞ、私たちにあなたの「やりたい」を聞かせてください。
+        </p>
+        <p style="text-align: right; font-weight: bold; margin-top: var(--space-md);">
+          管理者：小嶋早苗
+        </p>
+      </div>
+    </section>
+
+    <section class="company-section js-reveal">
+      <h2 class="section-title" style="margin-bottom: var(--space-md);">ステーション概要</h2>
+      <table class="info-table">
+        <tbody>
+          <tr>
+            <th>事業所名</th>
+            <td>smile訪問看護ステーション</td>
+          </tr>
+          <tr>
+            <th>運営会社</th>
+            <td>株式会社smile</td>
+          </tr>
+          <tr>
+            <th>代表者</th>
+            <td>小嶋早苗</td>
+          </tr>
+          <tr>
+            <th>開設日</th>
+            <td>2024年4月1日</td>
+          </tr>
+          <tr>
+            <th>所在地</th>
+            <td>〒661-0012<br>兵庫県尼崎市南塚口8丁目41-7 南塚口ハイツ101号</td>
+          </tr>
+          <tr>
+            <th>営業時間</th>
+            <td>9:00〜18:00（土日祝除く）</td>
+          </tr>
+          <tr>
+            <th>連絡先</th>
+            <td>TEL: <a href="tel:0649506402" style="color: var(--clr-brand); font-weight: bold; text-decoration: none;">06-4950-6402</a><br>FAX: 06-4950-6403</td>
+          </tr>
+          <tr>
+            <th>アクセス</th>
+            <td>
+              [最寄り駅からのアクセス方法（例：阪急塚口駅より徒歩〇分）]<br>
+              <span style="font-size: 0.9rem; color: var(--clr-text-muted);">※専用駐車場はございません。お近くのコインパーキングをご利用ください。</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+
+
+  <script>
+    /**
+     * Scroll Reveal Animation (Intersection Observer)
+     */
+    document.addEventListener('DOMContentLoaded', () => {
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px 0px -50px 0px',
+        threshold: 0.1
+      };
+
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      const revealElements = document.querySelectorAll('.js-reveal');
+      revealElements.forEach(el => observer.observe(el));
+    });
+  </script>
+  <script src="shared-layout.js"></script>
+</body>
+</html>

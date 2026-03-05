@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ご利用者様の声 | smile訪問看護ステーション</title>
+  <style>
+    /* CSS Variables: B2C向けの温かみのある「smile」ブランディング配色 */
+    :root {
+      /* やわらかなオレンジ・暖色系で統一し、医療的な冷たさを排除 */
+      --clr-brand: #f97316;       /* メインの温かいオレンジ */
+      --clr-brand-light: #fff7ed; /* 背景になじむ極薄いオレンジ */
+      --clr-brand-mute: #fdba74;  /* アクセント用の優しいオレンジ */
+      
+      --clr-text-main: #44403c;   /* 真っ黒ではなく、温かみのあるダークブラウン・グレー */
+      --clr-text-muted: #78716c;
+      
+      --clr-bg-page: #fafaf9;     /* 真っ白ではない、目に優しいウォームベージュ */
+      --clr-surface: #ffffff;
+      --clr-border: #e7e5e4;
+      
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 32px; /* より親しみを感じさせる大きな角丸 */
+      
+      --space-xs: 0.5rem;
+      --space-sm: 1rem;
+      --space-md: 2rem;
+      --space-lg: 4rem;
+
+      --transition-smooth: 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* Reset & Base */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+      color: var(--clr-text-main);
+      background-color: var(--clr-bg-page);
+      line-height: 1.8;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* ----------------------
+       Header
+    ----------------------- */
+    .global-header {
+      background-color: var(--clr-surface);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: var(--clr-brand);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    /* スマホではナビゲーションを非表示（ハンバーガーメニュー想定） */
+    .global-nav { display: none; }
+    @media (min-width: 768px) {
+      .global-nav { display: flex; gap: 1.5rem; }
+      .global-nav a {
+        color: var(--clr-text-main);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+      .global-nav a:hover { color: var(--clr-brand); }
+    }
+
+    /* ----------------------
+       Main Content
+    ----------------------- */
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: var(--space-lg) var(--space-sm);
+      flex: 1;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: var(--space-lg);
+    }
+    .page-title {
+      font-size: clamp(1.75rem, 5vw, 2.25rem);
+      color: var(--clr-text-main);
+      margin-bottom: var(--space-sm);
+      position: relative;
+      display: inline-block;
+    }
+    /* 温かみを出すタイトルのあしらい */
+    .page-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 4px;
+      background-color: var(--clr-brand-mute);
+      border-radius: 2px;
+    }
+
+    /* Testimonial Cards */
+    .testimonial-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .testimonial-card {
+      background-color: var(--clr-surface);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      position: relative;
+    }
+
+    /* 装飾用のクォートアイコン */
+    .quote-icon {
+      position: absolute;
+      top: -15px;
+      left: 20px;
+      background-color: var(--clr-brand);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      line-height: 1;
+      font-family: serif;
+      box-shadow: 0 4px 6px rgba(249, 115, 22, 0.2);
+    }
+
+    .quote-title {
+      font-size: 1.3rem;
+      color: var(--clr-brand);
+      margin-bottom: var(--space-sm);
+      margin-top: var(--space-xs); /* アイコン分の余白 */
+      line-height: 1.4;
+      font-weight: bold;
+    }
+
+    .user-text {
+      font-size: 1.05rem;
+      margin-bottom: var(--space-sm);
+      white-space: pre-wrap; /* いただいた改行をそのまま活かす */
+    }
+
+    .user-meta {
+      font-size: 1rem;
+      color: var(--clr-text-muted);
+      text-align: right;
+      font-weight: bold;
+      border-top: 1px dashed var(--clr-border);
+      padding-top: var(--space-sm);
+      margin-top: var(--space-sm);
+    }
+
+    /* CTA Section */
+    .cta-section {
+      margin-top: var(--space-lg);
+      background-color: var(--clr-brand-light);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg) var(--space-md);
+      text-align: center;
+    }
+    .cta-title {
+      font-size: 1.25rem;
+      margin-bottom: var(--space-sm);
+      color: var(--clr-text-main);
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      background-color: var(--clr-brand);
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+      min-height: 54px;
+    }
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(249, 115, 22, 0.4);
+    }
+    .tel-link {
+      font-size: 1.75rem;
+      font-weight: bold;
+      color: var(--clr-brand);
+      text-decoration: none;
+      display: block;
+      margin: var(--space-sm) 0;
+    }
+
+    /* ----------------------
+       Footer
+    ----------------------- */
+    .global-footer {
+      background-color: var(--clr-surface);
+      border-top: 1px solid var(--clr-border);
+      padding: var(--space-md) var(--space-sm);
+      text-align: center;
+      margin-top: auto;
+    }
+    .footer-logo {
+      font-weight: bold;
+      color: var(--clr-text-main);
+      margin-bottom: var(--space-xs);
+    }
+    .footer-copy {
+      font-size: 0.85rem;
+      color: var(--clr-text-muted);
+    }
+
+    /* Scroll Animation */
+    .js-reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity var(--transition-smooth), transform var(--transition-smooth);
+      will-change: opacity, transform;
+    }
+    .js-reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 600px) {
+      .testimonial-card { padding: 1.5rem 1.25rem 1.25rem; }
+      .quote-title { font-size: 1.15rem; }
+      .user-text { font-size: 0.95rem; }
+      .btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <main class="container">
+    
+    <header class="page-header js-reveal">
+      <h1 class="page-title">ご利用者様の声</h1>
+      <p style="margin-top: var(--space-sm); color: var(--clr-text-muted);">
+        smile訪問看護ステーションをご利用いただいている皆様から、<br class="pc-only">
+        日々の訪問を通じた温かいお言葉をいただきました。
+      </p>
+    </header>
+
+    <section class="testimonial-list">
+      
+      <article class="testimonial-card js-reveal">
+        <div class="quote-icon">“</div>
+        <h2 class="quote-title">「もう居なかったら無理だったかもしれません」</h2>
+        <div class="user-text">腹膜透析でお世話になっております。
+
+小さな心配事で電話できず、でも病院に通院するまでには日数があり、
+聞くに聞けない不安な毎日でした。
+しかし、こうやって来ていただいて悩みを聞いてくれて、
+何より皆さんが優しくてとても安心できました。
+
+訪問看護は特別な重症な方や、もうすぐお亡くなりになられる方しか使えないと思っていました。
+こうやって、すぐ傍で支えて頂けるなんて知らなかったです。
+もっと自分と同じ悩みや症状を持つ方々に広まってほしいと思います。</div>
+        <div class="user-meta">Y.T様（48）</div>
+      </article>
+
+      <article class="testimonial-card js-reveal">
+        <div class="quote-icon">“</div>
+        <h2 class="quote-title">「あなたに会えてよかった」</h2>
+        <div class="user-text">1人で住んでおり、年齢も年齢でできないことが増え、日々の不安が募るばかりでした。
+
+smile訪問看護の皆さんに会えて、支えていただき本当に毎日が明るくなりました。
+何より来てくれるのが楽しみで、いつも元気をもらっています。
+
+遠方に住む娘たちからも、最近元気になったね！と言われるようになりました。
+いつも本当にありがとうございます！</div>
+        <div class="user-meta">H.K様（64）</div>
+      </article>
+
+      <article class="testimonial-card js-reveal">
+        <div class="quote-icon">“</div>
+        <h2 class="quote-title">「元気と勇気をありがとう」</h2>
+        <div class="user-text">週に1回、smile訪問看護ステーションを利用しています。
+
+病院の先生には「こんなこと聞いていいいのかな？」と思ってしまうこともありましたが、
+看護師さんが来てくれるので、何でも相談できるので、来てもらえてとても助かっています。
+
+心配なことがあっても聞いて解決できたら、また1週間頑張ろうって思います。</div>
+        <div class="user-meta">M.S様（52）</div>
+      </article>
+
+    </section>
+
+    <section class="cta-section js-reveal">
+      <h2 class="cta-title">まずは、ちょっとしたお悩みからお聞かせください</h2>
+      <p style="color: var(--clr-text-muted); font-size: 0.95rem;">ご本人様はもちろん、ご家族様からのご相談も承っております。</p>
+      
+      <a href="tel:0649506402" class="tel-link">06-4950-6402</a>
+      <p style="font-size: 0.85rem; color: var(--clr-text-muted); margin-bottom: var(--space-md);">営業時間：9:00〜18:00（土日祝除く）</p>
+
+      <a href="https://forms.gle/cfL6ny3EuWF9HuNw8" target="_blank" rel="noopener noreferrer" class="btn">
+        <svg style="width:20px;height:20px;margin-right:8px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+        お問い合わせフォームはこちら
+      </a>
+    </section>
+
+  </main>
+
+
+  <script>
+    /**
+     * Scroll Reveal Animation (Intersection Observer)
+     */
+    document.addEventListener('DOMContentLoaded', () => {
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px 0px -40px 0px',
+        threshold: 0.1
+      };
+
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      const revealElements = document.querySelectorAll('.js-reveal');
+      revealElements.forEach(el => observer.observe(el));
+    });
+  </script>
+  <script src="shared-layout.js"></script>
+</body>
+</html>

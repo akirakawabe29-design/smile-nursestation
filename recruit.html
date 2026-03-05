@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>採用情報 | smile訪問看護ステーション</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            smileOrange: '#F97316',
+            smileCoral: '#FF8A65', /* 若々しく温かいコーラル */
+            smileYellow: '#FEF08A',
+            bgSoft: '#FFF9F5',
+            textMain: '#374151',
+            textMuted: '#6B7280'
+          },
+          fontFamily: {
+            sans: ['"Noto Sans JP"', 'sans-serif'],
+            rounded: ['"M PLUS Rounded 1c"', 'sans-serif'], /* 親しみやすい丸ゴシック */
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .js-fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+      will-change: opacity, transform;
+    }
+    .js-fade-up.is-active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* LP特有の背景装飾 */
+    .bg-blob {
+      position: absolute;
+      filter: blur(60px);
+      z-index: 0;
+      opacity: 0.4;
+    }
+    /* SP用下部固定ボタンの余白 */
+    body { padding-bottom: 80px; }
+    @media (min-width: 768px) { body { padding-bottom: 0; } }
+  </style>
+</head>
+<body class="font-sans text-textMain bg-bgSoft antialiased selection:bg-smileCoral selection:text-white relative overflow-x-hidden">
+
+  <div class="bg-blob w-96 h-96 bg-smileYellow rounded-full top-[-10%] left-[-10%]"></div>
+  <div class="bg-blob w-80 h-80 bg-orange-200 rounded-full top-[20%] right-[-5%]"></div>
+
+  <section class="pt-32 pb-16 md:pt-40 md:pb-24 px-4 relative z-10 text-center">
+    <div class="max-w-4xl mx-auto js-fade-up">
+      <span class="inline-block bg-white text-smileCoral font-bold px-4 py-1.5 rounded-full text-sm shadow-sm mb-6 border border-orange-100">
+        ✨ 2024年4月 尼崎市にオープン ✨
+      </span>
+      <h1 class="font-rounded text-3xl md:text-5xl font-bold leading-tight mb-8 text-gray-800">
+        私たちと一緒に、<br class="md:hidden">地域の<span class="text-smileOrange relative inline-block">「笑顔」<svg class="absolute w-full h-3 -bottom-1 left-0 text-smileYellow" fill="currentColor" viewBox="0 0 100 20" preserveAspectRatio="none"><path d="M0,10 Q50,20 100,10 L100,20 L0,20 Z"></path></svg></span>を支えませんか？
+      </h1>
+      <p class="text-base md:text-lg text-textMuted leading-relaxed max-w-2xl mx-auto bg-white/60 p-6 rounded-2xl shadow-sm backdrop-blur-sm">
+        「1人1人の『やりたい』に向き合う」という理念のもと、<br class="hidden md:block">
+        利用者様はもちろん、ここで働くスタッフ自身の<br class="hidden md:block">
+        <span class="font-bold text-smileCoral">「やりたい」や「働きやすさ」も全力で応援します。</span>
+      </p>
+    </div>
+  </section>
+
+  <section class="py-16 relative z-10">
+    <div class="max-w-5xl mx-auto px-4">
+      <h2 class="font-rounded text-2xl md:text-3xl font-bold text-center mb-12 text-gray-800 js-fade-up">
+        smileで働く <span class="text-smileCoral text-4xl">3</span> つの魅力
+      </h2>
+      
+      <div class="space-y-8">
+        <div class="bg-white p-6 md:p-10 rounded-3xl shadow-sm border border-orange-50 md:flex items-center gap-8 js-fade-up">
+          <div class="md:w-1/3 flex justify-center mb-6 md:mb-0 relative">
+            <div class="absolute -top-4 -left-4 w-12 h-12 bg-smileYellow rounded-full flex items-center justify-center font-bold text-xl text-orange-600 shadow-sm z-10">1</div>
+            <div class="w-full aspect-video bg-orange-50 rounded-2xl flex items-center justify-center text-orange-300">
+              [ 笑顔のスタッフの写真 ]
+            </div>
+          </div>
+          <div class="md:w-2/3">
+            <h3 class="font-rounded text-xl md:text-2xl font-bold text-gray-800 mb-4">あなたのライフスタイルに合わせた<br class="md:hidden">働き方ができます</h3>
+            <p class="text-textMuted text-sm md:text-base leading-relaxed">
+              正社員からパート・アルバイトまで、雇用形態はお気軽にご相談ください。<br>
+              当ステーションは、育児中の方、若い方、女性が多数活躍している職場です。子育てやご家族の介護など、プライベートと両立しながら無理なく働ける環境づくりを大切にしています。「週〇日から働きたい」「子どものお迎えの時間まで」といったご希望も、まずは一度お聞かせください。
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 md:p-10 rounded-3xl shadow-sm border border-orange-50 md:flex items-center gap-8 flex-row-reverse js-fade-up">
+          <div class="md:w-1/3 flex justify-center mb-6 md:mb-0 relative">
+            <div class="absolute -top-4 -right-4 md:-left-4 w-12 h-12 bg-smileYellow rounded-full flex items-center justify-center font-bold text-xl text-orange-600 shadow-sm z-10">2</div>
+            <div class="w-full aspect-video bg-teal-50 rounded-2xl flex items-center justify-center text-teal-300">
+              [ 研修やケアの様子の写真 ]
+            </div>
+          </div>
+          <div class="md:w-2/3">
+            <h3 class="font-rounded text-xl md:text-2xl font-bold text-gray-800 mb-4">幅広い専門性が身につき、<br class="md:hidden">キャリアアップできる環境です</h3>
+            <p class="text-textMuted text-sm md:text-base leading-relaxed">
+              「透析特化型」という大きな強みに加え、小児・育児サポート、精神科訪問看護など幅広い分野のケアを行っています。<br>
+              これまでの経験を活かしたい方はもちろん、「これから在宅医療の専門知識を深めたい」「透析や小児分野に挑戦してみたい」という意欲のある方も大歓迎です。先輩スタッフがしっかりサポートします。
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 md:p-10 rounded-3xl shadow-sm border border-orange-50 md:flex items-center gap-8 js-fade-up">
+          <div class="md:w-1/3 flex justify-center mb-6 md:mb-0 relative">
+            <div class="absolute -top-4 -left-4 w-12 h-12 bg-smileYellow rounded-full flex items-center justify-center font-bold text-xl text-orange-600 shadow-sm z-10">3</div>
+            <div class="w-full aspect-video bg-pink-50 rounded-2xl flex items-center justify-center text-pink-300">
+              [ スタッフ同士の会話風景 ]
+            </div>
+          </div>
+          <div class="md:w-2/3">
+            <h3 class="font-rounded text-xl md:text-2xl font-bold text-gray-800 mb-4">風通しが良く、<br class="md:hidden">アットホームなチームです</h3>
+            <p class="text-textMuted text-sm md:text-base leading-relaxed">
+              スタッフ同士のコミュニケーションを大切にし、困ったことや悩みを一人で抱え込ませない「チーム体制」が整っています。<br>
+              職種の垣根を越えて相談しやすく、みんなで助け合いながら、笑顔で楽しく働けるステーションを目指しています。
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 bg-white border-t border-orange-100 relative z-10">
+    <div class="max-w-3xl mx-auto px-4 js-fade-up">
+      <h2 class="font-rounded text-2xl md:text-3xl font-bold text-center mb-10 text-gray-800">募集要項</h2>
+
+      <div class="mb-5 bg-orange-50/70 border border-orange-100 rounded-2xl p-2">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2" id="job-type-tabs" role="tablist" aria-label="募集職種の切り替え">
+          <button type="button" data-job-type="nurse" role="tab" aria-selected="true" class="job-tab px-4 py-3 rounded-xl bg-white text-smileCoral font-bold shadow-sm border border-orange-100 transition-colors">
+            看護師 / 准看護師
+          </button>
+          <button type="button" data-job-type="pt" role="tab" aria-selected="false" class="job-tab px-4 py-3 rounded-xl text-gray-600 font-bold hover:bg-white/70 transition-colors">
+            理学療法士（PT）
+          </button>
+          <button type="button" data-job-type="ot" role="tab" aria-selected="false" class="job-tab px-4 py-3 rounded-xl text-gray-600 font-bold hover:bg-white/70 transition-colors">
+            作業療法士（OT）
+          </button>
+        </div>
+      </div>
+      
+      <div class="bg-bgSoft p-1 rounded-2xl overflow-hidden shadow-inner">
+        <dl class="bg-white rounded-xl divide-y divide-gray-100">
+          <div class="py-4 px-6 md:flex md:gap-4 hover:bg-orange-50/30 transition-colors">
+            <dt class="font-bold text-gray-800 md:w-1/3 flex items-center gap-2">
+              <span class="w-2 h-2 bg-smileCoral rounded-full"></span> 募集職種
+            </dt>
+            <dd data-job-field="jobTitle" class="mt-2 md:mt-0 md:w-2/3 text-textMuted font-medium text-sm md:text-base">
+              看護師 / 准看護師
+            </dd>
+          </div>
+          <div class="py-4 px-6 md:flex md:gap-4 hover:bg-orange-50/30 transition-colors">
+            <dt class="font-bold text-gray-800 md:w-1/3 flex items-center gap-2">
+              <span class="w-2 h-2 bg-smileCoral rounded-full"></span> 雇用形態
+            </dt>
+            <dd data-job-field="employment" class="mt-2 md:mt-0 md:w-2/3 text-textMuted text-sm md:text-base leading-relaxed">
+              <span class="font-bold text-gray-700">正社員 / パート・アルバイト</span><br>（※ご希望に応じます）
+            </dd>
+          </div>
+          <div class="py-4 px-6 md:flex md:gap-4 hover:bg-orange-50/30 transition-colors">
+            <dt class="font-bold text-gray-800 md:w-1/3 flex items-center gap-2">
+              <span class="w-2 h-2 bg-smileCoral rounded-full"></span> 業務内容
+            </dt>
+            <dd data-job-field="work" class="mt-2 md:mt-0 md:w-2/3 text-textMuted text-sm md:text-base leading-relaxed">
+              ご自宅で療養されている利用者様のお宅へ訪問し、医師の指示に基づく医療処置、健康管理、ご家族へのケアやアドバイスなどを行っていただきます。
+            </dd>
+          </div>
+          <div class="py-4 px-6 md:flex md:gap-4 hover:bg-orange-50/30 transition-colors">
+            <dt class="font-bold text-gray-800 md:w-1/3 flex items-center gap-2">
+              <span class="w-2 h-2 bg-smileCoral rounded-full"></span> 応募資格
+            </dt>
+            <dd data-job-field="qualification" class="mt-2 md:mt-0 md:w-2/3 text-textMuted text-sm md:text-base leading-relaxed">
+              看護師または准看護師資格をお持ちの方<br>
+              <span class="text-smileCoral font-bold text-xs md:text-sm bg-orange-50 px-2 py-1 rounded inline-block mt-2">※訪問看護の経験がない方、ブランクがある方も歓迎！</span>
+            </dd>
+          </div>
+          <div class="py-4 px-6 md:flex md:gap-4 hover:bg-orange-50/30 transition-colors">
+            <dt class="font-bold text-gray-800 md:w-1/3 flex items-center gap-2">
+              <span class="w-2 h-2 bg-smileCoral rounded-full"></span> 勤務時間・休日
+            </dt>
+            <dd data-job-field="schedule" class="mt-2 md:mt-0 md:w-2/3 text-textMuted text-sm md:text-base leading-relaxed">
+              営業時間：9:00〜18:00<br>
+              休日：土日祝（※パート等の勤務日数は応相談）
+            </dd>
+          </div>
+          <div class="py-4 px-6 md:flex md:gap-4 hover:bg-orange-50/30 transition-colors">
+            <dt class="font-bold text-gray-800 md:w-1/3 flex items-center gap-2">
+              <span class="w-2 h-2 bg-smileCoral rounded-full"></span> 給与目安
+            </dt>
+            <dd data-job-field="salary" class="mt-2 md:mt-0 md:w-2/3 text-textMuted text-sm md:text-base leading-relaxed">
+              経験・資格・勤務形態を考慮のうえ決定（詳細は面談時にご案内）
+            </dd>
+          </div>
+          <div class="py-4 px-6 md:flex md:gap-4 hover:bg-orange-50/30 transition-colors">
+            <dt class="font-bold text-gray-800 md:w-1/3 flex items-center gap-2">
+              <span class="w-2 h-2 bg-smileCoral rounded-full"></span> 勤務地
+            </dt>
+            <dd data-job-field="location" class="mt-2 md:mt-0 md:w-2/3 text-textMuted text-sm md:text-base">
+              〒661-0012<br>
+              兵庫県尼崎市南塚口8丁目41-7 南塚口ハイツ101号
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section id="entry" class="py-20 bg-gradient-to-br from-orange-50 to-pink-50 relative z-10">
+    <div class="max-w-4xl mx-auto px-4 text-center js-fade-up">
+      <h2 class="font-rounded text-2xl md:text-3xl font-bold text-gray-800 mb-6">
+        まずは、少しだけ話を聞いてみませんか？
+      </h2>
+      <p class="text-textMuted mb-10 leading-relaxed">
+        「ステーションの雰囲気を見学したい」という方も大歓迎です！<br>
+        お電話、またはお問い合わせフォームより、お気軽にご連絡ください。<br>
+        皆様とお会いできることを、スタッフ一同、心より楽しみにしております！
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+          <p class="text-sm font-bold text-gray-500 mb-2">お電話でのご質問・ご応募</p>
+          <a href="tel:0649506402" class="block text-3xl font-bold text-smileOrange mb-2 hover:opacity-80 transition-opacity">
+            06-4950-6402
+          </a>
+          <p class="text-xs text-textMuted">受付：9:00〜18:00 (土日祝除く)<br>※「ホームページの採用情報を見た」とお伝えください</p>
+        </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 flex flex-col justify-center items-center hover:shadow-md transition-shadow">
+          <p class="text-sm font-bold text-gray-500 mb-4">WEBからのご応募</p>
+          <a href="#form" class="w-full bg-smileCoral text-white font-bold py-4 rounded-2xl shadow-sm hover:bg-orange-600 transition-colors flex justify-center items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+            エントリーフォームへ
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="md:hidden fixed bottom-4 left-4 right-4 z-50">
+    <a href="#entry" class="block w-full bg-smileCoral text-white text-center py-4 rounded-full shadow-xl font-bold text-lg border-2 border-white animate-bounce-slow">
+      エントリー・見学はこちら
+    </a>
+  </div>
+
+  <style>
+    .animate-bounce-slow {
+      animation: bounce-slow 3s infinite;
+    }
+    @keyframes bounce-slow {
+      0%, 100% { transform: translateY(-5%); }
+      50% { transform: translateY(0); }
+    }
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const jobData = {
+        nurse: {
+          jobTitle: '看護師 / 准看護師',
+          employment: '<span class=\"font-bold text-gray-700\">正社員 / パート・アルバイト</span><br>（※ご希望に応じます）',
+          work: 'ご自宅で療養されている利用者様のお宅へ訪問し、医師の指示に基づく医療処置、健康管理、ご家族へのケアやアドバイスなどを行っていただきます。',
+          qualification: '看護師または准看護師資格をお持ちの方<br><span class=\"text-smileCoral font-bold text-xs md:text-sm bg-orange-50 px-2 py-1 rounded inline-block mt-2\">※訪問看護の経験がない方、ブランクがある方も歓迎！</span>',
+          schedule: '営業時間：9:00〜18:00<br>休日：土日祝（※パート等の勤務日数は応相談）',
+          salary: '経験・資格・勤務形態を考慮のうえ決定（詳細は面談時にご案内）',
+          location: '〒661-0012<br>兵庫県尼崎市南塚口8丁目41-7 南塚口ハイツ101号'
+        },
+        pt: {
+          jobTitle: '理学療法士（PT）',
+          employment: '<span class=\"font-bold text-gray-700\">正社員 / パート・アルバイト</span><br>（訪問件数・曜日は応相談）',
+          work: '訪問先でのリハビリテーション（基本動作訓練、歩行訓練、生活動作の評価・訓練）を中心に、利用者様・ご家族への助言、他職種との情報共有を行っていただきます。',
+          qualification: '理学療法士（PT）資格をお持ちの方<br><span class=\"text-smileCoral font-bold text-xs md:text-sm bg-orange-50 px-2 py-1 rounded inline-block mt-2\">※在宅分野が初めての方も歓迎！同行訪問でサポートします</span>',
+          schedule: '営業時間：9:00〜18:00<br>休日：土日祝（※パート等の勤務日数・時間は応相談）',
+          salary: '経験・訪問件数・勤務形態を考慮のうえ決定（詳細は面談時にご案内）',
+          location: '〒661-0012<br>兵庫県尼崎市南塚口8丁目41-7 南塚口ハイツ101号（訪問エリア：尼崎市中心）'
+        },
+        ot: {
+          jobTitle: '作業療法士（OT）',
+          employment: '<span class=\"font-bold text-gray-700\">正社員 / パート・アルバイト</span><br>（訪問件数・曜日は応相談）',
+          work: '訪問先での日常生活動作訓練や環境調整の提案、生活のしづらさに対する支援、利用者様・ご家族への助言、他職種との連携を行っていただきます。',
+          qualification: '作業療法士（OT）資格をお持ちの方<br><span class=\"text-smileCoral font-bold text-xs md:text-sm bg-orange-50 px-2 py-1 rounded inline-block mt-2\">※在宅・精神分野に興味のある方も歓迎！</span>',
+          schedule: '営業時間：9:00〜18:00<br>休日：土日祝（※パート等の勤務日数・時間は応相談）',
+          salary: '経験・訪問件数・勤務形態を考慮のうえ決定（詳細は面談時にご案内）',
+          location: '〒661-0012<br>兵庫県尼崎市南塚口8丁目41-7 南塚口ハイツ101号（訪問エリア：尼崎市中心）'
+        }
+      };
+
+      const tabButtons = Array.from(document.querySelectorAll('.job-tab'));
+      const fields = Object.fromEntries(
+        Array.from(document.querySelectorAll('[data-job-field]')).map((el) => [el.dataset.jobField, el])
+      );
+
+      const setActiveJob = (type) => {
+        const data = jobData[type];
+        if (!data) return;
+
+        Object.entries(fields).forEach(([key, el]) => {
+          if (data[key] != null) el.innerHTML = data[key];
+        });
+
+        tabButtons.forEach((btn) => {
+          const active = btn.dataset.jobType === type;
+          btn.setAttribute('aria-selected', String(active));
+          btn.classList.toggle('bg-white', active);
+          btn.classList.toggle('text-smileCoral', active);
+          btn.classList.toggle('shadow-sm', active);
+          btn.classList.toggle('border', active);
+          btn.classList.toggle('border-orange-100', active);
+          btn.classList.toggle('text-gray-600', !active);
+          btn.classList.toggle('hover:bg-white/70', !active);
+        });
+      };
+
+      tabButtons.forEach((btn) => {
+        btn.addEventListener('click', () => setActiveJob(btn.dataset.jobType));
+      });
+
+      setActiveJob('nurse');
+
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-active');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { rootMargin: '0px 0px -10% 0px', threshold: 0 });
+
+      document.querySelectorAll('.js-fade-up').forEach(el => observer.observe(el));
+    });
+  </script>
+  <script src="shared-layout.js"></script>
+</body>
+</html>

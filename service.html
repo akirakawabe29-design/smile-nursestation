@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>サービス内容 | smile訪問看護ステーション</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            smileOrange: '#F97316',
+            smileCoral: '#FF8A65',
+            smileGreen: '#14B8A6',
+            bgSoft: '#FFFBF7',
+            textMain: '#374151',
+            textMuted: '#6B7280'
+          },
+          fontFamily: {
+            sans: ['"Noto Sans JP"', 'sans-serif'],
+            rounded: ['"M PLUS Rounded 1c"', 'sans-serif'],
+          },
+          boxShadow: {
+            soft: '0 12px 36px rgba(15, 23, 42, 0.08)',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .js-fade-up {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+      will-change: opacity, transform;
+    }
+    .js-fade-up.is-active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    body { padding-bottom: 84px; }
+    @media (min-width: 768px) { body { padding-bottom: 0; } }
+  </style>
+</head>
+<body class="font-sans text-textMain bg-bgSoft antialiased selection:bg-smileCoral selection:text-white">
+
+  <main class="pt-24 md:pt-32 pb-14">
+    <section class="px-4 mb-8 md:mb-10">
+      <div class="max-w-5xl mx-auto bg-white rounded-3xl shadow-soft border border-orange-100 p-6 md:p-10 relative overflow-hidden js-fade-up">
+        <div class="absolute -top-12 -right-10 w-40 h-40 rounded-full bg-orange-100/80 blur-2xl"></div>
+        <div class="absolute -bottom-14 -left-10 w-44 h-44 rounded-full bg-teal-100/70 blur-2xl"></div>
+        <div class="relative grid gap-6 md:grid-cols-[1.1fr_0.9fr] items-center">
+          <div>
+            <p class="inline-flex items-center gap-2 text-xs font-bold tracking-wide text-smileOrange bg-orange-50 border border-orange-100 rounded-full px-3 py-1 mb-4">SERVICE GUIDE</p>
+            <h1 class="font-rounded text-2xl md:text-4xl font-bold text-gray-800 leading-tight mb-4">サービス内容</h1>
+            <h2 class="text-base md:text-xl font-bold text-smileOrange mb-4 leading-relaxed">あなたの「やりたい」を叶えるための、オーダーメイドのケア</h2>
+            <p class="text-sm md:text-base text-textMuted leading-loose">
+              smile訪問看護ステーションでは、病気や障がいがあっても、住み慣れたご自宅で「その人らしい生活」を送れるようサポートいたします。主治医の指示のもと、看護師や理学療法士・作業療法士が訪問し、お一人おひとりの身体や心の状態に合わせたケアを提供します。
+            </p>
+          </div>
+          <div class="bg-gradient-to-br from-orange-50 to-teal-50 border border-orange-100 rounded-3xl p-5 md:p-6">
+            <h3 class="font-rounded text-lg font-bold text-gray-800 mb-4">こんなご相談に対応しています</h3>
+            <ul class="space-y-2 text-sm text-textMuted leading-relaxed">
+              <li>・透析治療を続けながら自宅で安心して過ごしたい</li>
+              <li>・医療的ケアが必要なお子様の在宅生活を支えたい</li>
+              <li>・心の不調があり、地域での生活を安定させたい</li>
+              <li>・ご家族の介護負担を少しでも軽くしたい</li>
+            </ul>
+            <div class="mt-4 flex flex-wrap gap-2 text-xs">
+              <span class="px-3 py-1 rounded-full bg-white border border-orange-100 text-smileOrange font-bold">看護師対応</span>
+              <span class="px-3 py-1 rounded-full bg-white border border-teal-100 text-teal-700 font-bold">PT・OT連携</span>
+              <span class="px-3 py-1 rounded-full bg-white border border-gray-200 text-gray-600 font-bold">主治医連携</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-4 mb-10 md:mb-14">
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-8 js-fade-up">
+          <h2 class="font-rounded text-2xl md:text-3xl font-bold text-gray-800 mb-3">当ステーションの3つの専門ケア</h2>
+          <p class="text-sm md:text-base text-textMuted">透析・小児/育児・精神科の専門性を軸に、在宅療養を丁寧にサポートします。</p>
+        </div>
+
+        <div class="space-y-5 md:space-y-6">
+          <article class="bg-white rounded-3xl shadow-soft border border-blue-100 overflow-hidden js-fade-up">
+            <div class="p-5 md:p-7 border-b border-blue-100 bg-gradient-to-r from-blue-50 to-white">
+              <div class="flex items-start gap-4">
+                <div class="w-11 h-11 rounded-2xl bg-white border border-blue-200 text-blue-600 flex items-center justify-center font-bold shrink-0">1</div>
+                <div>
+                  <h3 class="font-rounded text-xl md:text-2xl font-bold text-gray-800">透析特化型ケア</h3>
+                  <p class="text-sm text-blue-700 mt-1">専門的な知識で、透析と在宅生活の両立を支えます</p>
+                </div>
+              </div>
+              <p class="text-sm md:text-base text-textMuted leading-loose mt-4">透析治療に通いながらの在宅療養を、専門知識を持ったスタッフが安全にサポートします。</p>
+            </div>
+            <div class="p-5 md:p-7 grid gap-3 md:gap-4">
+              <div class="rounded-2xl bg-blue-50/70 border border-blue-100 p-4">
+                <p class="text-sm font-bold text-blue-700 mb-1">シャントの管理とケア</p>
+                <p class="text-sm text-textMuted leading-relaxed">感染予防や閉塞を防ぐための日々の観察・ケアを行います。</p>
+              </div>
+              <div class="rounded-2xl bg-blue-50/70 border border-blue-100 p-4">
+                <p class="text-sm font-bold text-blue-700 mb-1">食事・水分のコントロール</p>
+                <p class="text-sm text-textMuted leading-relaxed">ご自宅で無理なく取り入れられるよう、食事内容や水分制限のアドバイスを行います。</p>
+              </div>
+              <div class="rounded-2xl bg-blue-50/70 border border-blue-100 p-4">
+                <p class="text-sm font-bold text-blue-700 mb-1">体調変化の予測と対応</p>
+                <p class="text-sm text-textMuted leading-relaxed">血圧変動や透析後の疲労感など、特有の症状に迅速に対応し、主治医と連携します。</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="bg-white rounded-3xl shadow-soft border border-orange-100 overflow-hidden js-fade-up" style="transition-delay: 70ms;">
+            <div class="p-5 md:p-7 border-b border-orange-100 bg-gradient-to-r from-orange-50 to-white">
+              <div class="flex items-start gap-4">
+                <div class="w-11 h-11 rounded-2xl bg-white border border-orange-200 text-smileOrange flex items-center justify-center font-bold shrink-0">2</div>
+                <div>
+                  <h3 class="font-rounded text-xl md:text-2xl font-bold text-gray-800">小児・育児サポート</h3>
+                  <p class="text-sm text-smileOrange mt-1">ご家族と一緒に、子どもの成長と暮らしを見守ります</p>
+                </div>
+              </div>
+              <p class="text-sm md:text-base text-textMuted leading-loose mt-4">医療的ケアが必要なお子様や、ご家族の病気で育児に不安を抱える方へ、専門職としてきめ細かく伴走します。</p>
+            </div>
+            <div class="p-5 md:p-7 grid gap-3 md:gap-4">
+              <div class="rounded-2xl bg-orange-50/70 border border-orange-100 p-4">
+                <p class="text-sm font-bold text-orange-700 mb-1">健康状態の観察とケア</p>
+                <p class="text-sm text-textMuted leading-relaxed">日々の体調管理や必要な医療処置（吸引、経管栄養など）をご自宅で行います。</p>
+              </div>
+              <div class="rounded-2xl bg-orange-50/70 border border-orange-100 p-4">
+                <p class="text-sm font-bold text-orange-700 mb-1">ご家族のレスパイト支援</p>
+                <p class="text-sm text-textMuted leading-relaxed">療養環境の調整やケアの代行などを通じて、ご家族の心身の負担軽減を支えます。</p>
+              </div>
+              <div class="rounded-2xl bg-orange-50/70 border border-orange-100 p-4">
+                <p class="text-sm font-bold text-orange-700 mb-1">育児の不安・悩み相談</p>
+                <p class="text-sm text-textMuted leading-relaxed">産前産後の心身の不調や発達に関する不安など、抱え込まず相談できる環境をつくります。</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="bg-white rounded-3xl shadow-soft border border-emerald-100 overflow-hidden js-fade-up" style="transition-delay: 140ms;">
+            <div class="p-5 md:p-7 border-b border-emerald-100 bg-gradient-to-r from-emerald-50 to-white">
+              <div class="flex items-start gap-4">
+                <div class="w-11 h-11 rounded-2xl bg-white border border-emerald-200 text-smileGreen flex items-center justify-center font-bold shrink-0">3</div>
+                <div>
+                  <h3 class="font-rounded text-xl md:text-2xl font-bold text-gray-800">精神科訪問看護</h3>
+                  <p class="text-sm text-teal-700 mt-1">心に寄り添い、あなたらしいペースの生活を支えます</p>
+                </div>
+              </div>
+              <p class="text-sm md:text-base text-textMuted leading-loose mt-4">精神的な疾患や心の不調を抱える方が、地域で安心して暮らせるようサポートします。</p>
+            </div>
+            <div class="p-5 md:p-7 grid gap-3 md:gap-4">
+              <div class="rounded-2xl bg-emerald-50/70 border border-emerald-100 p-4">
+                <p class="text-sm font-bold text-emerald-700 mb-1">対話を通じた心のケア</p>
+                <p class="text-sm text-textMuted leading-relaxed">じっくりお話を伺い、不安や悩みを共有しながら心の安定を図ります。</p>
+              </div>
+              <div class="rounded-2xl bg-emerald-50/70 border border-emerald-100 p-4">
+                <p class="text-sm font-bold text-emerald-700 mb-1">日常生活リズムの調整</p>
+                <p class="text-sm text-textMuted leading-relaxed">睡眠や食事など、無理のない範囲で生活リズムを整えるお手伝いをします。</p>
+              </div>
+              <div class="rounded-2xl bg-emerald-50/70 border border-emerald-100 p-4">
+                <p class="text-sm font-bold text-emerald-700 mb-1">服薬管理とサポート</p>
+                <p class="text-sm text-textMuted leading-relaxed">お薬を安心して継続できるよう一緒に確認し、副作用の観察も行います。</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-4 mb-10 md:mb-14">
+      <div class="max-w-5xl mx-auto bg-white rounded-3xl shadow-soft border border-gray-100 p-6 md:p-8 js-fade-up">
+        <div class="mb-6">
+          <h2 class="font-rounded text-xl md:text-2xl font-bold text-gray-800 mb-2">基本的な訪問看護サービス</h2>
+          <p class="text-sm md:text-base text-textMuted">専門ケアに加えて、日々の療養生活を支える基本的な訪問看護サービスも提供しています。</p>
+        </div>
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div class="rounded-2xl border border-gray-100 bg-gray-50 p-4">
+            <p class="font-bold text-gray-800 mb-1">健康状態のチェック</p>
+            <p class="text-sm text-textMuted">血圧・体温・脈拍の測定や病状観察を行い、異常の早期発見に努めます。</p>
+          </div>
+          <div class="rounded-2xl border border-gray-100 bg-gray-50 p-4">
+            <p class="font-bold text-gray-800 mb-1">日常生活のサポート</p>
+            <p class="text-sm text-textMuted">入浴介助、清拭、洗髪、排泄のサポートなど、清潔で快適な生活を支えます。</p>
+          </div>
+          <div class="rounded-2xl border border-gray-100 bg-gray-50 p-4">
+            <p class="font-bold text-gray-800 mb-1">医療処置・機器の管理</p>
+            <p class="text-sm text-textMuted">主治医の指示に基づく処置や、お薬・カテーテルなどの管理を行います。</p>
+          </div>
+          <div class="rounded-2xl border border-gray-100 bg-gray-50 p-4">
+            <p class="font-bold text-gray-800 mb-1">ご自宅でのリハビリ</p>
+            <p class="text-sm text-textMuted">理学療法士・作業療法士が訪問し、生活動作の維持・向上を支援します。</p>
+          </div>
+          <div class="rounded-2xl border border-gray-100 bg-gray-50 p-4">
+            <p class="font-bold text-gray-800 mb-1">ご家族への介護相談</p>
+            <p class="text-sm text-textMuted">介護に関する不安やストレスのご相談、具体的な介護方法の助言を行います。</p>
+          </div>
+          <div class="rounded-2xl border border-orange-100 bg-orange-50 p-4">
+            <p class="font-bold text-smileOrange mb-1">まずはご相談ください</p>
+            <p class="text-sm text-textMuted">訪問の可否や対象エリア、対応内容は状況に応じてご案内します。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-4 mb-10 md:mb-14">
+      <div class="max-w-5xl mx-auto grid gap-5 md:grid-cols-[0.95fr_1.05fr] items-stretch">
+        <div class="bg-white rounded-3xl shadow-soft border border-orange-100 p-6 md:p-7 js-fade-up">
+          <h2 class="font-rounded text-xl font-bold text-gray-800 mb-4">訪問エリア・営業時間</h2>
+          <dl class="space-y-4 text-sm md:text-base">
+            <div class="rounded-2xl bg-orange-50 border border-orange-100 p-4">
+              <dt class="font-bold text-smileOrange mb-1">訪問エリア</dt>
+              <dd class="text-textMuted leading-relaxed">尼崎市および近隣地域<br><span class="text-xs">※詳細なエリアはお気軽にご相談ください。</span></dd>
+            </div>
+            <div class="rounded-2xl bg-teal-50 border border-teal-100 p-4">
+              <dt class="font-bold text-teal-700 mb-1">営業時間</dt>
+              <dd class="text-textMuted leading-relaxed">9:00〜18:00（土日祝除く）</dd>
+            </div>
+            <div class="rounded-2xl bg-gray-50 border border-gray-200 p-4">
+              <dt class="font-bold text-gray-700 mb-1">連絡先</dt>
+              <dd class="text-textMuted leading-relaxed">TEL：06-4950-6402 / FAX：06-4950-6403</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="bg-gradient-to-br from-white to-orange-50 rounded-3xl shadow-soft border border-orange-100 p-6 md:p-7 js-fade-up" style="transition-delay: 80ms;">
+          <h2 class="font-rounded text-xl font-bold text-gray-800 mb-4">ご利用までのご案内</h2>
+          <p class="text-sm md:text-base text-textMuted leading-loose mb-5">
+            「訪問看護を利用できるかわからない」「まずは話だけ聞きたい」という段階でも大丈夫です。ご本人様・ご家族様はもちろん、ケアマネジャー様や医療機関の方からのご相談も承っています。
+          </p>
+          <div class="grid gap-3 sm:grid-cols-2">
+            <a href="flow.html" class="inline-flex items-center justify-center rounded-2xl border border-orange-200 bg-white px-4 py-3 text-sm font-bold text-smileOrange hover:bg-orange-50 transition-colors">ご利用のながれを見る</a>
+            <a href="faq.html" class="inline-flex items-center justify-center rounded-2xl border border-gray-200 bg-white px-4 py-3 text-sm font-bold text-gray-700 hover:bg-gray-50 transition-colors">よくあるご質問</a>
+            <a href="medical-institutions.html" class="inline-flex items-center justify-center rounded-2xl border border-teal-200 bg-white px-4 py-3 text-sm font-bold text-teal-700 hover:bg-teal-50 transition-colors sm:col-span-2">医療機関の方はこちら</a>
+            <a href="contact.html" class="inline-flex items-center justify-center rounded-2xl bg-smileOrange px-4 py-3 text-sm font-bold text-white hover:bg-orange-600 transition-colors sm:col-span-2">ご相談・お問い合わせフォームへ</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="md:hidden fixed bottom-0 left-0 w-full z-50 border-t border-orange-100 bg-white/95 backdrop-blur-sm">
+    <div class="grid grid-cols-2 gap-2 p-2">
+      <a href="tel:0649506402" class="flex items-center justify-center gap-2 rounded-xl bg-orange-50 text-smileOrange font-bold py-3 text-sm">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+        電話する
+      </a>
+      <a href="contact.html" class="flex items-center justify-center gap-2 rounded-xl bg-smileOrange text-white font-bold py-3 text-sm">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+        お問い合わせ
+      </a>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-active');
+          obs.unobserve(entry.target);
+        });
+      }, { rootMargin: '0px 0px -10% 0px', threshold: 0 });
+
+      document.querySelectorAll('.js-fade-up').forEach((el) => observer.observe(el));
+    });
+  </script>
+  <script src="shared-layout.js"></script>
+</body>
+</html>
