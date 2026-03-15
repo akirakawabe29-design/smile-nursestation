@@ -405,11 +405,41 @@
       }
       .sn-footer-right {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
         gap: 24px;
       }
-      @media (min-width: 768px) { .sn-footer-right { gap: 32px; } }
+      @media (min-width: 768px) {
+        .sn-footer-right { grid-template-columns: repeat(3, 1fr); gap: 32px; }
+      }
       @media (min-width: 1024px) { .sn-footer-right { gap: 40px; } }
+      /* スマホ用フッターボタン */
+      .sn-footer-guide-btns {
+        display: flex; gap: 10px; margin-top: 20px;
+        grid-column: 1 / -1;
+      }
+      .sn-footer-guide-btn {
+        flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
+        padding: 14px 12px; border-radius: 999px;
+        font-weight: 700; font-size: 13px; text-decoration: none;
+        font-family: "M PLUS Rounded 1c", sans-serif;
+        transition: all .3s;
+      }
+      .sn-footer-guide-btn--user {
+        background: rgba(255,255,255,.18); border: 2px solid rgba(255,255,255,.35);
+        color: #fff;
+      }
+      .sn-footer-guide-btn--user:hover { background: rgba(255,255,255,.3); }
+      .sn-footer-guide-btn--medical {
+        background: #F4DF2C; color: #2D2D3A;
+        border: 2px solid #F4DF2C;
+        box-shadow: 0 4px 14px rgba(244,223,44,.3);
+      }
+      .sn-footer-guide-btn--medical:hover { background: #f0d800; }
+      .sn-footer-guide-btn svg { width: 18px; height: 18px; flex: 0 0 18px; }
+      @media (min-width: 768px) {
+        .sn-footer-guide-btns { display: none !important; }
+        .sn-footer-nav-col-users { display: block !important; }
+      }
       .sn-footer-nav-heading {
         display: block;
         color: #F4DF2C;
@@ -612,13 +642,23 @@
                   <li><a href="user-feedback.html">ご利用者様の声</a></li>
                 </ul>
               </div>
-              <div>
+              <div class="sn-footer-nav-col-users" style="display:none;">
                 <span class="sn-footer-nav-heading">ご利用者様向け</span>
                 <ul class="sn-footer-nav-list">
                   <li><a href="users.html">初めての方へ</a></li>
                   <li><a href="medical-institutions.html">医療機関の方へ</a></li>
                   <li><a href="contact.html">お問い合わせ</a></li>
                 </ul>
+              </div>
+              <div class="sn-footer-guide-btns">
+                <a href="users.html" class="sn-footer-guide-btn sn-footer-guide-btn--user">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                  ご利用者さま
+                </a>
+                <a href="medical-institutions.html" class="sn-footer-guide-btn sn-footer-guide-btn--medical">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                  医療機関の方
+                </a>
               </div>
               ${ctaCompact}
             </div>
