@@ -62,17 +62,17 @@
         text-decoration: none;
         font-family: "M PLUS Rounded 1c", sans-serif;
         font-weight: 700;
-        font-size: 1.05rem;
+        font-size: 1.25rem;
         white-space: nowrap;
         display: inline-flex;
         align-items: center;
-        gap: 8px;
+        gap: 10px;
       }
       .sn-logo-mark {
-        width: 32px;
-        height: 32px;
+        width: 40px;
+        height: 40px;
         border-radius: 999px;
-        flex: 0 0 32px;
+        flex: 0 0 40px;
       }
       .sn-brand-label {
         display: inline-flex;
