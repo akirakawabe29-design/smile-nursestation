@@ -151,11 +151,12 @@
       }
       .sn-mobile-nav-sub { display: flex; flex-direction: column; gap: 0; }
       .sn-mobile-nav-sub a {
-        color: rgba(255,255,255,.85); text-decoration: none; font-size: 1.1rem; font-weight: 500;
-        padding: 10px 0 10px 16px;
+        color: #fff; text-decoration: none; font-size: 1.35rem; font-weight: 600;
+        padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,.12);
         transition: color .2s, padding-left .2s;
+        font-family: "M PLUS Rounded 1c", sans-serif;
       }
-      .sn-mobile-nav-sub a:hover { color: #F4DF2C; padding-left: 22px; }
+      .sn-mobile-nav-sub a:hover { color: #F4DF2C; padding-left: 6px; }
       .sn-mobile-cta-area { margin-top: 28px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.15); }
       .sn-mobile-cta-btns {
         display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
