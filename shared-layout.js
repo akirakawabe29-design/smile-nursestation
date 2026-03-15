@@ -157,7 +157,7 @@
         font-family: "M PLUS Rounded 1c", sans-serif;
       }
       .sn-mobile-nav-sub a:hover { color: #F4DF2C; padding-left: 6px; }
-      .sn-mobile-cta-area { margin-top: 28px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.15); }
+      .sn-mobile-cta-area { margin-top: 28px; padding-top: 20px; }
       .sn-mobile-cta-btns {
         display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
       }
@@ -174,9 +174,7 @@
       .sn-mobile-cta-medical {
         background: #F8F0FC; border: 1.5px solid #DA9BEA; color: #9B4DCA;
       }
-      .sn-mobile-cta-phone {
-        background: rgba(255,255,255,.15); border: 1.5px solid rgba(255,255,255,.3); color: #fff;
-      }
+      .sn-mobile-cta-phone { background: rgba(255,255,255,.15); color: #fff; }
       .sn-mobile-cta-contact { background: #F4DF2C; color: #2D2D3A; }
 
       @media (min-width: 1280px) {
