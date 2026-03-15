@@ -236,6 +236,9 @@
       left: 0;
       overflow: hidden;
     }
+    @media (max-width: 767px) {
+      #light-trail-container { display: none !important; }
+    }
     @media (prefers-reduced-motion: reduce) {
       #light-trail-container { display: none !important; }
     }
@@ -1000,8 +1003,8 @@
         </a>
       </div>
 
-      <!-- Right: Glassmorphism highlights -->
-      <div class="space-y-4 js-fade-up fade-delay-2">
+      <!-- Right: Glassmorphism highlights (desktop only) -->
+      <div class="hidden md:block space-y-4 js-fade-up fade-delay-2">
         <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6">
           <div class="flex items-center gap-3 mb-3">
             <span class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center text-accent text-lg" aria-hidden="true">🩺</span>
@@ -1023,6 +1026,33 @@
           </div>
           <p class="text-white/90 text-sm leading-relaxed">育児中のスタッフも多数活躍中。時短勤務や曜日固定など、ライフステージに合わせた柔軟な働き方が可能です。</p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recruit merits (mobile only / below CTA area) -->
+  <section class="md:hidden bg-brand-pale py-8">
+    <div class="max-w-6xl mx-auto px-4 space-y-4">
+      <div class="bg-white border border-brand-bg rounded-2xl p-5 shadow-sm">
+        <div class="flex items-center gap-3 mb-3">
+          <span class="w-10 h-10 rounded-full bg-accent/30 flex items-center justify-center text-brand-dark text-lg" aria-hidden="true">🩺</span>
+          <p class="text-brand-dark font-bold font-round text-lg">3つの専門分野</p>
+        </div>
+        <p class="text-charcoal-light text-sm leading-relaxed">透析ケア・小児サポート・精神科看護の3領域で、あなたの得意を活かしながらスキルアップできる環境です。</p>
+      </div>
+      <div class="bg-white border border-brand-bg rounded-2xl p-5 shadow-sm">
+        <div class="flex items-center gap-3 mb-3">
+          <span class="w-10 h-10 rounded-full bg-accent/30 flex items-center justify-center text-brand-dark text-lg" aria-hidden="true">📚</span>
+          <p class="text-brand-dark font-bold font-round text-lg">充実の研修制度</p>
+        </div>
+        <p class="text-charcoal-light text-sm leading-relaxed">未経験の方でも安心してスタートできるよう、先輩スタッフが丁寧にサポート。段階的なステップアップ制度で確実に成長できます。</p>
+      </div>
+      <div class="bg-white border border-brand-bg rounded-2xl p-5 shadow-sm">
+        <div class="flex items-center gap-3 mb-3">
+          <span class="w-10 h-10 rounded-full bg-accent/30 flex items-center justify-center text-brand-dark text-lg" aria-hidden="true">🌿</span>
+          <p class="text-brand-dark font-bold font-round text-lg">働きやすさ◎</p>
+        </div>
+        <p class="text-charcoal-light text-sm leading-relaxed">育児中のスタッフも多数活躍中。時短勤務や曜日固定など、ライフステージに合わせた柔軟な働き方が可能です。</p>
       </div>
     </div>
   </section>
@@ -1139,7 +1169,7 @@
 
       /* ══════ Leading Light Trail — 線状の誘導ライト ══════ */
       (function initLeadingLight() {
-        if (prefersRM) return;
+        if (prefersRM || window.matchMedia('(max-width: 767px)').matches) return;
 
         const container = document.getElementById('light-trail-container');
         const svgEl = document.getElementById('light-trail-svg');
