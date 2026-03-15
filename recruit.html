@@ -232,6 +232,57 @@
       50% { transform: translateY(0); }
     }
     .animate-bounce-slow { animation: bounce-slow 3s infinite; }
+
+    /* ── Member Infinite Scroll ── */
+    .member-scroll-wrapper {
+      width: 100%;
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+      mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+    }
+    .member-scroll-track {
+      display: flex;
+      gap: 20px;
+      width: max-content;
+      animation: member-scroll 30s linear infinite;
+    }
+    .member-scroll-track:hover {
+      animation-play-state: paused;
+    }
+    .member-scroll-img {
+      width: 260px;
+      height: 320px;
+      object-fit: cover;
+      border-radius: 24px;
+      flex-shrink: 0;
+      box-shadow: 0 8px 30px rgba(155,77,202,.14);
+      transition: transform .4s ease, box-shadow .4s ease;
+    }
+    .member-scroll-img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 14px 40px rgba(155,77,202,.28);
+    }
+    @keyframes member-scroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(calc(-260px * 7 - 24px * 7)); }
+    }
+    .member-scroll-track {
+      gap: 24px;
+    }
+    @media (max-width: 767px) {
+      .member-scroll-img {
+        width: 200px;
+        height: 250px;
+        border-radius: 20px;
+      }
+      .member-scroll-track {
+        gap: 16px;
+      }
+      @keyframes member-scroll {
+        0%   { transform: translateX(0); }
+        100% { transform: translateX(calc(-200px * 7 - 16px * 7)); }
+      }
+    }
   </style>
 </head>
 <body class="font-sans text-textMain bg-white antialiased selection:bg-brand selection:text-white overflow-x-hidden">
@@ -525,6 +576,39 @@
         <span class="bg-white border border-brand-light/40 text-charcoal text-sm px-4 py-2 rounded-full shadow-sm">認定看護師の強み</span>
         <span class="bg-white border border-brand-light/40 text-charcoal text-sm px-4 py-2 rounded-full shadow-sm">幅広い世代が活躍</span>
         <span class="bg-white border border-brand-light/40 text-charcoal text-sm px-4 py-2 rounded-full shadow-sm">フットケア認定</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       MEMBERS — 一緒に働くメンバー (infinite scroll)
+       ═══════════════════════════════════════════ -->
+  <section class="py-16 md:py-24 bg-white overflow-hidden">
+    <div class="max-w-6xl mx-auto px-5 mb-10 js-fade-up">
+      <p class="text-sm font-bold tracking-[.18em] text-brand mb-3 font-rounded text-center">MEMBERS</p>
+      <h2 class="font-rounded text-3xl md:text-4xl font-bold text-charcoal text-center">一緒に働くメンバー</h2>
+      <p class="text-charcoal-light mt-3 text-center">多様なバックグラウンドのスタッフが、チームワークで地域を支えています。</p>
+    </div>
+
+    <!-- Infinite scroll track -->
+    <div class="member-scroll-wrapper">
+      <div class="member-scroll-track">
+        <!-- Set 1 -->
+        <img src="assets/img/スクリーンショット 2026-03-15 18.04.06.png" alt="スタッフ1" class="member-scroll-img">
+        <img src="assets/img/スクリーンショット 2026-03-15 18.04.18.png" alt="スタッフ2" class="member-scroll-img">
+        <img src="assets/img/スクリーンショット 2026-03-15 18.04.27.png" alt="スタッフ3" class="member-scroll-img">
+        <img src="assets/img/スクリーンショット 2026-03-15 18.04.39.png" alt="スタッフ4" class="member-scroll-img">
+        <img src="assets/img/スクリーンショット 2026-03-15 18.04.49.png" alt="スタッフ5" class="member-scroll-img">
+        <img src="assets/img/スクリーンショット 2026-03-15 18.05.01.png" alt="スタッフ6" class="member-scroll-img">
+        <img src="assets/img/スクリーンショット 2026-03-15 18.05.17.png" alt="スタッフ7" class="member-scroll-img">
+        <!-- Set 2 (duplicate for seamless loop) -->
+        <img src="assets/img/スクリーンショット 2026-03-15 18.04.06.png" alt="スタッフ1" class="member-scroll-img">
+        <img src="assets/img/スクリーンショット 2026-03-15 18.04.18.png" alt="スタッフ2" class="member-scroll-img">
+        <img src="assets/img/スクリーンショット 2026-03-15 18.04.27.png" alt="スタッフ3" class="member-scroll-img">
+        <img src="assets/img/スクリーンショット 2026-03-15 18.04.39.png" alt="スタッフ4" class="member-scroll-img">
+        <img src="assets/img/スクリーンショット 2026-03-15 18.04.49.png" alt="スタッフ5" class="member-scroll-img">
+        <img src="assets/img/スクリーンショット 2026-03-15 18.05.01.png" alt="スタッフ6" class="member-scroll-img">
+        <img src="assets/img/スクリーンショット 2026-03-15 18.05.17.png" alt="スタッフ7" class="member-scroll-img">
       </div>
     </div>
   </section>

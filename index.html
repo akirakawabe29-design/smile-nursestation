@@ -104,6 +104,25 @@
       padding: 0 20px 110px;
       box-sizing: border-box;
     }
+    @media (max-width:767px) {
+      .hero-text-area {
+        align-items: flex-start;
+        justify-content: flex-end;
+        text-align: left;
+        padding: 0 18px 88px;
+      }
+      .hero-text-area .max-w-4xl {
+        max-width: 92vw;
+        margin-left: 0;
+        margin-right: auto;
+      }
+      .hero-char-columns {
+        align-items: flex-start;
+      }
+      .hero-char-line {
+        justify-content: flex-start;
+      }
+    }
     @media (min-width:768px) {
       .hero-text-area {
         justify-content:center;
@@ -179,13 +198,13 @@
       flex-direction: column;
       align-items: center;
       gap: 0.2em;
+      max-width: 100%;
     }
     .hero-char-line {
       display: inline-flex;
       align-items: baseline;
       justify-content: center;
       gap: 0.02em;
-      white-space: nowrap;
     }
     .hero-char-line span {
       display: block;
@@ -434,34 +453,35 @@
     <div class="hero-text-area">
       <div class="max-w-4xl mx-auto hero-text-backdrop">
         <!-- Hero text with text-shadow for readability over photo -->
-        <p class="hero-kasure hand-accent text-[15px] md:text-[22px] mb-3 md:mb-5 gsap-from-left" style="text-shadow:0 0 20px rgba(255,255,255,.95), 0 0 40px rgba(255,255,255,.7), 0 0 60px rgba(248,240,252,.5), 0 1px 3px rgba(0,0,0,.12);">わたしたちらしい看護を、まっすぐに。</p>
-        <h1 class="font-round font-bold text-[24px] md:text-[40px] lg:text-[52px] tracking-[0.02em] md:tracking-[0.03em] text-charcoal gsap-from-bottom" style="text-shadow:0 0 24px rgba(255,255,255,.95), 0 0 48px rgba(255,255,255,.75), 0 0 72px rgba(248,240,252,.5), 0 1px 4px rgba(0,0,0,.15);" aria-label="あなたの「やりたい」を、確かな医療で支える。">
+        <p class="hero-kasure hand-accent text-[17px] md:text-[22px] mb-3 md:mb-5 gsap-from-left" style="text-shadow:0 0 20px rgba(255,255,255,.95), 0 0 40px rgba(255,255,255,.7), 0 0 60px rgba(248,240,252,.5), 0 1px 3px rgba(0,0,0,.12);">わたしたちらしい看護を、まっすぐに。</p>
+        <h1 class="font-round font-bold tracking-[0.02em] md:tracking-[0.03em] text-charcoal gsap-from-bottom" style="font-size: clamp(22px, calc((100vw - 48px) / 13), 56px); text-shadow:0 0 24px rgba(255,255,255,.95), 0 0 48px rgba(255,255,255,.75), 0 0 72px rgba(248,240,252,.5), 0 1px 4px rgba(0,0,0,.15);" aria-label="あなたのやりたいを、たしかな医療で支える。">
           <span class="hero-char-columns" aria-hidden="true">
             <span class="hero-char-line">
               <span style="--char-index:0">あ</span>
               <span style="--char-index:1">な</span>
               <span style="--char-index:2">た</span>
               <span style="--char-index:3">の</span>
-              <span class="hero-char-brand" style="--char-index:4">「</span>
+              <span class="hero-char-brand" style="--char-index:4">”</span>
               <span class="hero-char-brand" style="--char-index:5">や</span>
               <span class="hero-char-brand" style="--char-index:6">り</span>
               <span class="hero-char-brand" style="--char-index:7">た</span>
               <span class="hero-char-brand" style="--char-index:8">い</span>
-              <span class="hero-char-brand" style="--char-index:9">」</span>
+              <span class="hero-char-brand" style="--char-index:9">”</span>
               <span style="--char-index:10">を</span>
               <span style="--char-index:11">、</span>
             </span>
             <span class="hero-char-line hero-char-line-2">
-              <span style="--char-index:0">確</span>
-              <span style="--char-index:1">か</span>
-              <span style="--char-index:2">な</span>
-              <span style="--char-index:3">医</span>
-              <span style="--char-index:4">療</span>
-              <span style="--char-index:5">で</span>
-              <span style="--char-index:6">支</span>
-              <span style="--char-index:7">え</span>
-              <span style="--char-index:8">る</span>
-              <span style="--char-index:9">。</span>
+              <span style="--char-index:0">た</span>
+              <span style="--char-index:1">し</span>
+              <span style="--char-index:2">か</span>
+              <span style="--char-index:3">な</span>
+              <span style="--char-index:4">医</span>
+              <span style="--char-index:5">療</span>
+              <span style="--char-index:6">で</span>
+              <span style="--char-index:7">支</span>
+              <span style="--char-index:8">え</span>
+              <span style="--char-index:9">る</span>
+              <span style="--char-index:10">。</span>
             </span>
           </span>
         </h1>
@@ -469,7 +489,7 @@
           <svg width="180" height="12" viewBox="0 0 180 12" aria-hidden="true"><path d="M2,8 Q45,1 90,8 Q135,14 178,6" stroke="#F4DF2C" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
           <svg class="sparkle" width="16" height="16" viewBox="0 0 16 16" fill="#F4DF2C" aria-hidden="true"><path d="M8 0L9.5 6.5L16 8L9.5 9.5L8 16L6.5 9.5L0 8L6.5 6.5Z"/></svg>
         </div>
-        <p class="mt-4 md:mt-6 text-[12px] md:text-[16px] text-charcoal-light leading-[1.85] md:leading-[1.95] max-w-3xl mx-auto gsap-from-right" style="text-shadow:0 0 20px rgba(255,255,255,.95), 0 0 40px rgba(255,255,255,.7), 0 0 60px rgba(248,240,252,.5), 0 1px 3px rgba(0,0,0,.12);">
+        <p class="hidden md:block mt-4 md:mt-6 text-[12px] md:text-[16px] text-charcoal-light leading-[1.85] md:leading-[1.95] max-w-3xl mx-auto gsap-from-right" style="text-shadow:0 0 20px rgba(255,255,255,.95), 0 0 40px rgba(255,255,255,.7), 0 0 60px rgba(248,240,252,.5), 0 1px 3px rgba(0,0,0,.12);">
           尼崎市を拠点に、透析・小児・精神科ケアの<br class="md:hidden">専門知識と<br class="hidden md:block">
           家族のような温かな対話で、<br class="md:hidden">在宅での安心をお届けします。
         </p>
