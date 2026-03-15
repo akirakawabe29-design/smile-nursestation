@@ -386,6 +386,12 @@
     /* ═══════ shared-layout.js page-specific overrides ═══════ */
 
     html, body { overflow-x:hidden; }
+    /* Hide scrollbar for diary horizontal scroll */
+    .diary-scroll::-webkit-scrollbar { display: none; }
+    /* Guide tab buttons */
+    .guide-tab-btn { background: transparent; color: #888; border: none; cursor: pointer; }
+    .guide-tab-btn.is-active { background: #CB6CE6; color: #fff; box-shadow: 0 4px 14px rgba(203,108,230,.3); }
+    .guide-tab-btn.is-active span { color: rgba(255,255,255,.7) !important; }
     .sn-shared-header.sn-hero-transparent {
       background:transparent !important; backdrop-filter:none !important;
       box-shadow:none !important; border-bottom-color:transparent !important;
@@ -677,16 +683,75 @@
         <h2 class="mt-2 font-round font-bold text-[26px] md:text-[36px] text-charcoal leading-[1.45]">目的別のご案内</h2>
       </div>
 
-      <div class="space-y-4 md:space-y-6 guide-links">
-        <a href="service.html" class="group block overflow-hidden rounded-2xl border-2 border-brand-bg bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-lg transition-all" style="max-width:100%;">
-          <div class="flex flex-col md:flex-row min-h-[220px] md:min-h-[280px]">
-            <div class="w-full md:w-[48%] px-5 py-6 md:px-10 md:py-10 flex flex-col justify-center">
-              <p class="text-[12px] tracking-[0.16em] text-brand font-round font-bold">FOR USERS</p>
-              <h3 class="mt-3 font-round font-bold text-[20px] md:text-[30px] leading-[1.4] text-charcoal">ご利用者様・ご家族の方へ</h3>
-              <p class="mt-3 text-[13px] md:text-[14px] leading-[1.85] text-charcoal-light">サービス内容・専門ケア・基本的な訪問看護サービスのご案内</p>
-              <span class="mt-4 md:mt-5 inline-flex items-center gap-2 text-[14px] font-bold text-brand group-hover:text-brand-dark transition-colors font-round">詳しく見る →</span>
+      <!-- ===== スマホ用タブUI ===== -->
+      <div class="md:hidden">
+        <div class="flex rounded-full bg-white/60 border-2 border-brand-bg p-1 mb-5">
+          <button type="button" class="guide-tab-btn flex-1 py-3 text-[13px] font-bold font-round rounded-full transition-all is-active" data-guide-tab="users" onclick="switchGuideTab('users')">
+            <span class="text-[10px] tracking-[0.1em] block text-brand/60 mb-0.5">FOR USERS</span>
+            ご利用者様向け
+          </button>
+          <button type="button" class="guide-tab-btn flex-1 py-3 text-[13px] font-bold font-round rounded-full transition-all" data-guide-tab="partners" onclick="switchGuideTab('partners')">
+            <span class="text-[10px] tracking-[0.1em] block text-brand/60 mb-0.5">FOR PARTNERS</span>
+            医療機関の方
+          </button>
+        </div>
+        <!-- タブコンテンツ: FOR USERS -->
+        <div class="guide-tab-panel is-active" data-guide-panel="users">
+          <a href="service.html" class="group block overflow-hidden rounded-2xl border-2 border-brand-bg bg-white/80 shadow-sm">
+            <div class="relative min-h-[200px] overflow-hidden rounded-t-2xl">
+              <img src="assets/img/hero1.jpeg" alt="ご利用者様・ご家族向けサービス" class="absolute inset-0 w-full h-full object-cover">
+              <div class="absolute inset-0 bg-gradient-to-t from-charcoal/50 to-transparent"></div>
+              <div class="absolute bottom-4 left-5 right-5">
+                <h3 class="font-round font-bold text-[18px] leading-[1.4] text-white drop-shadow-md">ご利用者様・ご家族の方へ</h3>
+              </div>
             </div>
-            <div class="w-full md:w-[52%] relative min-h-[180px] md:min-h-0 overflow-hidden md:rounded-r-2xl" style="clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); /* mobile: no clip */  ">
+            <div class="p-5">
+              <p class="text-[13px] leading-[1.85] text-charcoal-light">サービス内容・専門ケア・基本的な訪問看護サービスのご案内</p>
+              <span class="mt-4 inline-flex items-center gap-2 text-[14px] font-bold text-brand font-round">詳しく見る →</span>
+            </div>
+          </a>
+        </div>
+        <!-- タブコンテンツ: FOR PARTNERS -->
+        <div class="guide-tab-panel" data-guide-panel="partners" style="display:none;">
+          <a href="medical-institutions.html" class="group block overflow-hidden rounded-2xl border-2 border-brand-bg bg-white/80 shadow-sm">
+            <div class="relative min-h-[200px] overflow-hidden rounded-t-2xl">
+              <img src="assets/img/studysession.jpeg" alt="ケアマネジャー・医療機関向け連携案内" class="absolute inset-0 w-full h-full object-cover">
+              <div class="absolute inset-0 bg-gradient-to-t from-charcoal/50 to-transparent"></div>
+              <div class="absolute bottom-4 left-5 right-5">
+                <h3 class="font-round font-bold text-[18px] leading-[1.4] text-white drop-shadow-md">ケアマネジャー・<br>医療機関の方へ</h3>
+              </div>
+            </div>
+            <div class="p-5">
+              <p class="text-[13px] leading-[1.85] text-charcoal-light">連携窓口・医療処置の対応目安・空き状況・資料請求のご案内</p>
+              <span class="mt-4 inline-flex items-center gap-2 text-[14px] font-bold text-brand font-round">詳しく見る →</span>
+            </div>
+          </a>
+        </div>
+      </div>
+      <script>
+        function switchGuideTab(tab) {
+          document.querySelectorAll('.guide-tab-btn').forEach(b => {
+            b.classList.toggle('is-active', b.dataset.guideTab === tab);
+          });
+          document.querySelectorAll('.guide-tab-panel').forEach(p => {
+            const show = p.dataset.guidePanel === tab;
+            p.classList.toggle('is-active', show);
+            p.style.display = show ? '' : 'none';
+          });
+        }
+      </script>
+
+      <!-- ===== デスクトップ用カード（従来） ===== -->
+      <div class="hidden md:block space-y-6 guide-links">
+        <a href="service.html" class="group block overflow-hidden rounded-2xl border-2 border-brand-bg bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-lg transition-all" style="max-width:100%;">
+          <div class="flex flex-row min-h-[280px]">
+            <div class="w-[48%] px-10 py-10 flex flex-col justify-center">
+              <p class="text-[12px] tracking-[0.16em] text-brand font-round font-bold">FOR USERS</p>
+              <h3 class="mt-3 font-round font-bold text-[30px] leading-[1.4] text-charcoal">ご利用者様・ご家族の方へ</h3>
+              <p class="mt-3 text-[14px] leading-[1.85] text-charcoal-light">サービス内容・専門ケア・基本的な訪問看護サービスのご案内</p>
+              <span class="mt-5 inline-flex items-center gap-2 text-[14px] font-bold text-brand group-hover:text-brand-dark transition-colors font-round">詳しく見る →</span>
+            </div>
+            <div class="w-[52%] relative overflow-hidden rounded-r-2xl">
               <img src="assets/img/hero1.jpeg" alt="ご利用者様・ご家族向けサービス" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
               <div class="absolute inset-0 bg-gradient-to-r from-brand/15 via-transparent to-transparent"></div>
             </div>
@@ -694,14 +759,14 @@
         </a>
 
         <a href="medical-institutions.html" class="group block overflow-hidden rounded-2xl border-2 border-brand-bg bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-lg transition-all" style="max-width:100%;">
-          <div class="flex flex-col md:flex-row-reverse min-h-[220px] md:min-h-[280px]">
-            <div class="w-full md:w-[48%] px-5 py-6 md:px-10 md:py-10 flex flex-col justify-center">
+          <div class="flex flex-row-reverse min-h-[280px]">
+            <div class="w-[48%] px-10 py-10 flex flex-col justify-center">
               <p class="text-[12px] tracking-[0.16em] text-brand font-round font-bold">FOR PARTNERS</p>
-              <h3 class="mt-3 font-round font-bold text-[20px] md:text-[30px] leading-[1.4] text-charcoal">ケアマネジャー・医療機関の方へ</h3>
-              <p class="mt-3 text-[13px] md:text-[14px] leading-[1.85] text-charcoal-light">連携窓口・医療処置の対応目安・空き状況・資料請求のご案内</p>
-              <span class="mt-4 md:mt-5 inline-flex items-center gap-2 text-[14px] font-bold text-brand group-hover:text-brand-dark transition-colors font-round">詳しく見る →</span>
+              <h3 class="mt-3 font-round font-bold text-[30px] leading-[1.4] text-charcoal">ケアマネジャー・医療機関の方へ</h3>
+              <p class="mt-3 text-[14px] leading-[1.85] text-charcoal-light">連携窓口・医療処置の対応目安・空き状況・資料請求のご案内</p>
+              <span class="mt-5 inline-flex items-center gap-2 text-[14px] font-bold text-brand group-hover:text-brand-dark transition-colors font-round">詳しく見る →</span>
             </div>
-            <div class="w-full md:w-[52%] relative min-h-[180px] md:min-h-0 overflow-hidden md:rounded-l-2xl" style="clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);">
+            <div class="w-[52%] relative overflow-hidden rounded-l-2xl">
               <img src="assets/img/studysession.jpeg" alt="ケアマネジャー・医療機関向け連携案内" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
               <div class="absolute inset-0 bg-gradient-to-l from-brand/15 via-transparent to-transparent"></div>
             </div>
@@ -713,11 +778,62 @@
 
   <!-- ════════ SERVICE AREA ════════ -->
   <section id="service-area" class="relative overflow-hidden" style="background:#EEF3FA;">
-    <div class="flex flex-col md:flex-row w-full">
+    <!-- ===== モバイル用レイアウト（テキスト → 地図） ===== -->
+    <div class="md:hidden">
+      <div class="px-5 pt-10 pb-6">
+        <p class="text-[12px] tracking-[0.16em] font-round font-bold text-brand opacity-70">SERVICE AREA</p>
+        <h2 class="mt-2 font-round font-bold text-[22px] leading-[1.6] text-charcoal">対応エリア</h2>
+        <div class="mt-1 flex items-center gap-2">
+          <svg width="120" height="8" viewBox="0 0 120 8"><path d="M2,5 Q30,1 60,5 Q90,8 118,4" stroke="#F4DF2C" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
+        </div>
+        <h3 class="mt-5 font-round font-bold text-[15px] leading-[1.8] text-charcoal">
+          尼崎市を中心に<br>近隣エリアで訪問看護を<br>ご提供しています
+        </h3>
+        <p class="mt-3 text-[12px] leading-[1.9] text-charcoal-light">
+          尼崎市全域を中心に、西宮市・伊丹市の一部エリアにも対応しております。まずはお気軽にご相談ください。
+        </p>
+        <div class="mt-5 flex flex-wrap gap-2">
+          <span class="area-badge area-badge--main">尼崎市</span>
+          <span class="area-badge">西宮市（一部）</span>
+          <span class="area-badge">伊丹市（一部）</span>
+        </div>
+      </div>
+      <!-- モバイル地図（点線なし） -->
+      <div class="relative w-full overflow-hidden" style="height:280px;">
+        <img src="assets/img/尼崎地図.png" alt="尼崎市周辺の対応エリアマップ" class="absolute inset-0 w-full h-full object-cover block" style="filter:saturate(.85) contrast(1.05); transform:scale(1.15); transform-origin:center 38%;">
+        <!-- SVG オーバーレイ（ラベル＋ピン） -->
+        <svg viewBox="0 0 1300 980" class="absolute inset-0 w-full h-full" aria-hidden="true" style="pointer-events:none; transform:scale(1.15); transform-origin:center 38%;">
+          <defs>
+            <filter id="label-shadow-m" x="-10%" y="-10%" width="120%" height="120%">
+              <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#fff" flood-opacity=".7"/>
+            </filter>
+          </defs>
+          <g filter="url(#label-shadow-m)">
+            <text x="650" y="460" text-anchor="middle" fill="#CB6CE6" font-size="42" font-weight="700" font-family="'M PLUS Rounded 1c',sans-serif">尼崎市</text>
+            <text x="650" y="500" text-anchor="middle" fill="#9B4DCA" font-size="16" font-family="'Josefin Sans',sans-serif" letter-spacing="4" opacity=".7">AMAGASAKI</text>
+          </g>
+          <g transform="translate(650,350)">
+            <ellipse cx="0" cy="34" rx="12" ry="4" fill="rgba(0,0,0,.15)"/>
+            <path d="M0,-24 C-14,-24 -22,-12 -22,0 C-22,16 0,34 0,34 C0,34 22,16 22,0 C22,-12 14,-24 0,-24 Z" fill="#F4DF2C"/>
+            <circle cx="0" cy="-3" r="8" fill="#fff"/>
+            <text x="0" y="2" text-anchor="middle" fill="#CB6CE6" font-size="11" font-weight="700" font-family="'M PLUS Rounded 1c',sans-serif">S</text>
+          </g>
+          <g filter="url(#label-shadow-m)">
+            <text x="630" y="150" text-anchor="middle" fill="#2D2D3A" font-size="28" font-weight="700" font-family="'M PLUS Rounded 1c',sans-serif" opacity=".55">伊丹市</text>
+          </g>
+          <g filter="url(#label-shadow-m)">
+            <text x="310" y="440" text-anchor="middle" fill="#2D2D3A" font-size="28" font-weight="700" font-family="'M PLUS Rounded 1c',sans-serif" opacity=".55">西宮市</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <!-- ===== デスクトップ用レイアウト（従来通り） ===== -->
+    <div class="hidden md:flex flex-row w-full">
       <!-- 左: 余白 -->
-      <div class="hidden md:block md:w-[38%]"></div>
+      <div class="md:w-[38%]"></div>
       <!-- 右: 地図 -->
-      <div class="md:w-[62%] relative min-h-[360px] md:min-h-[520px] overflow-hidden">
+      <div class="md:w-[62%] relative min-h-[520px] overflow-hidden">
         <img src="assets/img/尼崎地図.png" alt="尼崎市周辺の対応エリアマップ" class="absolute inset-0 w-full h-full object-cover block" style="filter:saturate(.85) contrast(1.05); transform:scale(1.15); transform-origin:center 38%;">
 
         <!-- SVG オーバーレイ（ラベル＋ピン） -->
@@ -727,65 +843,48 @@
               <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#fff" flood-opacity=".7"/>
             </filter>
           </defs>
-
-          <!-- 尼崎市ラベル -->
           <g filter="url(#label-shadow)">
             <text x="650" y="460" text-anchor="middle" fill="#CB6CE6" font-size="42" font-weight="700" font-family="'M PLUS Rounded 1c',sans-serif">尼崎市</text>
             <text x="650" y="500" text-anchor="middle" fill="#9B4DCA" font-size="16" font-family="'Josefin Sans',sans-serif" letter-spacing="4" opacity=".7">AMAGASAKI</text>
           </g>
-
-          <!-- ピンアイコン -->
           <g transform="translate(650,350)">
             <ellipse cx="0" cy="34" rx="12" ry="4" fill="rgba(0,0,0,.15)"/>
             <path d="M0,-24 C-14,-24 -22,-12 -22,0 C-22,16 0,34 0,34 C0,34 22,16 22,0 C22,-12 14,-24 0,-24 Z" fill="#F4DF2C"/>
             <circle cx="0" cy="-3" r="8" fill="#fff"/>
             <text x="0" y="2" text-anchor="middle" fill="#CB6CE6" font-size="11" font-weight="700" font-family="'M PLUS Rounded 1c',sans-serif">S</text>
           </g>
-
-          <!-- 伊丹市ラベル -->
           <g filter="url(#label-shadow)">
             <text x="630" y="150" text-anchor="middle" fill="#2D2D3A" font-size="28" font-weight="700" font-family="'M PLUS Rounded 1c',sans-serif" opacity=".55">伊丹市</text>
             <text x="630" y="178" text-anchor="middle" fill="#2D2D3A" font-size="12" font-family="'Josefin Sans',sans-serif" letter-spacing="3" opacity=".3">ITAMI</text>
           </g>
-
-          <!-- 西宮市ラベル -->
           <g filter="url(#label-shadow)">
             <text x="310" y="440" text-anchor="middle" fill="#2D2D3A" font-size="28" font-weight="700" font-family="'M PLUS Rounded 1c',sans-serif" opacity=".55">西宮市</text>
             <text x="310" y="468" text-anchor="middle" fill="#2D2D3A" font-size="12" font-family="'Josefin Sans',sans-serif" letter-spacing="3" opacity=".3">NISHINOMIYA</text>
           </g>
-
-          <!-- 大阪湾ラベル（左下） -->
           <text x="130" y="840" fill="rgba(60,80,120,.15)" font-size="20" font-family="'Josefin Sans',sans-serif" letter-spacing="5">OSAKA BAY</text>
-
-          <!-- 大阪ラベル（右下） -->
           <text x="900" y="780" fill="rgba(60,80,120,.18)" font-size="28" font-weight="700" font-family="'M PLUS Rounded 1c',sans-serif" letter-spacing="3">大阪</text>
           <text x="900" y="810" fill="rgba(60,80,120,.12)" font-size="14" font-family="'Josefin Sans',sans-serif" letter-spacing="4">OSAKA</text>
-
         </svg>
 
-        <!-- 見切れ位置の点線（陸地エッジのみ） -->
-        <!-- 上辺 -->
+        <!-- 見切れ位置の点線（デスクトップのみ） -->
         <div class="absolute top-0 left-0 right-0" style="height:0; border-top:2px dashed rgba(90,90,130,.22); z-index:2;"></div>
-        <!-- 左辺：上〜59.5% -->
         <div class="absolute top-0 left-0" style="width:0; height:59.5%; border-left:2px dashed rgba(90,90,130,.22); z-index:2;"></div>
-        <!-- 右辺：上〜70% -->
         <div class="absolute top-0 right-0" style="width:0; height:70%; border-right:2px dashed rgba(90,90,130,.22); z-index:2;"></div>
-        <!-- 下辺：右側49.5%〜右端 -->
         <div class="absolute bottom-0 right-0" style="width:49.5%; height:0; border-bottom:2px dashed rgba(90,90,130,.22); z-index:2;"></div>
       </div>
       <!-- テキストオーバーレイ（左側に重ねる） -->
       <div class="absolute inset-0 flex items-center pointer-events-none">
-        <div class="px-6 py-10 md:px-16 md:py-0 pointer-events-auto" style="max-width:480px;">
-          <div class="backdrop-blur-sm bg-white/80 rounded-2xl p-5 md:bg-white/70 md:rounded-2xl md:p-8">
-            <p class="text-[12px] md:text-[13px] tracking-[0.16em] font-round font-bold text-brand opacity-70">SERVICE AREA</p>
-            <h2 class="mt-2 font-round font-bold text-[22px] md:text-[30px] leading-[1.6] text-charcoal">対応エリア</h2>
+        <div class="px-16 py-0 pointer-events-auto" style="max-width:480px;">
+          <div class="backdrop-blur-sm bg-white/70 rounded-2xl p-8">
+            <p class="text-[13px] tracking-[0.16em] font-round font-bold text-brand opacity-70">SERVICE AREA</p>
+            <h2 class="mt-2 font-round font-bold text-[30px] leading-[1.6] text-charcoal">対応エリア</h2>
             <div class="mt-1 flex items-center gap-2">
               <svg width="120" height="8" viewBox="0 0 120 8"><path d="M2,5 Q30,1 60,5 Q90,8 118,4" stroke="#F4DF2C" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
             </div>
-            <h3 class="mt-5 font-round font-bold text-[15px] md:text-[19px] leading-[1.8] text-charcoal">
+            <h3 class="mt-5 font-round font-bold text-[19px] leading-[1.8] text-charcoal">
               尼崎市を中心に<br>近隣エリアで訪問看護を<br>ご提供しています
             </h3>
-            <p class="mt-3 text-[12px] md:text-[14px] leading-[1.9] text-charcoal-light">
+            <p class="mt-3 text-[14px] leading-[1.9] text-charcoal-light">
               尼崎市全域を中心に、西宮市・伊丹市の一部エリアにも対応しております。まずはお気軽にご相談ください。
             </p>
             <div class="mt-5 flex flex-wrap gap-2">
@@ -927,7 +1026,7 @@
           <p class="text-xs font-bold tracking-[0.16em] text-brand font-round">DIARY</p>
           <h2 class="mt-2 text-2xl font-bold text-charcoal font-round">smileダイアリー</h2>
         </div>
-        <div class="grid md:grid-cols-3 gap-6">
+        <div class="hidden md:grid md:grid-cols-3 gap-6">
           <a href="diary.html" class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all group border-2 border-brand-bg hover:-translate-y-1">
             <div class="aspect-[4/3] bg-brand-pale overflow-hidden">
               <img src="assets/img/new%20colleague.jpeg" alt="新しいスタッフの写真" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
@@ -953,6 +1052,36 @@
             <div class="p-5">
               <time class="text-xs text-textMuted mb-2 block font-round">2024.04.01</time>
               <h3 class="font-bold text-charcoal line-clamp-2 font-round">尼崎市にsmile訪問看護ステーションがオープンしました。</h3>
+            </div>
+          </a>
+        </div>
+        <!-- スマホ用：横スライド -->
+        <div class="md:hidden diary-scroll flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 -mx-4 px-4" style="-webkit-overflow-scrolling:touch; scrollbar-width:none;">
+          <a href="diary.html" class="bg-white rounded-2xl overflow-hidden shadow-sm group border-2 border-brand-bg flex-shrink-0 snap-start" style="width:75vw; max-width:300px;">
+            <div class="aspect-[4/3] bg-brand-pale overflow-hidden">
+              <img src="assets/img/new%20colleague.jpeg" alt="新しいスタッフの写真" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="p-4">
+              <time class="text-xs text-textMuted mb-2 block font-round">2024.04.10</time>
+              <h3 class="font-bold text-sm text-charcoal line-clamp-2 font-round">新しいスタッフが加わりました！研修の様子をお届けします。</h3>
+            </div>
+          </a>
+          <a href="diary.html" class="bg-white rounded-2xl overflow-hidden shadow-sm group border-2 border-brand-bg flex-shrink-0 snap-start" style="width:75vw; max-width:300px;">
+            <div class="aspect-[4/3] bg-brand-pale overflow-hidden">
+              <img src="assets/img/studysession.jpeg" alt="勉強会の様子の写真" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="p-4">
+              <time class="text-xs text-textMuted mb-2 block font-round">2024.04.05</time>
+              <h3 class="font-bold text-sm text-charcoal line-clamp-2 font-round">シャントケアの勉強会を実施。より質の高い透析ケアを目指して。</h3>
+            </div>
+          </a>
+          <a href="diary.html" class="bg-white rounded-2xl overflow-hidden shadow-sm group border-2 border-brand-bg flex-shrink-0 snap-start" style="width:75vw; max-width:300px;">
+            <div class="aspect-[4/3] bg-brand-pale overflow-hidden">
+              <img src="assets/img/instagram4.jpeg" alt="オープン記念の写真" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="p-4">
+              <time class="text-xs text-textMuted mb-2 block font-round">2024.04.01</time>
+              <h3 class="font-bold text-sm text-charcoal line-clamp-2 font-round">尼崎市にsmile訪問看護ステーションがオープンしました。</h3>
             </div>
           </a>
         </div>

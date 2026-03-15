@@ -490,7 +490,7 @@
   }
 
   function brandLabel(className) {
-    return `<span class="${className}"><img class="sn-logo-mark" src="assets/img/smile訪問看護ステーション_logo.png" alt="" aria-hidden="true"><span class="sn-logo-text">smile訪問看護ステーション</span></span>`;
+    return `<span class="${className}"><img class="sn-logo-mark" src="assets/img/smile_logo.png" alt="" aria-hidden="true"><span class="sn-logo-text">smile訪問看護ステーション</span></span>`;
   }
 
   function caretIcon() {
