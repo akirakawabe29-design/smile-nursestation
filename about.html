@@ -47,7 +47,7 @@
 
     /* ── Hero (pattern / texture — no photo) ── */
     .about-hero {
-      position: relative; min-height: 100svh; overflow: hidden;
+      position: relative; min-height: 50svh; overflow: hidden;
       display: flex; align-items: center; justify-content: center;
       background: linear-gradient(170deg, #F8F0FC 0%, #ffffff 50%, #FBF6D0 100%);
     }
@@ -95,9 +95,8 @@
     @keyframes scroll-bounce { 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(8px); } }
     .scroll-indicator { animation: scroll-bounce 2s infinite; }
 
-    /* ── Mobile footer ── */
-    body { padding-bottom: 84px; }
-    @media (min-width: 768px) { body { padding-bottom: 0; } }
+    /* ── Mobile footer (shared layout is used) ── */
+    body { padding-bottom: 0; }
   </style>
 </head>
 <body class="font-sans text-charcoal bg-white antialiased selection:bg-brand selection:text-white overflow-x-hidden">
@@ -113,7 +112,8 @@
     <div class="relative z-10 text-center px-4 max-w-4xl mx-auto py-32">
       <p class="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase bg-brand/10 border border-brand/20 rounded-full px-4 py-1.5 text-brand-dark mb-6 js-fade-up">ABOUT US</p>
       <h1 class="font-rounded text-3xl md:text-5xl lg:text-6xl font-bold leading-tight text-charcoal mb-6 js-fade-up fade-delay-1">
-        1人1人の<span class="text-brand">「やりたい」</span>に<br>向き合う。<br class="md:hidden">それが、smileの約束です。
+        <span class="block whitespace-nowrap">1人1人の<span class="text-brand">「やりたい」</span>に向き合う。</span>
+        <span class="block whitespace-nowrap">それが、smileの約束です。</span>
       </h1>
       <p class="font-hand text-lg md:text-xl text-charcoal-light js-fade-up fade-delay-2">すべての人に、笑顔を届けたい。</p>
       <!-- Scroll indicator -->
@@ -302,7 +302,14 @@
 
       <!-- Map -->
       <div class="mt-8 rounded-3xl overflow-hidden shadow-lg js-fade-up">
-        <img src="assets/img/尼崎地図.png" alt="尼崎市周辺の対応エリアマップ" class="w-full aspect-[16/7] object-cover">
+        <iframe
+          title="smile訪問看護ステーション アクセスマップ"
+          src="https://maps.google.com/maps?q=%E5%85%B5%E5%BA%AB%E7%9C%8C%E5%B0%BC%E5%B4%8E%E5%B8%82%E5%8D%97%E5%A1%9A%E5%8F%A38%E4%B8%81%E7%9B%AE41-7%20%E5%8D%97%E5%A1%9A%E5%8F%A3%E3%83%8F%E3%82%A4%E3%83%84101%E5%8F%B7&z=16&output=embed"
+          class="w-full aspect-[16/7] border-0"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen>
+        </iframe>
       </div>
     </div>
   </section>
@@ -326,20 +333,6 @@
       </div>
     </div>
   </section>
-
-  <!-- ═══════════ MOBILE FOOTER BAR ═══════════ -->
-  <div class="md:hidden fixed bottom-0 left-0 w-full z-50 border-t border-brand-light/40 bg-white/95 backdrop-blur-sm">
-    <div class="grid grid-cols-2 gap-2 p-2">
-      <a href="tel:0649506402" class="flex items-center justify-center gap-2 rounded-xl bg-brand-bg text-brand-dark font-bold py-3 text-sm">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
-        電話する
-      </a>
-      <a href="contact.html" class="flex items-center justify-center gap-2 rounded-xl bg-brand text-white font-bold py-3 text-sm">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-        お問い合わせ
-      </a>
-    </div>
-  </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
