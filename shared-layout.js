@@ -89,10 +89,96 @@
       @media (min-width: 768px) { .sn-logo { font-size: 1.35rem; } }
       .sn-shared-header .sn-desktop-row { display: none; }
       .sn-desktop-nav { display: none; }
-      .sn-mobile-toggle { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 12px; border: 1px solid #e5e7eb; background: #fff; color: #374151; }
+      .sn-mobile-toggle {
+        display: inline-flex; flex-direction: column; align-items: center; justify-content: center;
+        width: 40px; height: 40px; gap: 0; padding: 0;
+        border: none; background: transparent; cursor: pointer; position: relative; z-index: 1000;
+      }
+      .sn-mobile-toggle span {
+        display: block; width: 22px; height: 2px; background: #374151;
+        border-radius: 2px; transition: transform .35s cubic-bezier(.4,0,.2,1), opacity .25s ease;
+        position: absolute; left: 9px;
+      }
+      .sn-mobile-toggle span:nth-child(1) { top: 13px; }
+      .sn-mobile-toggle span:nth-child(2) { top: 19px; }
+      .sn-mobile-toggle span:nth-child(3) { top: 25px; }
+      .sn-mobile.is-open .sn-mobile-toggle span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+      .sn-mobile.is-open .sn-mobile-toggle span:nth-child(2) { opacity: 0; }
+      .sn-mobile.is-open .sn-mobile-toggle span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+      .sn-mobile.is-open .sn-mobile-toggle span { background: #fff; }
+      .sn-shared-header.sn-menu-open {
+        background: transparent; backdrop-filter: none; box-shadow: none; border-bottom-color: transparent;
+      }
+      .sn-shared-header.sn-menu-open .sn-logo { color: #fff; }
+
+      /* ── Fullscreen overlay ── */
+      .sn-mobile-overlay {
+        position: fixed; inset: 0; z-index: 998;
+        background: linear-gradient(170deg, #2D2D3A 0%, #6B2FA0 40%, #9B4DCA 70%, #CB6CE6 100%);
+        opacity: 0; visibility: hidden;
+        transition: opacity .4s cubic-bezier(.4,0,.2,1), visibility .4s;
+        overflow-y: auto; -webkit-overflow-scrolling: touch;
+        padding: 90px 28px 40px;
+        display: flex; flex-direction: column;
+      }
+      .sn-mobile-overlay.is-active { opacity: 1; visibility: visible; }
+      .sn-mobile-nav-item {
+        opacity: 0; transform: translateY(20px);
+        transition: opacity .4s ease, transform .4s ease;
+      }
+      .sn-mobile-overlay.is-active .sn-mobile-nav-item { opacity: 1; transform: translateY(0); }
+      .sn-mobile-overlay.is-active .sn-mobile-nav-item:nth-child(1) { transition-delay: .06s; }
+      .sn-mobile-overlay.is-active .sn-mobile-nav-item:nth-child(2) { transition-delay: .12s; }
+      .sn-mobile-overlay.is-active .sn-mobile-nav-item:nth-child(3) { transition-delay: .18s; }
+      .sn-mobile-overlay.is-active .sn-mobile-nav-item:nth-child(4) { transition-delay: .24s; }
+      .sn-mobile-overlay.is-active .sn-mobile-nav-item:nth-child(5) { transition-delay: .30s; }
+      .sn-mobile-overlay.is-active .sn-mobile-nav-item:nth-child(6) { transition-delay: .36s; }
+      .sn-mobile-overlay.is-active .sn-mobile-nav-item:nth-child(7) { transition-delay: .42s; }
+      .sn-mobile-overlay.is-active .sn-mobile-nav-item:nth-child(8) { transition-delay: .48s; }
+
+      .sn-mobile-nav-links { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+      .sn-mobile-nav-link {
+        color: #fff; text-decoration: none; font-size: 1.35rem; font-weight: 600;
+        padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,.12);
+        transition: color .2s, padding-left .2s;
+        font-family: "M PLUS Rounded 1c", sans-serif;
+      }
+      .sn-mobile-nav-link:hover, .sn-mobile-nav-link:active { color: #F4DF2C; padding-left: 6px; }
+      .sn-mobile-nav-group-label {
+        font-size: .7rem; font-weight: 700; color: rgba(255,255,255,.45);
+        text-transform: uppercase; letter-spacing: .12em;
+        padding: 18px 0 4px; margin: 0;
+      }
+      .sn-mobile-nav-sub { display: flex; flex-direction: column; gap: 0; }
+      .sn-mobile-nav-sub a {
+        color: rgba(255,255,255,.85); text-decoration: none; font-size: 1.1rem; font-weight: 500;
+        padding: 10px 0 10px 16px; border-bottom: 1px solid rgba(255,255,255,.08);
+        transition: color .2s, padding-left .2s;
+      }
+      .sn-mobile-nav-sub a:hover { color: #F4DF2C; padding-left: 22px; }
+      .sn-mobile-cta-area { margin-top: 28px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.15); }
+      .sn-mobile-cta-btns {
+        display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+      }
+      .sn-mobile-cta-btns a {
+        display: flex; align-items: center; justify-content: center; gap: 8px;
+        padding: 14px 10px; border-radius: 14px; font-size: .9rem; font-weight: 700;
+        text-decoration: none; transition: transform .2s, box-shadow .2s;
+      }
+      .sn-mobile-cta-btns a:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.15); }
+      .sn-mobile-cta-btns svg { width: 18px; height: 18px; flex-shrink: 0; }
+      .sn-mobile-cta-phone {
+        background: rgba(255,255,255,.15); border: 1.5px solid rgba(255,255,255,.3); color: #fff;
+      }
+      .sn-mobile-cta-contact { background: #F4DF2C; color: #2D2D3A; }
+      .sn-mobile-info {
+        margin-top: 16px; color: rgba(255,255,255,.4); font-size: .72rem; line-height: 1.6;
+      }
+
       @media (min-width: 1280px) {
         .sn-shared-header .sn-mobile { display: none; }
         .sn-mobile-toggle { display: none; }
+        .sn-mobile-overlay { display: none; }
         .sn-shared-header .sn-desktop-row {
           display: flex;
           align-items: center;
@@ -172,36 +258,7 @@
       .sn-btn-contact { background: #CB6CE6; color: #fff; }
       .sn-btn-contact:hover { background: #b855d4; }
 
-      .sn-mobile-panel {
-        display: none;
-        border-top: 1px solid #f1f5f9;
-        background: rgba(255,255,255,.98);
-      }
-      .sn-mobile.is-open + .sn-mobile-panel { display: block; }
-      .sn-mobile-content { padding: 12px 0 14px; }
-      .sn-mobile-links, .sn-mobile-sub { display: grid; gap: 6px; }
-      .sn-mobile-links a, .sn-mobile-sub a {
-        color: #374151;
-        text-decoration: none;
-        padding: 10px 12px;
-        border-radius: 10px;
-      }
-      .sn-mobile-links a:hover, .sn-mobile-sub a:hover { background: #F3E8F9; }
-      .sn-mobile-group {
-        border: 1px solid #e5e7eb;
-        border-radius: 12px;
-        padding: 8px;
-        margin-bottom: 8px;
-        background: #fff;
-      }
-      .sn-mobile-group > div {
-        font-weight: 700;
-        color: #374151;
-        padding: 6px 8px 8px;
-        font-size: 13px;
-      }
-      .sn-mobile-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
-      .sn-mobile-btns .sn-btn { padding: 10px 12px; font-size: 13px; }
+      /* (mobile panel styles moved to fullscreen overlay above) */
 
       /* ── Footer ── */
       .sn-shared-footer {
@@ -461,24 +518,10 @@
           <div class="sn-row sn-mobile">
             <a href="index.html" class="sn-logo">${brandLabel('sn-brand-label')}</a>
             <button class="sn-mobile-toggle" type="button" aria-expanded="false" aria-label="メニューを開く" data-sn-toggle>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+              <span></span><span></span><span></span>
             </button>
           </div>
-          <div class="sn-mobile-panel" data-sn-mobile-panel>
-            <div class="sn-mobile-content">
-              <div class="sn-mobile-links">
-                <div class="sn-mobile-group"><div>私たちについて</div><div class="sn-mobile-sub"><a href="about.html">about us</a><a href="diary.html">smileダイアリー</a></div></div>
-                <a href="service.html">サービス内容</a>
-                <div class="sn-mobile-group"><div>ご利用者の方へ</div><div class="sn-mobile-sub"><a href="users.html">初めての方</a><a href="flow.html">ご利用のながれ</a><a href="faq.html">よくあるご質問</a><a href="user-feedback.html">ご利用者様の声</a></div></div>
-              </div>
-              <div class="sn-mobile-btns">
-                <a class="sn-btn sn-btn-recruit" href="recruit.html">採用情報</a>
-                <a class="sn-btn sn-btn-medical" href="medical-institutions.html">医療機関の方</a>
-                <a class="sn-btn sn-btn-users" href="users.html">ご利用者の方</a>
-                <a class="sn-btn sn-btn-contact" href="contact.html">お問い合わせ</a>
-              </div>
-            </div>
-          </div>
+          <!-- mobile overlay injected separately into body -->
           <div class="sn-row sn-desktop-row">
             <a href="index.html" class="sn-logo">${brandLabel('sn-brand-label')}</a>
             <nav class="sn-desktop-nav" aria-label="グローバルメニュー">
@@ -587,6 +630,36 @@
     `;
   }
 
+  function mobileOverlayHtml() {
+    return `
+      <div class="sn-mobile-overlay" data-sn-mobile-overlay>
+        <nav class="sn-mobile-nav-links" aria-label="モバイルメニュー">
+          <div class="sn-mobile-nav-item"><p class="sn-mobile-nav-group-label">私たちについて</p></div>
+          <div class="sn-mobile-nav-item"><a href="about.html" class="sn-mobile-nav-link">about us</a></div>
+          <div class="sn-mobile-nav-item"><a href="diary.html" class="sn-mobile-nav-link">smileダイアリー</a></div>
+          <div class="sn-mobile-nav-item"><a href="service.html" class="sn-mobile-nav-link">サービス内容</a></div>
+          <div class="sn-mobile-nav-item"><p class="sn-mobile-nav-group-label">ご利用者の方へ</p></div>
+          <div class="sn-mobile-nav-item sn-mobile-nav-sub"><a href="users.html">初めての方</a><a href="flow.html">ご利用のながれ</a><a href="faq.html">よくあるご質問</a><a href="user-feedback.html">ご利用者様の声</a></div>
+          <div class="sn-mobile-nav-item"><a href="recruit.html" class="sn-mobile-nav-link">採用情報</a></div>
+          <div class="sn-mobile-nav-item"><a href="medical-institutions.html" class="sn-mobile-nav-link">医療機関の方</a></div>
+        </nav>
+        <div class="sn-mobile-nav-item sn-mobile-cta-area">
+          <div class="sn-mobile-cta-btns">
+            <a href="tel:0649506402" class="sn-mobile-cta-phone">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+              電話する
+            </a>
+            <a href="contact.html" class="sn-mobile-cta-contact">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              お問い合わせ
+            </a>
+          </div>
+          <p class="sn-mobile-info">株式会社smile｜〒661-0012 兵庫県尼崎市南塚口8丁目41-7<br>TEL 06-4950-6402</p>
+        </div>
+      </div>
+    `;
+  }
+
   function replaceHeader() {
     const header = Array.from(document.body.children).find((el) => el.tagName === 'HEADER');
     const wrapper = document.createElement('div');
@@ -597,6 +670,10 @@
     } else {
       document.body.insertBefore(shared, document.body.firstChild);
     }
+    // Inject mobile overlay as direct child of body (outside header to avoid stacking context issues)
+    const overlayWrapper = document.createElement('div');
+    overlayWrapper.innerHTML = mobileOverlayHtml().trim();
+    document.body.insertBefore(overlayWrapper.firstElementChild, shared.nextSibling);
   }
 
   function replaceFooter() {
@@ -616,10 +693,37 @@
   function initMobileMenu() {
     const btn = document.querySelector('[data-sn-toggle]');
     const root = document.querySelector('.sn-mobile');
-    if (!btn || !root) return;
+    const header = document.querySelector('.sn-shared-header');
+    const overlay = document.querySelector('[data-sn-mobile-overlay]');
+    if (!btn || !root || !overlay || !header) return;
+
+    function openMenu() {
+      root.classList.add('is-open');
+      header.classList.add('sn-menu-open');
+      overlay.classList.add('is-active');
+      btn.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMenu() {
+      root.classList.remove('is-open');
+      header.classList.remove('sn-menu-open');
+      overlay.classList.remove('is-active');
+      btn.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
     btn.addEventListener('click', function () {
-      const open = root.classList.toggle('is-open');
-      btn.setAttribute('aria-expanded', String(open));
+      root.classList.contains('is-open') ? closeMenu() : openMenu();
+    });
+
+    // Close on ESC
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && root.classList.contains('is-open')) closeMenu();
+    });
+
+    // Close when clicking a nav link
+    overlay.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () { closeMenu(); });
     });
   }
 
