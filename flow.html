@@ -11,12 +11,13 @@
       theme: {
         extend: {
           colors: {
-            smileOrange: '#F97316',
-            smileCoral: '#FF8A65',
-            smileYellow: '#FEF08A',
-            bgSoft: '#FFFBF7',
-            textMain: '#374151',
-            textMuted: '#6B7280'
+            smileOrange: '#CB6CE6',
+            smileCoral: '#F4DF2C',
+            smileGreen: '#9B4DCA',
+            smileYellow: '#FDF6B8',
+            bgSoft: '#FDFBFF',
+            textMain: '#2D2D3A',
+            textMuted: '#5A5A68'
           },
           fontFamily: {
             sans: ['"Noto Sans JP"', 'sans-serif'],
@@ -39,6 +40,34 @@
       transform: translateY(0);
     }
 
+    .flow-page {
+      background:
+        radial-gradient(circle at 10% 12%, rgba(203,108,230,.14), transparent 36%),
+        radial-gradient(circle at 88% 88%, rgba(244,223,44,.14), transparent 32%),
+        linear-gradient(180deg, #FDFBFF 0%, #F7F2FA 55%, #F4F4ED 100%);
+    }
+    .comic-dots {
+      position: relative;
+      overflow: hidden;
+    }
+    .comic-dots::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image: radial-gradient(circle, rgba(203,108,230,.14) 1.2px, transparent 1.5px);
+      background-size: 15px 15px;
+      mask-image: linear-gradient(135deg, #000 0%, rgba(0,0,0,.42) 42%, transparent 76%);
+      z-index: 0;
+    }
+    .comic-dots > * { position: relative; z-index: 1; }
+    .hand-accent {
+      font-family: "M PLUS Rounded 1c", sans-serif;
+      color: #9B4DCA;
+      letter-spacing: .05em;
+      font-weight: 700;
+    }
+
     /* タイムラインの縦線 */
     .timeline-container::before {
       content: '';
@@ -47,7 +76,7 @@
       bottom: 0;
       left: 24px; /* SPでの線の位置 */
       width: 4px;
-      background: #FFEDD5; /* 薄いオレンジ */
+      background: #E8D4F5;
       border-radius: 2px;
       z-index: 0;
     }
@@ -62,18 +91,19 @@
     @media (min-width: 768px) { body { padding-bottom: 0; } }
   </style>
 </head>
-<body class="font-sans text-textMain bg-bgSoft antialiased selection:bg-smileCoral selection:text-white">
+<body class="flow-page font-sans text-textMain bg-bgSoft antialiased selection:bg-smileCoral selection:text-white">
 
-  <section class="pt-32 pb-12 bg-white border-b border-orange-50 relative overflow-hidden">
+  <section class="comic-dots pt-32 pb-12 bg-white border-b border-purple-100 relative overflow-hidden">
     <div class="max-w-3xl mx-auto px-4 text-center relative z-10 js-fade-up">
-      <h1 class="font-rounded text-3xl md:text-4xl font-bold text-gray-800 mb-6 flex items-center justify-center gap-2">
+      <h1 class="font-rounded text-3xl md:text-4xl font-bold text-textMain mb-6 flex items-center justify-center gap-2">
         <svg class="w-8 h-8 text-smileOrange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
         ご利用までの流れ
       </h1>
-      <div class="bg-orange-50 p-6 md:p-8 rounded-3xl shadow-sm text-left md:text-center border border-orange-100">
+      <p class="hand-accent text-sm md:text-base mb-3">FLOW GUIDE</p>
+      <div class="bg-purple-50 p-6 md:p-8 rounded-3xl shadow-sm text-left md:text-center border border-purple-100">
         <p class="text-textMuted leading-loose text-sm md:text-base font-medium">
           訪問看護サービスを開始するまでの基本的なステップです。<br>
-          <strong class="text-smileCoral">「訪問看護を利用できるのかわからない」「まずは話だけ聞いてみたい」</strong>という段階でも構いませんので、どうぞお気軽にご相談ください。
+          <strong class="text-smileOrange">「訪問看護を利用できるのかわからない」「まずは話だけ聞いてみたい」</strong>という段階でも構いませんので、どうぞお気軽にご相談ください。
         </p>
       </div>
     </div>
@@ -86,18 +116,18 @@
         <div class="absolute left-0 md:left-2 top-0 md:top-2 w-12 h-12 md:w-16 md:h-16 bg-smileOrange rounded-full border-4 border-bgSoft flex items-center justify-center shadow-md z-10 text-white font-rounded font-bold text-xl md:text-2xl">
           1
         </div>
-        <div class="bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow relative overflow-hidden group">
-          <div class="absolute top-0 right-0 w-24 h-24 bg-orange-50 rounded-bl-full -z-10 transition-transform group-hover:scale-110"></div>
-          <h2 class="font-bold text-xl md:text-2xl text-gray-800 mb-4 flex items-center gap-2">
+        <div class="comic-dots bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-purple-100 hover:shadow-md transition-shadow relative overflow-hidden group">
+          <div class="absolute top-0 right-0 w-24 h-24 bg-purple-50 rounded-bl-full -z-10 transition-transform group-hover:scale-110"></div>
+          <h2 class="font-bold text-xl md:text-2xl text-textMain mb-4 flex items-center gap-2">
             ご相談・お問い合わせ
           </h2>
           <p class="text-textMuted text-sm md:text-base leading-relaxed mb-6">
             まずは、お電話にてお気軽にご連絡ください。<br>
             ご本人様やご家族様からの直接のご相談はもちろん、担当のケアマネジャー様や、かかりつけの医療機関（病院・クリニック）の相談室を通じてご連絡いただくことも可能です。
           </p>
-          <div class="bg-orange-50/50 p-4 rounded-2xl border border-orange-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="bg-purple-50/50 p-4 rounded-2xl border border-purple-100 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div class="text-center sm:text-left">
-              <p class="text-xs font-bold text-gray-500 mb-1">お電話でのご相談</p>
+              <p class="text-xs font-bold text-textMuted mb-1">お電話でのご相談</p>
               <p class="text-2xl md:text-3xl font-bold text-smileOrange font-sans tracking-wider">06-4950-6402</p>
             </div>
             <a href="tel:0649506402" class="w-full sm:w-auto bg-white text-smileOrange border border-smileOrange font-bold py-3 px-6 rounded-full shadow-sm hover:bg-smileOrange hover:text-white transition-colors text-center text-sm">
@@ -108,44 +138,44 @@
       </li>
 
       <li class="relative pl-16 md:pl-24 js-fade-up" style="transition-delay: 100ms;">
-        <div class="absolute left-0 md:left-2 top-0 md:top-2 w-12 h-12 md:w-16 md:h-16 bg-smileCoral rounded-full border-4 border-bgSoft flex items-center justify-center shadow-md z-10 text-white font-rounded font-bold text-xl md:text-2xl">
+        <div class="absolute left-0 md:left-2 top-0 md:top-2 w-12 h-12 md:w-16 md:h-16 bg-smileCoral rounded-full border-4 border-bgSoft flex items-center justify-center shadow-md z-10 text-gray-800 font-rounded font-bold text-xl md:text-2xl">
           2
         </div>
-        <div class="bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow relative overflow-hidden group">
-          <div class="absolute top-0 right-0 w-24 h-24 bg-red-50 rounded-bl-full -z-10 transition-transform group-hover:scale-110"></div>
-          <h2 class="font-bold text-xl md:text-2xl text-gray-800 mb-4 flex items-center gap-2">
+        <div class="comic-dots bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-yellow-200 hover:shadow-md transition-shadow relative overflow-hidden group">
+          <div class="absolute top-0 right-0 w-24 h-24 bg-yellow-50 rounded-bl-full -z-10 transition-transform group-hover:scale-110"></div>
+          <h2 class="font-bold text-xl md:text-2xl text-textMain mb-4 flex items-center gap-2">
             かかりつけ医（主治医）への確認
           </h2>
           <p class="text-textMuted text-sm md:text-base leading-relaxed">
-            訪問看護をご利用いただくには、かかりつけ医から発行される<strong class="text-smileCoral bg-orange-50 px-2 py-0.5 rounded mx-1">「訪問看護指示書」</strong>が必要となります。<br><br>
+            訪問看護をご利用いただくには、かかりつけ医から発行される<strong class="text-smileOrange bg-purple-50 px-2 py-0.5 rounded mx-1">「訪問看護指示書」</strong>が必要となります。<br><br>
             ステーションから主治医へ連絡を取り、指示書の発行を依頼するサポートも行いますのでご安心ください。
           </p>
         </div>
       </li>
 
       <li class="relative pl-16 md:pl-24 js-fade-up" style="transition-delay: 100ms;">
-        <div class="absolute left-0 md:left-2 top-0 md:top-2 w-12 h-12 md:w-16 md:h-16 bg-smileYellow text-orange-600 rounded-full border-4 border-bgSoft flex items-center justify-center shadow-md z-10 font-rounded font-bold text-xl md:text-2xl">
+        <div class="absolute left-0 md:left-2 top-0 md:top-2 w-12 h-12 md:w-16 md:h-16 bg-purple-200 text-purple-700 rounded-full border-4 border-bgSoft flex items-center justify-center shadow-md z-10 font-rounded font-bold text-xl md:text-2xl">
           3
         </div>
-        <div class="bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow relative overflow-hidden group">
-          <div class="absolute top-0 right-0 w-24 h-24 bg-yellow-50 rounded-bl-full -z-10 transition-transform group-hover:scale-110"></div>
-          <h2 class="font-bold text-xl md:text-2xl text-gray-800 mb-4 flex items-center gap-2">
+        <div class="comic-dots bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-purple-100 hover:shadow-md transition-shadow relative overflow-hidden group">
+          <div class="absolute top-0 right-0 w-24 h-24 bg-purple-50 rounded-bl-full -z-10 transition-transform group-hover:scale-110"></div>
+          <h2 class="font-bold text-xl md:text-2xl text-textMain mb-4 flex items-center gap-2">
             事前面談・ご説明
           </h2>
           <p class="text-textMuted text-sm md:text-base leading-relaxed">
-            ご自宅や病院などにスタッフが伺い（またはお電話にて）、現在の健康状態やお困りごと、<strong class="text-gray-800">「これからどう過ごしていきたいか」</strong>を丁寧にお聞きします。<br><br>
+            ご自宅や病院などにスタッフが伺い（またはお電話にて）、現在の健康状態やお困りごと、<strong class="text-textMain">「これからどう過ごしていきたいか」</strong>を丁寧にお聞きします。<br><br>
             その上で、当ステーションで提供できるサービス内容や、ご利用料金についてわかりやすくご説明いたします。
           </p>
         </div>
       </li>
 
       <li class="relative pl-16 md:pl-24 js-fade-up" style="transition-delay: 100ms;">
-        <div class="absolute left-0 md:left-2 top-0 md:top-2 w-12 h-12 md:w-16 md:h-16 bg-teal-400 rounded-full border-4 border-bgSoft flex items-center justify-center shadow-md z-10 text-white font-rounded font-bold text-xl md:text-2xl">
+        <div class="absolute left-0 md:left-2 top-0 md:top-2 w-12 h-12 md:w-16 md:h-16 bg-smileYellow rounded-full border-4 border-bgSoft flex items-center justify-center shadow-md z-10 text-purple-700 font-rounded font-bold text-xl md:text-2xl">
           4
         </div>
-        <div class="bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow relative overflow-hidden group">
-          <div class="absolute top-0 right-0 w-24 h-24 bg-teal-50 rounded-bl-full -z-10 transition-transform group-hover:scale-110"></div>
-          <h2 class="font-bold text-xl md:text-2xl text-gray-800 mb-4 flex items-center gap-2">
+        <div class="comic-dots bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-yellow-200 hover:shadow-md transition-shadow relative overflow-hidden group">
+          <div class="absolute top-0 right-0 w-24 h-24 bg-yellow-50 rounded-bl-full -z-10 transition-transform group-hover:scale-110"></div>
+          <h2 class="font-bold text-xl md:text-2xl text-textMain mb-4 flex items-center gap-2">
             ご契約・ケアプランの作成
           </h2>
           <p class="text-textMuted text-sm md:text-base leading-relaxed">
@@ -159,8 +189,8 @@
         <div class="absolute left-0 md:left-2 top-0 md:top-2 w-12 h-12 md:w-16 md:h-16 bg-smileGreen rounded-full border-4 border-bgSoft flex items-center justify-center shadow-md z-10 text-white font-rounded font-bold text-xl md:text-2xl">
           5
         </div>
-        <div class="bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-smileGreen/30 border-b-4 hover:shadow-md transition-shadow relative overflow-hidden group">
-          <div class="absolute top-0 right-0 w-24 h-24 bg-green-50 rounded-bl-full -z-10 transition-transform group-hover:scale-110"></div>
+        <div class="comic-dots bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-purple-200 border-b-4 hover:shadow-md transition-shadow relative overflow-hidden group">
+          <div class="absolute top-0 right-0 w-24 h-24 bg-purple-50 rounded-bl-full -z-10 transition-transform group-hover:scale-110"></div>
           <h2 class="font-bold text-xl md:text-2xl text-smileGreen mb-4 flex items-center gap-2">
             訪問看護サービスの開始
           </h2>
@@ -175,16 +205,16 @@
   </main>
 
   <section class="pb-24 px-4 js-fade-up">
-    <div class="max-w-3xl mx-auto bg-gradient-to-br from-orange-50 to-pink-50 rounded-3xl p-8 md:p-12 text-center shadow-sm border border-orange-100">
-      <h3 class="font-rounded text-xl md:text-2xl font-bold text-gray-800 mb-4">わからないことがあれば、<br class="md:hidden">いつでもご連絡ください</h3>
+    <div class="comic-dots max-w-3xl mx-auto bg-gradient-to-br from-purple-50 to-yellow-50 rounded-3xl p-8 md:p-12 text-center shadow-sm border border-purple-100">
+      <h3 class="font-rounded text-xl md:text-2xl font-bold text-textMain mb-4">わからないことがあれば、<br class="md:hidden">いつでもご連絡ください</h3>
       <p class="text-sm md:text-base text-textMuted mb-8">
         お問い合わせフォームからのご相談も24時間受け付けております。
       </p>
       <div class="flex flex-col sm:flex-row justify-center gap-4">
-        <a href="contact.html" class="bg-smileCoral text-white font-bold py-4 px-8 rounded-full shadow-md hover:bg-orange-600 transition-transform hover:-translate-y-1">
+        <a href="contact.html" class="bg-smileOrange text-white font-bold py-4 px-8 rounded-full shadow-md hover:bg-purple-700 transition-transform hover:-translate-y-1">
           お問い合わせフォームへ
         </a>
-        <a href="faq.html" class="bg-white text-gray-700 font-bold py-4 px-8 rounded-full shadow-sm border border-gray-200 hover:bg-gray-50 transition-colors">
+        <a href="faq.html" class="bg-white text-textMain font-bold py-4 px-8 rounded-full shadow-sm border border-purple-100 hover:bg-purple-50 transition-colors">
           よくあるご質問（Q&A）を見る
         </a>
       </div>

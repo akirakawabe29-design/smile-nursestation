@@ -11,11 +11,13 @@
       theme: {
         extend: {
           colors: {
-            smileOrange: '#F97316',
-            smileCoral: '#FF8A65',
-            bgSoft: '#FFF9F5',
-            textMain: '#374151',
-            textMuted: '#6B7280',
+            smileOrange: '#CB6CE6',
+            smileCoral: '#F4DF2C',
+            smileGreen: '#9B4DCA',
+            smileYellow: '#FDF6B8',
+            bgSoft: '#FDFBFF',
+            textMain: '#2D2D3A',
+            textMuted: '#5A5A68',
             errorRed: '#EF4444'
           },
           fontFamily: {
@@ -33,9 +35,9 @@
     }
     /* カスタムラジオボタン/チェックボックスのスタイル */
     .custom-radio:checked + div {
-      background-color: #FFF3E0;
-      border-color: #FF8A65;
-      color: #F97316;
+      background-color: #F3E8F9;
+      border-color: #CB6CE6;
+      color: #CB6CE6;
       font-weight: bold;
     }
     .js-fade-up {
@@ -48,31 +50,52 @@
       opacity: 1;
       transform: translateY(0);
     }
+    .entry-page {
+      background:
+        radial-gradient(circle at 10% 12%, rgba(203,108,230,.14), transparent 36%),
+        radial-gradient(circle at 88% 88%, rgba(244,223,44,.14), transparent 32%),
+        linear-gradient(180deg, #FDFBFF 0%, #F7F2FA 55%, #F4F4ED 100%);
+    }
+    .comic-dots {
+      position: relative;
+      overflow: hidden;
+    }
+    .comic-dots::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image: radial-gradient(circle, rgba(203,108,230,.14) 1.2px, transparent 1.5px);
+      background-size: 15px 15px;
+      mask-image: linear-gradient(135deg, #000 0%, rgba(0,0,0,.42) 42%, transparent 76%);
+      z-index: 0;
+    }
+    .comic-dots > * { position: relative; z-index: 1; }
   </style>
 </head>
-<body class="font-sans text-textMain bg-bgSoft antialiased selection:bg-smileCoral selection:text-white pb-20 md:pb-0">
+<body class="entry-page font-sans text-textMain bg-bgSoft antialiased selection:bg-smileOrange selection:text-white pb-20 md:pb-0">
 
   <main class="py-12 px-4 relative z-10">
     <div class="max-w-2xl mx-auto js-fade-up">
       <div class="text-center mb-10">
-        <h1 class="font-rounded text-2xl md:text-3xl font-bold text-gray-800 mb-4">エントリー・見学お申し込み</h1>
+        <h1 class="font-rounded text-2xl md:text-3xl font-bold text-textMain mb-4">エントリー・見学お申し込み</h1>
         <p class="text-textMuted text-sm md:text-base leading-relaxed">
           まずは少し話を聞いてみたい、という方も大歓迎です。<br>
           以下のフォームに必要事項をご入力の上、送信してください。
         </p>
       </div>
 
-      <div class="bg-white p-6 md:p-10 rounded-3xl shadow-sm border border-orange-50 relative overflow-hidden">
-        <div id="success-message" class="hidden absolute inset-0 bg-white z-20 flex flex-col items-center justify-center text-center p-6">
-          <div class="w-16 h-16 bg-green-100 text-green-500 rounded-full flex items-center justify-center mb-4">
+      <div class="comic-dots bg-white p-6 md:p-10 rounded-3xl shadow-sm border border-purple-100 relative overflow-hidden">
+        <div id="success-message" class="hidden absolute inset-0 bg-white/95 backdrop-blur-sm z-20 flex flex-col items-center justify-center text-center p-6">
+          <div class="w-16 h-16 bg-purple-100 text-smileOrange border border-purple-200 rounded-full flex items-center justify-center mb-4 shadow-sm">
             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
           </div>
-          <h2 class="text-2xl font-bold text-gray-800 mb-2">送信が完了しました</h2>
-          <p class="text-textMuted mb-8">
+          <h2 class="text-2xl font-bold text-textMain mb-2">送信が完了しました</h2>
+          <p class="text-textMuted mb-8 max-w-md leading-relaxed">
             お問い合わせありがとうございます。<br>
             内容を確認次第、担当者よりご連絡させていただきます。
           </p>
-          <button onclick="location.reload()" class="bg-smileOrange text-white font-bold py-3 px-8 rounded-full shadow-sm hover:bg-orange-600 transition-colors">
+          <button onclick="location.reload()" class="bg-smileOrange text-white font-bold py-3 px-8 rounded-full shadow-sm hover:bg-purple-700 transition-colors">
             新しく入力する
           </button>
         </div>
@@ -80,53 +103,53 @@
         <form id="entry-form" class="space-y-8" novalidate>
           
           <div>
-            <label class="block font-bold text-gray-800 mb-3">
-              お問い合わせの目的 <span class="bg-smileCoral text-white text-xs px-2 py-1 rounded ml-2">必須</span>
+            <label class="block font-bold text-textMain mb-3">
+              お問い合わせの目的 <span class="bg-smileOrange text-white text-xs px-2 py-1 rounded ml-2">必須</span>
             </label>
             <div class="grid grid-cols-2 gap-3">
               <label class="cursor-pointer relative">
                 <input type="radio" name="purpose" value="エントリー（面接希望）" class="custom-radio sr-only" required>
-                <div class="border-2 border-gray-200 rounded-xl p-4 text-center transition-all hover:bg-orange-50 text-sm md:text-base">
-                  エントリー<br><span class="text-xs text-gray-500 font-normal">（面接を希望する）</span>
+                <div class="border-2 border-purple-100 rounded-xl p-4 text-center transition-all hover:bg-purple-50 text-sm md:text-base">
+                  エントリー<br><span class="text-xs text-textMuted font-normal">（面接を希望する）</span>
                 </div>
               </label>
               <label class="cursor-pointer relative">
                 <input type="radio" name="purpose" value="見学・話を聞きたい" class="custom-radio sr-only">
-                <div class="border-2 border-gray-200 rounded-xl p-4 text-center transition-all hover:bg-orange-50 text-sm md:text-base">
-                  見学・相談<br><span class="text-xs text-gray-500 font-normal">（まずは話を聞きたい）</span>
+                <div class="border-2 border-purple-100 rounded-xl p-4 text-center transition-all hover:bg-purple-50 text-sm md:text-base">
+                  見学・相談<br><span class="text-xs text-textMuted font-normal">（まずは話を聞きたい）</span>
                 </div>
               </label>
             </div>
           </div>
 
           <div>
-            <label for="name" class="block font-bold text-gray-800 mb-2">
-              お名前 <span class="bg-smileCoral text-white text-xs px-2 py-1 rounded ml-2">必須</span>
+            <label for="name" class="block font-bold text-textMain mb-2">
+              お名前 <span class="bg-smileOrange text-white text-xs px-2 py-1 rounded ml-2">必須</span>
             </label>
             <input type="text" id="name" name="name" placeholder="例：尼崎 笑顔" required
-              class="form-input w-full bg-gray-50 border border-gray-200 text-gray-800 rounded-xl p-4 focus:outline-none focus:border-smileCoral focus:ring-2 focus:ring-smileCoral/20 focus:bg-white text-base">
+              class="form-input w-full bg-purple-50/40 border border-purple-100 text-textMain rounded-xl p-4 focus:outline-none focus:border-smileOrange focus:ring-2 focus:ring-smileOrange/20 focus:bg-white text-base">
             <p class="text-errorRed text-xs mt-1 hidden js-error-msg">お名前を入力してください。</p>
           </div>
 
           <div>
-            <label class="block font-bold text-gray-800 mb-3">
-              保有資格・希望職種 <span class="bg-gray-400 text-white text-xs px-2 py-1 rounded ml-2">任意</span>
+            <label class="block font-bold text-textMain mb-3">
+              保有資格・希望職種 <span class="bg-purple-200 text-purple-900 text-xs px-2 py-1 rounded ml-2">任意</span>
             </label>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-              <label class="flex items-center gap-2 p-3 border border-gray-200 rounded-xl cursor-pointer hover:bg-gray-50 transition-colors">
-                <input type="checkbox" name="job_type" value="看護師" class="w-4 h-4 text-smileCoral border-gray-300 rounded focus:ring-smileCoral">
+              <label class="flex items-center gap-2 p-3 border border-purple-100 rounded-xl cursor-pointer hover:bg-purple-50 transition-colors">
+                <input type="checkbox" name="job_type" value="看護師" class="w-4 h-4 text-smileOrange border-purple-200 rounded focus:ring-smileOrange">
                 <span class="text-sm">看護師</span>
               </label>
-              <label class="flex items-center gap-2 p-3 border border-gray-200 rounded-xl cursor-pointer hover:bg-gray-50 transition-colors">
-                <input type="checkbox" name="job_type" value="准看護師" class="w-4 h-4 text-smileCoral border-gray-300 rounded focus:ring-smileCoral">
+              <label class="flex items-center gap-2 p-3 border border-purple-100 rounded-xl cursor-pointer hover:bg-purple-50 transition-colors">
+                <input type="checkbox" name="job_type" value="准看護師" class="w-4 h-4 text-smileOrange border-purple-200 rounded focus:ring-smileOrange">
                 <span class="text-sm">准看護師</span>
               </label>
-              <label class="flex items-center gap-2 p-3 border border-gray-200 rounded-xl cursor-pointer hover:bg-gray-50 transition-colors">
-                <input type="checkbox" name="job_type" value="理学療法士" class="w-4 h-4 text-smileCoral border-gray-300 rounded focus:ring-smileCoral">
+              <label class="flex items-center gap-2 p-3 border border-purple-100 rounded-xl cursor-pointer hover:bg-purple-50 transition-colors">
+                <input type="checkbox" name="job_type" value="理学療法士" class="w-4 h-4 text-smileOrange border-purple-200 rounded focus:ring-smileOrange">
                 <span class="text-sm">理学療法士</span>
               </label>
-              <label class="flex items-center gap-2 p-3 border border-gray-200 rounded-xl cursor-pointer hover:bg-gray-50 transition-colors">
-                <input type="checkbox" name="job_type" value="作業療法士" class="w-4 h-4 text-smileCoral border-gray-300 rounded focus:ring-smileCoral">
+              <label class="flex items-center gap-2 p-3 border border-purple-100 rounded-xl cursor-pointer hover:bg-purple-50 transition-colors">
+                <input type="checkbox" name="job_type" value="作業療法士" class="w-4 h-4 text-smileOrange border-purple-200 rounded focus:ring-smileOrange">
                 <span class="text-sm">作業療法士</span>
               </label>
             </div>
@@ -134,38 +157,38 @@
 
           <div class="grid md:grid-cols-2 gap-8 md:gap-4">
             <div>
-              <label for="tel" class="block font-bold text-gray-800 mb-2">
-                電話番号 <span class="bg-smileCoral text-white text-xs px-2 py-1 rounded ml-2">必須</span>
+              <label for="tel" class="block font-bold text-textMain mb-2">
+                電話番号 <span class="bg-smileOrange text-white text-xs px-2 py-1 rounded ml-2">必須</span>
               </label>
               <input type="tel" id="tel" name="tel" placeholder="例：090-1234-5678" required
-                class="form-input w-full bg-gray-50 border border-gray-200 text-gray-800 rounded-xl p-4 focus:outline-none focus:border-smileCoral focus:ring-2 focus:ring-smileCoral/20 focus:bg-white text-base">
+                class="form-input w-full bg-purple-50/40 border border-purple-100 text-textMain rounded-xl p-4 focus:outline-none focus:border-smileOrange focus:ring-2 focus:ring-smileOrange/20 focus:bg-white text-base">
               <p class="text-errorRed text-xs mt-1 hidden js-error-msg">電話番号を入力してください。</p>
             </div>
             <div>
-              <label for="email" class="block font-bold text-gray-800 mb-2">
-                メールアドレス <span class="bg-smileCoral text-white text-xs px-2 py-1 rounded ml-2">必須</span>
+              <label for="email" class="block font-bold text-textMain mb-2">
+                メールアドレス <span class="bg-smileOrange text-white text-xs px-2 py-1 rounded ml-2">必須</span>
               </label>
               <input type="email" id="email" name="email" placeholder="例：mail@example.com" required
-                class="form-input w-full bg-gray-50 border border-gray-200 text-gray-800 rounded-xl p-4 focus:outline-none focus:border-smileCoral focus:ring-2 focus:ring-smileCoral/20 focus:bg-white text-base">
+                class="form-input w-full bg-purple-50/40 border border-purple-100 text-textMain rounded-xl p-4 focus:outline-none focus:border-smileOrange focus:ring-2 focus:ring-smileOrange/20 focus:bg-white text-base">
               <p class="text-errorRed text-xs mt-1 hidden js-error-msg">正しいメールアドレスを入力してください。</p>
             </div>
           </div>
 
           <div>
-            <label for="message" class="block font-bold text-gray-800 mb-2">
-              ご質問・ご要望など <span class="bg-gray-400 text-white text-xs px-2 py-1 rounded ml-2">任意</span>
+            <label for="message" class="block font-bold text-textMain mb-2">
+              ご質問・ご要望など <span class="bg-purple-200 text-purple-900 text-xs px-2 py-1 rounded ml-2">任意</span>
             </label>
             <p class="text-xs text-textMuted mb-2">「週3日からの勤務を希望したい」「子どものお迎えの時間まで働けるか知りたい」など、気になることがあればお気軽にご記入ください。</p>
             <textarea id="message" name="message" rows="4" placeholder="こちらにご記入ください"
-              class="form-input w-full bg-gray-50 border border-gray-200 text-gray-800 rounded-xl p-4 focus:outline-none focus:border-smileCoral focus:ring-2 focus:ring-smileCoral/20 focus:bg-white text-base resize-none"></textarea>
+              class="form-input w-full bg-purple-50/40 border border-purple-100 text-textMain rounded-xl p-4 focus:outline-none focus:border-smileOrange focus:ring-2 focus:ring-smileOrange/20 focus:bg-white text-base resize-none"></textarea>
           </div>
 
-          <div class="pt-6 border-t border-gray-100 text-center">
-            <button type="submit" id="submit-btn" class="w-full md:w-auto md:min-w-[300px] bg-smileCoral text-white font-bold text-lg py-4 px-8 rounded-full shadow-md hover:bg-orange-600 transition-all hover:-translate-y-1 focus:outline-none focus:ring-4 focus:ring-orange-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2 mx-auto">
+          <div class="pt-6 border-t border-purple-100 text-center">
+            <button type="submit" id="submit-btn" class="w-full md:w-auto md:min-w-[300px] bg-smileOrange text-white font-bold text-lg py-4 px-8 rounded-full shadow-md hover:bg-purple-700 transition-all hover:-translate-y-1 focus:outline-none focus:ring-4 focus:ring-purple-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2 mx-auto">
               <span>入力内容を送信する</span>
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
             </button>
-            <p class="text-xs text-gray-400 mt-4">※送信後、自動で担当者にメールが送られます。</p>
+            <p class="text-xs text-textMuted mt-4">※送信後、自動で担当者にメールが送られます。</p>
           </div>
         </form>
       </div>

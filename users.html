@@ -5,280 +5,356 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ご利用者様・ご家族の方へ | smile訪問看護ステーション</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&family=Zen+Kurenaido&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            smileOrange: '#F97316',
-            smileCoral: '#FF8A65',
-            smileGreen: '#14B8A6',
-            bgSoft: '#FFFBF7',
-            textMain: '#374151',
-            textMuted: '#6B7280'
+            brand: '#CB6CE6',
+            'brand-dark': '#9B4DCA',
+            'brand-light': '#DA9BEA',
+            'brand-bg': '#F3E8F9',
+            'brand-pale': '#F8F0FC',
+            accent: '#F4DF2C',
+            'accent-light': '#FBF6D0',
+            charcoal: '#2D2D3A',
+            'charcoal-light': '#6B6B7B',
           },
           fontFamily: {
             sans: ['"Noto Sans JP"', 'sans-serif'],
             rounded: ['"M PLUS Rounded 1c"', 'sans-serif'],
+            hand: ['"Zen Kurenaido"', 'sans-serif'],
           }
         }
       }
     }
   </script>
   <style>
-    .js-fade-up {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity .8s cubic-bezier(.25,1,.5,1), transform .8s cubic-bezier(.25,1,.5,1);
-      will-change: opacity, transform;
+    /* ── LP Header (old dark variant removed — using lp-header-light for this page) ── */
+
+    /* ── Animations ── */
+    .js-fade-up { opacity:0; transform:translateY(30px); transition:opacity .8s cubic-bezier(.25,1,.5,1), transform .8s cubic-bezier(.25,1,.5,1); will-change:opacity,transform; }
+    .js-fade-up.is-active { opacity:1; transform:translateY(0); }
+    .fade-delay-1 { transition-delay:.12s; }
+    .fade-delay-2 { transition-delay:.24s; }
+    .fade-delay-3 { transition-delay:.36s; }
+    .fade-delay-4 { transition-delay:.48s; }
+
+    /* ── Hero (gradient + illustrations — no photo) ── */
+    .user-hero {
+      position:relative; min-height:100svh; overflow:hidden; display:flex; align-items:center;
+      background: linear-gradient(150deg, #F3E8F9 0%, #E8D5F5 35%, #F8F0FC 65%, #FBF6D0 100%);
     }
-    .js-fade-up.is-active { opacity: 1; transform: translateY(0); }
-    body { padding-bottom: 84px; }
-    @media (min-width: 768px) { body { padding-bottom: 0; } }
+    .user-hero-illust {
+      position:absolute; pointer-events:none; opacity:.12;
+    }
+
+    /* ── LP Header (light hero variant) ── */
+    .sn-shared-header.lp-header-light {
+      background: transparent !important;
+      backdrop-filter: none !important;
+      box-shadow: none !important;
+      border-bottom: none !important;
+      transition: background .4s, backdrop-filter .4s, box-shadow .4s, border-color .4s;
+    }
+    .sn-shared-header.lp-header-light.is-scrolled {
+      background: rgba(255,255,255,.96) !important;
+      backdrop-filter: blur(12px) !important;
+      box-shadow: 0 1px 20px rgba(15,23,42,.08) !important;
+      border-bottom: 1px solid rgba(226,232,240,.6) !important;
+    }
+
+    /* ── Photo Section ── */
+    .photo-section { position:relative; overflow:hidden; }
+    .photo-section-bg { position:absolute; inset:0; background-size:cover; background-position:center; }
+    .photo-section-overlay { position:absolute; inset:0; }
+
+    /* ── Diagonal ── */
+    .diagonal-top { margin-top:-6vw; padding-top:calc(6vw + 3rem); clip-path:polygon(0 6vw,100% 0,100% 100%,0 100%); }
+    @media(min-width:768px) { .diagonal-top { margin-top:-4vw; padding-top:calc(4vw + 4rem); } }
+
+    /* ── Scroll indicator ── */
+    @keyframes scroll-bounce { 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(8px); } }
+    .scroll-indicator { animation:scroll-bounce 2s infinite; }
+
+    /* ── FAQ ── */
+    details summary { cursor:pointer; list-style:none; }
+    details summary::-webkit-details-marker { display:none; }
+
+    /* ── Mobile footer ── */
+    body { padding-bottom:84px; }
+    @media(min-width:768px) { body { padding-bottom:0; } }
   </style>
 </head>
-<body class="font-sans text-textMain bg-bgSoft antialiased selection:bg-smileCoral selection:text-white">
+<body class="font-sans text-charcoal bg-white antialiased selection:bg-brand selection:text-white overflow-x-hidden">
 
-  <main class="pt-20 md:pt-24">
-    <section class="relative min-h-[78svh] bg-gradient-to-br from-orange-50 via-rose-50 to-white overflow-hidden">
-      <div class="absolute inset-0 opacity-60">
-        <div class="absolute -top-12 -right-12 w-64 h-64 bg-orange-200 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-0 left-0 w-72 h-72 bg-teal-100 rounded-full blur-3xl"></div>
-      </div>
-      <div class="relative max-w-7xl mx-auto px-4 py-10 md:py-16 grid lg:grid-cols-[1.05fr_0.95fr] gap-8 items-center min-h-[78svh]">
-        <div class="js-fade-up">
-          <p class="inline-flex items-center gap-2 text-xs font-bold tracking-wide text-smileOrange bg-white/80 border border-orange-100 rounded-full px-3 py-1 mb-4">FOR USERS & FAMILIES</p>
-          <h1 class="font-rounded text-3xl md:text-5xl font-bold text-gray-800 leading-tight mb-5">
-            ご利用者様・ご家族の方へ
-          </h1>
-          <p class="font-rounded text-xl md:text-3xl font-bold text-smileOrange leading-relaxed mb-5">
-            「住み慣れたお家で、自分らしく暮らしたい」
-            <span class="block">その想いを、私たちがすぐ傍でサポートします。</span>
-          </p>
-          <div class="space-y-3 text-sm md:text-base text-textMuted leading-loose max-w-2xl">
-            <p>退院後のご自宅での生活や、日々の体調管理、ご家族の介護などに不安はありませんか？</p>
-            <p>smile訪問看護ステーションは、1人1人の「やりたい」にしっかりと向き合い、皆様が笑顔で毎日を過ごせるよう、専門的な知識と温かい心でお手伝いいたします。</p>
-            <p>「こんな小さなこと、相談してもいいのかな？」と思うようなことでも、どうぞお気軽にお声がけください。</p>
-          </div>
-          <div class="mt-6 flex flex-wrap gap-3">
-            <a href="contact.html" class="inline-flex items-center justify-center rounded-xl bg-smileOrange text-white font-bold px-5 py-3 hover:bg-orange-600 transition-colors">ご相談はこちら</a>
-            <a href="flow.html" class="inline-flex items-center justify-center rounded-xl border border-orange-200 bg-white text-smileOrange font-bold px-5 py-3 hover:bg-orange-50 transition-colors">ご利用のながれを見る</a>
-          </div>
+  <!-- ═══════════ HERO ═══════════ -->
+  <section class="user-hero">
+    <!-- Illustrative SVG decorations -->
+    <svg class="user-hero-illust w-[220px] md:w-[320px] top-12 right-[5%] md:right-[8%]" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="100" r="90" stroke="#CB6CE6" stroke-width="2.5" fill="none"/>
+      <path d="M70 110 C70 85 100 60 100 85 C100 60 130 85 130 110 C130 140 100 155 100 155 C100 155 70 140 70 110Z" fill="#CB6CE6" opacity=".35"/>
+    </svg>
+    <svg class="user-hero-illust w-[160px] md:w-[240px] bottom-16 left-[3%] md:left-[6%]" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="30" y="70" width="140" height="110" rx="12" stroke="#9B4DCA" stroke-width="2.5" fill="none"/>
+      <path d="M100 70 L100 40 L70 40 L70 70" stroke="#9B4DCA" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M85 70 V55" stroke="#9B4DCA" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="100" cy="125" r="8" fill="#9B4DCA" opacity=".3"/>
+    </svg>
+    <svg class="user-hero-illust w-[120px] md:w-[180px] top-[30%] left-[2%] md:left-[5%]" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="70" r="35" stroke="#CB6CE6" stroke-width="2.5" fill="none"/>
+      <path d="M55 170 C55 125 145 125 145 170" stroke="#CB6CE6" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <circle cx="60" cy="90" r="20" stroke="#DA9BEA" stroke-width="2" fill="none"/>
+      <circle cx="140" cy="90" r="20" stroke="#DA9BEA" stroke-width="2" fill="none"/>
+    </svg>
+    <svg class="user-hero-illust w-[100px] md:w-[150px] bottom-[25%] right-[3%] md:right-[10%]" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M100 30 L130 90 L190 100 L140 145 L155 200 L100 170 L45 200 L60 145 L10 100 L70 90Z" stroke="#F4DF2C" stroke-width="2.5" fill="#F4DF2C" opacity=".2"/>
+    </svg>
+    <!-- Decorative circles -->
+    <div class="absolute w-[300px] h-[300px] md:w-[450px] md:h-[450px] rounded-full bg-brand/[.05] -top-20 -right-20 pointer-events-none"></div>
+    <div class="absolute w-[200px] h-[200px] md:w-[300px] md:h-[300px] rounded-full bg-accent/[.07] bottom-10 -left-16 pointer-events-none"></div>
+
+    <div class="relative z-10 max-w-5xl mx-auto px-4 py-32 grid md:grid-cols-[1.1fr_0.9fr] gap-10 items-center">
+      <!-- Left -->
+      <div>
+        <p class="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase bg-brand/10 border border-brand/20 rounded-full px-4 py-1.5 text-brand-dark mb-6 js-fade-up">FOR USERS &amp; FAMILIES</p>
+        <h1 class="font-rounded text-3xl md:text-5xl font-bold text-charcoal leading-tight mb-5 js-fade-up fade-delay-1">
+          ご利用者様・<br>ご家族の方へ
+        </h1>
+        <p class="font-hand text-lg md:text-xl text-brand-dark mb-5 js-fade-up fade-delay-2">「住み慣れたお家で、自分らしく暮らしたい」<br>その想いを、私たちがすぐ傍でサポートします。</p>
+        <div class="space-y-3 text-charcoal-light text-sm md:text-base leading-loose max-w-lg js-fade-up fade-delay-3">
+          <p>退院後のご自宅での生活や、日々の体調管理、ご家族の介護などに不安はありませんか？</p>
+          <p>smile訪問看護ステーションは、1人1人の「やりたい」にしっかりと向き合い、皆様が笑顔で毎日を過ごせるよう、専門的な知識と温かい心でお手伝いいたします。</p>
         </div>
-
-        <div class="js-fade-up" style="transition-delay: 80ms;">
-          <div class="grid grid-cols-2 gap-3 md:gap-4">
-            <div class="col-span-2 aspect-[16/10] rounded-3xl overflow-hidden bg-white shadow-lg border border-orange-100">
-              <div class="w-full h-full bg-gradient-to-br from-orange-100 via-rose-50 to-white flex items-center justify-center p-6 text-center">
-                <div>
-                  <p class="text-xs font-bold text-smileOrange mb-2">HERO PHOTO</p>
-                  <p class="font-rounded text-lg md:text-xl font-bold text-gray-700">ご利用者様とスタッフの自然な会話シーン</p>
-                  <p class="text-xs text-textMuted mt-2">ここにメイン写真を配置（横長）</p>
-                </div>
-              </div>
-            </div>
-            <div class="aspect-square rounded-2xl overflow-hidden bg-white shadow-md border border-teal-100">
-              <div class="w-full h-full bg-gradient-to-br from-teal-50 to-cyan-50 flex items-center justify-center p-4 text-center text-xs text-textMuted">訪問準備・スタッフ写真</div>
-            </div>
-            <div class="aspect-square rounded-2xl overflow-hidden bg-white shadow-md border border-orange-100">
-              <div class="w-full h-full bg-gradient-to-br from-orange-50 to-amber-50 flex items-center justify-center p-4 text-center text-xs text-textMuted">ご家族との相談風景</div>
-            </div>
-          </div>
+        <div class="mt-8 flex flex-wrap gap-3 js-fade-up fade-delay-3">
+          <a href="contact.html" class="inline-flex items-center gap-2 bg-brand text-white font-bold font-rounded py-3.5 px-7 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all">ご相談はこちら</a>
+          <a href="#flow" class="inline-flex items-center gap-2 bg-white/70 border border-brand/20 text-charcoal font-bold py-3.5 px-7 rounded-full hover:bg-white transition-all">ご利用のながれを見る</a>
         </div>
       </div>
-    </section>
-
-    <section class="py-16 md:py-24 bg-white">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="text-center mb-10 js-fade-up">
-          <h2 class="font-rounded text-2xl md:text-4xl font-bold text-gray-800 mb-3">smileの3つの特徴</h2>
-          <p class="text-textMuted">写真とともに、私たちが大切にしていることをご紹介します。</p>
-        </div>
-      </div>
-
-      <div class="space-y-0">
-        <section class="border-y border-blue-100 bg-gradient-to-r from-blue-50 to-white">
-          <div class="max-w-7xl mx-auto px-4 py-10 md:py-16 grid md:grid-cols-2 gap-8 items-center">
-            <div class="order-2 md:order-1 js-fade-up">
-              <p class="text-xs font-bold text-blue-700 mb-2">FEATURE 01</p>
-              <h3 class="font-rounded text-2xl md:text-3xl font-bold text-gray-800 leading-snug mb-4">尼崎市ではめずらしい「透析特化型」のステーション</h3>
-              <p class="text-sm md:text-base text-textMuted leading-loose">腹膜透析など、透析治療を受けながらご自宅で暮らす方のサポートに強いのが特徴です。専門知識を持ったスタッフが、日々の体調管理や小さな変化にも迅速に対応します。</p>
-              <a href="service.html" class="inline-flex items-center gap-2 mt-5 text-blue-700 font-bold hover:text-blue-800 transition-colors">サービス内容を見る →</a>
+      <!-- Right: Card on light bg -->
+      <div class="hidden md:block js-fade-up fade-delay-3">
+        <div class="bg-white/70 backdrop-blur-sm border border-brand/15 rounded-2xl p-6 shadow-lg shadow-brand/5 space-y-4">
+          <p class="font-rounded text-lg font-bold text-charcoal mb-2">こんな方が利用しています</p>
+          <div class="space-y-3 text-sm text-charcoal-light">
+            <div class="flex items-start gap-3">
+              <span class="mt-0.5 w-6 h-6 rounded-full bg-brand/15 flex items-center justify-center text-brand text-xs flex-shrink-0">✓</span>
+              <p>透析治療を続けながら自宅で安心して過ごしたい方</p>
             </div>
-            <div class="order-1 md:order-2 js-fade-up" style="transition-delay: 80ms;">
-              <div class="aspect-[4/3] rounded-3xl overflow-hidden bg-white border border-blue-100 shadow-lg">
-                <div class="w-full h-full bg-gradient-to-br from-blue-100 via-blue-50 to-white flex items-center justify-center p-6 text-center">
-                  <div>
-                    <p class="text-xs font-bold text-blue-700">FEATURE PHOTO 01</p>
-                    <p class="text-sm text-textMuted mt-2">透析ケアの専門性が伝わる写真</p>
-                  </div>
-                </div>
-              </div>
+            <div class="flex items-start gap-3">
+              <span class="mt-0.5 w-6 h-6 rounded-full bg-brand/15 flex items-center justify-center text-brand text-xs flex-shrink-0">✓</span>
+              <p>医療的ケアが必要なお子様とご家族</p>
             </div>
-          </div>
-        </section>
-
-        <section class="bg-gradient-to-r from-orange-50 to-white">
-          <div class="max-w-7xl mx-auto px-4 py-10 md:py-16 grid md:grid-cols-2 gap-8 items-center">
-            <div class="js-fade-up">
-              <div class="aspect-[4/3] rounded-3xl overflow-hidden bg-white border border-orange-100 shadow-lg">
-                <div class="w-full h-full bg-gradient-to-br from-orange-100 via-orange-50 to-white flex items-center justify-center p-6 text-center">
-                  <div>
-                    <p class="text-xs font-bold text-smileOrange">FEATURE PHOTO 02</p>
-                    <p class="text-sm text-textMuted mt-2">明るいスタッフの雰囲気写真</p>
-                  </div>
-                </div>
-              </div>
+            <div class="flex items-start gap-3">
+              <span class="mt-0.5 w-6 h-6 rounded-full bg-brand/15 flex items-center justify-center text-brand text-xs flex-shrink-0">✓</span>
+              <p>心の不調があり、地域での生活を安定させたい方</p>
             </div>
-            <div class="js-fade-up" style="transition-delay: 80ms;">
-              <p class="text-xs font-bold text-smileOrange mb-2">FEATURE 02</p>
-              <h3 class="font-rounded text-2xl md:text-3xl font-bold text-gray-800 leading-snug mb-4">明るく話しやすいスタッフが多数在籍</h3>
-              <p class="text-sm md:text-base text-textMuted leading-loose">「来てくれるのが楽しみ」と言っていただけるような、温かいコミュニケーションを大切にしています。お身体のことだけでなく、日々の悩み事も気軽に話せる存在でありたいと考えています。</p>
-              <a href="about.html" class="inline-flex items-center gap-2 mt-5 text-smileOrange font-bold hover:text-orange-600 transition-colors">私たちについてを見る →</a>
-            </div>
-          </div>
-        </section>
-
-        <section class="border-y border-emerald-100 bg-gradient-to-r from-emerald-50 to-white">
-          <div class="max-w-7xl mx-auto px-4 py-10 md:py-16 grid md:grid-cols-2 gap-8 items-center">
-            <div class="order-2 md:order-1 js-fade-up">
-              <p class="text-xs font-bold text-emerald-700 mb-2">FEATURE 03</p>
-              <h3 class="font-rounded text-2xl md:text-3xl font-bold text-gray-800 leading-snug mb-4">ご家族様の心身の負担を軽くするサポート</h3>
-              <p class="text-sm md:text-base text-textMuted leading-loose">ご家族様の健康と休息も在宅療養には欠かせません。私たちがケアに入っている間、少しでもホッとできる時間を持っていただけるよう、介護疲れや不安にも寄り添います。</p>
-              <a href="contact.html" class="inline-flex items-center gap-2 mt-5 text-emerald-700 font-bold hover:text-emerald-800 transition-colors">ご家族のご相談はこちら →</a>
-            </div>
-            <div class="order-1 md:order-2 js-fade-up" style="transition-delay: 80ms;">
-              <div class="aspect-[4/3] rounded-3xl overflow-hidden bg-white border border-emerald-100 shadow-lg">
-                <div class="w-full h-full bg-gradient-to-br from-emerald-100 via-emerald-50 to-white flex items-center justify-center p-6 text-center">
-                  <div>
-                    <p class="text-xs font-bold text-emerald-700">FEATURE PHOTO 03</p>
-                    <p class="text-sm text-textMuted mt-2">ご家族との寄り添いが伝わる写真</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-    </section>
-
-    <section class="py-16 md:py-24 bg-bgSoft">
-      <div class="max-w-7xl mx-auto px-4 grid lg:grid-cols-[1.1fr_0.9fr] gap-8 items-start">
-        <div class="js-fade-up">
-          <h2 class="font-rounded text-2xl md:text-4xl font-bold text-gray-800 mb-4">主なサービス内容</h2>
-          <p class="text-sm md:text-base text-textMuted leading-loose mb-6">ご自宅に看護師や理学療法士などの専門スタッフがお伺いし、主治医の指示に基づいたケアを行います。</p>
-          <div class="space-y-3">
-            <div class="w-full bg-white border border-blue-100 px-5 py-4 rounded-2xl"><p class="font-bold text-blue-700">健康状態の観察とアドバイス</p><p class="text-sm text-textMuted mt-1">血圧・体温・脈拍などのチェック、病状の観察</p></div>
-            <div class="w-full bg-white border border-orange-100 px-5 py-4 rounded-2xl"><p class="font-bold text-orange-700">専門的な医療処置</p><p class="text-sm text-textMuted mt-1">透析の管理、お薬の管理、点滴、床ずれの予防・処置など</p></div>
-            <div class="w-full bg-white border border-emerald-100 px-5 py-4 rounded-2xl"><p class="font-bold text-emerald-700">日常生活のサポート</p><p class="text-sm text-textMuted mt-1">入浴介助、清拭、洗髪、排泄のサポートなど</p></div>
-            <div class="w-full bg-white border border-violet-100 px-5 py-4 rounded-2xl"><p class="font-bold text-violet-700">ご自宅でのリハビリテーション</p><p class="text-sm text-textMuted mt-1">歩行練習、日常生活動作の訓練など</p></div>
-            <div class="w-full bg-white border border-rose-100 px-5 py-4 rounded-2xl"><p class="font-bold text-rose-700">ご家族への介護支援・相談</p><p class="text-sm text-textMuted mt-1">介護方法のアドバイス、精神的なサポート</p></div>
-          </div>
-          <a href="service.html" class="inline-flex items-center gap-2 mt-6 rounded-xl border border-orange-200 bg-white text-smileOrange font-bold px-5 py-3 hover:bg-orange-50 transition-colors">サービス内容を詳しく見る →</a>
-        </div>
-
-        <div class="js-fade-up" style="transition-delay: 80ms;">
-          <div class="aspect-[4/5] md:aspect-[4/4] rounded-3xl overflow-hidden bg-white border border-orange-100 shadow-lg">
-            <div class="w-full h-full bg-gradient-to-br from-orange-100 via-white to-rose-50 flex items-center justify-center p-6 text-center">
-              <div>
-                <p class="text-xs font-bold text-smileOrange">SERVICE PHOTO</p>
-                <p class="font-rounded text-lg font-bold text-gray-700 mt-2">処置・ケアの安心感が伝わる写真</p>
-                <p class="text-xs text-textMuted mt-2">LPらしく大きめの写真枠（縦長）</p>
-              </div>
-            </div>
-          </div>
-          <div class="mt-4 bg-white rounded-2xl border border-teal-100 p-5">
-            <p class="font-rounded text-lg font-bold text-gray-800 mb-2">よくある不安</p>
-            <ul class="space-y-2 text-sm text-textMuted leading-relaxed">
-              <li>・訪問看護って、どんな人が利用できるの？</li>
-              <li>・透析以外の病気でも相談できる？</li>
-              <li>・どのくらいの頻度で来てもらえる？</li>
-            </ul>
-            <a href="faq.html" class="inline-flex items-center gap-2 mt-4 text-smileGreen font-bold hover:text-teal-700 transition-colors">よくあるご質問を見る →</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="py-16 md:py-24 bg-white">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="text-center mb-10 js-fade-up">
-          <h2 class="font-rounded text-2xl md:text-4xl font-bold text-gray-800 mb-3">ご利用までの流れ</h2>
-          <p class="text-textMuted">訪問看護は、医療保険または介護保険でご利用いただけます。</p>
-        </div>
-        <div class="grid lg:grid-cols-2 gap-8 items-start">
-          <div class="space-y-4 js-fade-up">
-            <div class="w-full border border-orange-100 bg-orange-50/50 rounded-2xl p-5 flex gap-4"><div class="w-10 h-10 rounded-xl bg-orange-500 text-white font-bold flex items-center justify-center shrink-0">1</div><div><p class="font-bold text-gray-800">ご相談</p><p class="text-sm text-textMuted mt-1 leading-relaxed">担当のケアマネジャー様、かかりつけ医、または当ステーションへ直接お電話でご相談ください。</p></div></div>
-            <div class="w-full border border-blue-100 bg-blue-50/50 rounded-2xl p-5 flex gap-4"><div class="w-10 h-10 rounded-xl bg-blue-500 text-white font-bold flex items-center justify-center shrink-0">2</div><div><p class="font-bold text-gray-800">かかりつけ医からの指示書発行</p><p class="text-sm text-textMuted mt-1 leading-relaxed">ご利用には主治医からの「訪問看護指示書」が必要です。病院への依頼サポートも可能です。</p></div></div>
-            <div class="w-full border border-emerald-100 bg-emerald-50/50 rounded-2xl p-5 flex gap-4"><div class="w-10 h-10 rounded-xl bg-emerald-500 text-white font-bold flex items-center justify-center shrink-0">3</div><div><p class="font-bold text-gray-800">事前面談・ご契約</p><p class="text-sm text-textMuted mt-1 leading-relaxed">ご自宅や病院で状態やご希望を伺い、サービス内容をご説明のうえご契約となります。</p></div></div>
-            <div class="w-full border border-violet-100 bg-violet-50/50 rounded-2xl p-5 flex gap-4"><div class="w-10 h-10 rounded-xl bg-violet-500 text-white font-bold flex items-center justify-center shrink-0">4</div><div><p class="font-bold text-gray-800">訪問看護サービス開始</p><p class="text-sm text-textMuted mt-1 leading-relaxed">お一人おひとりの計画に沿って、定期的な訪問をスタートします。</p></div></div>
-          </div>
-          <div class="grid grid-cols-2 gap-4 js-fade-up" style="transition-delay: 80ms;">
-            <div class="col-span-2 aspect-[16/10] rounded-3xl overflow-hidden bg-white border border-rose-100 shadow-lg">
-              <div class="w-full h-full bg-gradient-to-br from-rose-100 via-white to-orange-50 flex items-center justify-center p-6 text-center">
-                <div>
-                  <p class="text-xs font-bold text-rose-600">FLOW PHOTO</p>
-                  <p class="text-sm text-textMuted mt-2">初回面談・ご説明のシーン</p>
-                </div>
-              </div>
-            </div>
-            <details class="col-span-2 rounded-2xl border border-orange-100 bg-orange-50/50 p-4 group">
-              <summary class="cursor-pointer list-none font-bold text-gray-800 flex items-start justify-between gap-3">訪問看護は特別な重症な人しか使えないのですか？<span class="text-smileOrange group-open:rotate-45 transition-transform">＋</span></summary>
-              <p class="mt-3 text-sm text-textMuted leading-relaxed">いいえ、そんなことはありません。ご自宅での療養に不安がある方、お薬の管理が難しくなってきた方、少しの体調変化を相談したい方など、どなたでもご利用いただけます。</p>
-            </details>
-            <details class="col-span-2 rounded-2xl border border-blue-100 bg-blue-50/50 p-4 group">
-              <summary class="cursor-pointer list-none font-bold text-gray-800 flex items-start justify-between gap-3">透析以外の病気でも診てもらえますか？<span class="text-blue-600 group-open:rotate-45 transition-transform">＋</span></summary>
-              <p class="mt-3 text-sm text-textMuted leading-relaxed">はい、もちろんです。透析に強いステーションですが、地域で病を抱える様々な方のサポートを行っておりますので、安心してご相談ください。</p>
-            </details>
-            <details class="col-span-2 rounded-2xl border border-emerald-100 bg-emerald-50/50 p-4 group">
-              <summary class="cursor-pointer list-none font-bold text-gray-800 flex items-start justify-between gap-3">どのくらいの頻度で来てくれますか？<span class="text-emerald-600 group-open:rotate-45 transition-transform">＋</span></summary>
-              <p class="mt-3 text-sm text-textMuted leading-relaxed">ご利用者様のお身体の状態や、ご希望に合わせて決定します。週1回から、必要な場合は週に複数回の訪問も可能です。</p>
-            </details>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="py-16 md:py-24 bg-gradient-to-br from-orange-50 to-white border-t border-orange-100">
-      <div class="max-w-7xl mx-auto px-4 grid lg:grid-cols-[1.05fr_0.95fr] gap-8 items-center">
-        <div class="js-fade-up">
-          <p class="inline-flex items-center gap-2 text-xs font-bold tracking-wide text-smileOrange bg-white border border-orange-100 rounded-full px-3 py-1 mb-4">CONTACT</p>
-          <h2 class="font-rounded text-2xl md:text-4xl font-bold text-gray-800 mb-4">お問い合わせ・ご相談窓口</h2>
-          <p class="text-sm md:text-base text-textMuted leading-loose mb-5">ご利用に関するご質問や、ちょっとしたご相談だけでも大歓迎です。まずはお気軽にご連絡ください。</p>
-          <div class="bg-white border border-orange-100 rounded-2xl p-5 mb-4">
-            <p class="text-sm font-bold text-smileOrange mb-1">お電話でのご相談</p>
-            <a href="tel:0649506402" class="text-2xl md:text-3xl font-bold tracking-wide text-gray-800 hover:text-smileOrange transition-colors">06-4950-6402</a>
-            <p class="text-xs md:text-sm text-textMuted mt-2">受付時間：9:00〜18:00（土日祝除く）</p>
-          </div>
-          <div class="flex flex-wrap gap-3">
-            <a href="contact.html" class="inline-flex items-center justify-center rounded-xl bg-smileOrange text-white font-bold px-5 py-3 hover:bg-orange-600 transition-colors">お問い合わせフォームへ</a>
-            <a href="https://forms.gle/cfL6ny3EuWF9HuNw8" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center rounded-xl border border-orange-200 bg-white text-smileOrange font-bold px-5 py-3 hover:bg-orange-50 transition-colors">外部フォームで送信</a>
-          </div>
-        </div>
-        <div class="js-fade-up" style="transition-delay: 80ms;">
-          <div class="aspect-[16/11] rounded-3xl overflow-hidden bg-white border border-orange-100 shadow-lg">
-            <div class="w-full h-full bg-gradient-to-br from-orange-100 via-white to-rose-50 flex items-center justify-center p-6 text-center">
-              <div>
-                <p class="text-xs font-bold text-smileOrange">CONTACT PHOTO</p>
-                <p class="font-rounded text-lg font-bold text-gray-700 mt-2">安心して相談できる雰囲気を伝える写真</p>
-                <p class="text-xs text-textMuted mt-2">電話対応・相談風景・ステーション外観などがおすすめです</p>
-              </div>
+            <div class="flex items-start gap-3">
+              <span class="mt-0.5 w-6 h-6 rounded-full bg-brand/15 flex items-center justify-center text-brand text-xs flex-shrink-0">✓</span>
+              <p>ご家族の介護負担を少しでも軽くしたい方</p>
             </div>
           </div>
         </div>
       </div>
-    </section>
-  </main>
+      <!-- Scroll indicator -->
+      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 scroll-indicator">
+        <div class="w-6 h-10 rounded-full border-2 border-brand/30 flex justify-center pt-2">
+          <div class="w-1.5 h-1.5 rounded-full bg-brand/50"></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- ═══════════ WHAT WE CAN DO (利用者目線) ═══════════ -->
+  <section class="diagonal-top bg-gradient-to-b from-brand-pale to-white pb-20 md:pb-28">
+    <div class="max-w-5xl mx-auto px-4">
+      <div class="text-center mb-14 js-fade-up">
+        <p class="font-hand text-brand-dark text-sm md:text-base tracking-wider mb-3">WHAT WE CAN DO</p>
+        <h2 class="font-rounded text-2xl md:text-4xl font-bold text-charcoal mb-4">smileでできること</h2>
+        <p class="text-charcoal-light text-sm md:text-base max-w-xl mx-auto">ご自宅に看護師や理学療法士が訪問し、お一人おひとりに合わせたケアをお届けします。</p>
+      </div>
 
-  <div class="md:hidden fixed bottom-0 left-0 w-full z-50 border-t border-orange-100 bg-white/95 backdrop-blur-sm">
+      <!-- zig-zag: benefit-oriented, not service list -->
+      <div class="grid md:grid-cols-2 gap-8 md:gap-14 items-center mb-16 md:mb-20 js-fade-up">
+        <div class="relative rounded-3xl overflow-hidden shadow-xl aspect-[4/3]">
+          <img src="assets/img/hero2.jpeg" alt="ご自宅での健康チェック" class="w-full h-full object-cover">
+        </div>
+        <div>
+          <p class="text-brand font-bold text-sm mb-2">安心の健康管理</p>
+          <h3 class="font-rounded text-xl md:text-2xl font-bold text-charcoal mb-3">毎日の「ちょっとした変化」を<br>見逃しません</h3>
+          <p class="text-charcoal-light text-sm md:text-base leading-loose mb-4">血圧・体温の測定から、お薬の管理、透析のシャントケア、医療処置まで。専門スタッフが定期的に訪問し、小さな体調の変化にも迅速に対応します。</p>
+          <a href="service.html" class="text-brand font-bold text-sm hover:text-brand-dark transition-colors">サービス内容を詳しく見る →</a>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 md:gap-14 items-center mb-16 md:mb-20 js-fade-up">
+        <div class="md:order-2 relative rounded-3xl overflow-hidden shadow-xl aspect-[4/3]">
+          <img src="assets/img/studysession.jpeg" alt="スタッフとの対話" class="w-full h-full object-cover">
+        </div>
+        <div class="md:order-1">
+          <p class="text-brand font-bold text-sm mb-2">温かいコミュニケーション</p>
+          <h3 class="font-rounded text-xl md:text-2xl font-bold text-charcoal mb-3">「来てくれるのが楽しみ」<br>そう思える関係を</h3>
+          <p class="text-charcoal-light text-sm md:text-base leading-loose mb-4">お身体のことだけでなく、日々の悩みや不安も気軽に話せる存在でありたい。明るく話しやすいスタッフが、訪問のたびにホッとできる時間をお届けします。</p>
+          <a href="about.html" class="text-brand font-bold text-sm hover:text-brand-dark transition-colors">私たちについてを見る →</a>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 md:gap-14 items-center js-fade-up">
+        <div class="relative rounded-3xl overflow-hidden shadow-xl aspect-[4/3]">
+          <img src="assets/img/instagram4.jpeg" alt="ご家族へのサポート" class="w-full h-full object-cover">
+        </div>
+        <div>
+          <p class="text-brand font-bold text-sm mb-2">ご家族の負担軽減</p>
+          <h3 class="font-rounded text-xl md:text-2xl font-bold text-charcoal mb-3">介護するご家族にも<br>「休める時間」を</h3>
+          <p class="text-charcoal-light text-sm md:text-base leading-loose mb-4">ご家族様の健康と休息も在宅療養には欠かせません。私たちがケアに入っている間、少しでもホッとできる時間を持っていただけるよう、介護疲れや不安にも寄り添います。</p>
+          <a href="contact.html" class="text-brand font-bold text-sm hover:text-brand-dark transition-colors">ご家族のご相談はこちら →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ FLOW (ご利用の流れ) ═══════════ -->
+  <section id="flow" class="photo-section py-24 md:py-32" style="scroll-margin-top: 80px;">
+    <div class="photo-section-bg" style="background-image: url('assets/img/instagram2.jpeg');"></div>
+    <div class="photo-section-overlay bg-gradient-to-b from-charcoal/90 via-charcoal/80 to-charcoal/90"></div>
+    <div class="relative z-10 max-w-4xl mx-auto px-4">
+      <div class="text-center mb-14 js-fade-up">
+        <p class="font-hand text-accent text-sm md:text-base tracking-wider mb-3">HOW TO START</p>
+        <h2 class="font-rounded text-2xl md:text-4xl font-bold text-white mb-4">ご利用までの流れ</h2>
+        <p class="text-white/70 text-sm md:text-base">訪問看護は、医療保険または介護保険でご利用いただけます。</p>
+      </div>
+
+      <div class="space-y-6">
+        <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 flex items-start gap-5 js-fade-up">
+          <div class="w-14 h-14 rounded-2xl bg-accent/20 border border-accent/30 flex items-center justify-center flex-shrink-0">
+            <span class="text-accent font-rounded font-bold text-xl">01</span>
+          </div>
+          <div>
+            <h3 class="font-rounded text-lg font-bold text-white mb-1">ご相談</h3>
+            <p class="text-white/75 text-sm leading-relaxed">担当のケアマネジャー様、かかりつけ医、または当ステーションへ直接お電話でご相談ください。「こんなこと聞いていいのかな？」という小さなことでも大丈夫です。</p>
+          </div>
+        </div>
+        <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 flex items-start gap-5 js-fade-up fade-delay-1">
+          <div class="w-14 h-14 rounded-2xl bg-accent/20 border border-accent/30 flex items-center justify-center flex-shrink-0">
+            <span class="text-accent font-rounded font-bold text-xl">02</span>
+          </div>
+          <div>
+            <h3 class="font-rounded text-lg font-bold text-white mb-1">かかりつけ医からの指示書発行</h3>
+            <p class="text-white/75 text-sm leading-relaxed">ご利用には主治医からの「訪問看護指示書」が必要です。病院への依頼サポートも可能ですので、お気軽にご相談ください。</p>
+          </div>
+        </div>
+        <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 flex items-start gap-5 js-fade-up fade-delay-2">
+          <div class="w-14 h-14 rounded-2xl bg-accent/20 border border-accent/30 flex items-center justify-center flex-shrink-0">
+            <span class="text-accent font-rounded font-bold text-xl">03</span>
+          </div>
+          <div>
+            <h3 class="font-rounded text-lg font-bold text-white mb-1">事前面談・ご契約</h3>
+            <p class="text-white/75 text-sm leading-relaxed">ご自宅や病院で状態やご希望を伺い、サービス内容をご説明のうえご契約となります。</p>
+          </div>
+        </div>
+        <div class="bg-accent/20 backdrop-blur-sm border border-accent/30 rounded-2xl p-6 flex items-start gap-5 js-fade-up fade-delay-3">
+          <div class="w-14 h-14 rounded-2xl bg-accent/30 border border-accent/40 flex items-center justify-center flex-shrink-0">
+            <span class="text-accent font-rounded font-bold text-xl">04</span>
+          </div>
+          <div>
+            <h3 class="font-rounded text-lg font-bold text-accent mb-1">訪問看護サービス開始</h3>
+            <p class="text-white/80 text-sm leading-relaxed">お一人おひとりの計画に沿って、定期的な訪問をスタートします。ご不安なことがあればいつでもご相談いただけます。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ FAQ ═══════════ -->
+  <section class="py-20 md:py-28 bg-white">
+    <div class="max-w-3xl mx-auto px-4">
+      <div class="text-center mb-14 js-fade-up">
+        <p class="font-hand text-brand-dark text-sm md:text-base tracking-wider mb-3">FAQ</p>
+        <h2 class="font-rounded text-2xl md:text-4xl font-bold text-charcoal mb-4">よくある不安にお答えします</h2>
+        <p class="text-charcoal-light text-sm md:text-base">初めての方からよくいただくご質問をまとめました。</p>
+      </div>
+
+      <div class="space-y-4 js-fade-up fade-delay-1">
+        <details class="group rounded-2xl border border-brand-bg bg-brand-pale/30 overflow-hidden" open>
+          <summary class="p-5 md:p-6 font-bold text-charcoal flex items-center justify-between gap-4">
+            <span>訪問看護は特別な重症な人しか使えないのですか？</span>
+            <span class="text-brand text-xl group-open:rotate-45 transition-transform flex-shrink-0">＋</span>
+          </summary>
+          <div class="px-5 md:px-6 pb-5 md:pb-6">
+            <p class="text-charcoal-light text-sm leading-loose">いいえ、そんなことはありません。ご自宅での療養に不安がある方、お薬の管理が難しくなってきた方、少しの体調変化を相談したい方など、どなたでもご利用いただけます。</p>
+          </div>
+        </details>
+
+        <details class="group rounded-2xl border border-accent/30 bg-accent-light/30 overflow-hidden">
+          <summary class="p-5 md:p-6 font-bold text-charcoal flex items-center justify-between gap-4">
+            <span>透析以外の病気でも診てもらえますか？</span>
+            <span class="text-amber-600 text-xl group-open:rotate-45 transition-transform flex-shrink-0">＋</span>
+          </summary>
+          <div class="px-5 md:px-6 pb-5 md:pb-6">
+            <p class="text-charcoal-light text-sm leading-loose">はい、もちろんです。透析に強いステーションですが、地域で病を抱える様々な方のサポートを行っておりますので、安心してご相談ください。</p>
+          </div>
+        </details>
+
+        <details class="group rounded-2xl border border-brand-bg bg-brand-pale/30 overflow-hidden">
+          <summary class="p-5 md:p-6 font-bold text-charcoal flex items-center justify-between gap-4">
+            <span>どのくらいの頻度で来てくれますか？</span>
+            <span class="text-brand text-xl group-open:rotate-45 transition-transform flex-shrink-0">＋</span>
+          </summary>
+          <div class="px-5 md:px-6 pb-5 md:pb-6">
+            <p class="text-charcoal-light text-sm leading-loose">ご利用者様のお身体の状態や、ご希望に合わせて決定します。週1回から、必要な場合は週に複数回の訪問も可能です。</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="text-center mt-10 js-fade-up">
+        <a href="faq.html" class="inline-flex items-center gap-2 text-brand font-bold hover:text-brand-dark transition-colors">
+          その他のよくあるご質問を見る <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ CTA ═══════════ -->
+  <section class="photo-section py-20 md:py-24">
+    <div class="photo-section-bg" style="background-image: url('assets/img/hero2.jpeg');"></div>
+    <div class="photo-section-overlay bg-gradient-to-b from-brand-dark/80 via-purple-900/75 to-charcoal/85"></div>
+    <div class="relative z-10 max-w-4xl mx-auto px-4 js-fade-up">
+      <div class="grid md:grid-cols-[1.2fr_0.8fr] gap-10 items-center">
+        <div>
+          <p class="font-hand text-accent text-sm md:text-base tracking-wider mb-3">CONTACT</p>
+          <h2 class="font-rounded text-2xl md:text-3xl font-bold text-white mb-4">お問い合わせ・ご相談窓口</h2>
+          <p class="text-white/70 text-sm md:text-base leading-relaxed mb-6">ご利用に関するご質問や、ちょっとしたご相談だけでも大歓迎です。まずはお気軽にご連絡ください。</p>
+          <div class="flex flex-col sm:flex-row gap-3">
+            <a href="tel:0649506402" class="inline-flex items-center justify-center gap-2 bg-white/10 backdrop-blur-sm border border-white/30 text-white font-bold py-4 px-7 rounded-full hover:bg-white/20 transition-all">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+              06-4950-6402
+            </a>
+            <a href="contact.html" class="inline-flex items-center justify-center gap-2 bg-accent text-charcoal font-bold py-4 px-7 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all">
+              お問い合わせフォームへ →
+            </a>
+          </div>
+          <p class="text-white/50 text-xs mt-4">受付時間：9:00〜18:00（土日祝除く）</p>
+        </div>
+        <div class="hidden md:block">
+          <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 text-center">
+            <p class="text-white/80 text-sm mb-3">外部フォームからも送信いただけます</p>
+            <a href="https://forms.gle/cfL6ny3EuWF9HuNw8" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-white/15 border border-white/30 text-white font-bold py-3 px-6 rounded-full hover:bg-white/25 transition-all text-sm">
+              Googleフォームで送信 ↗
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ MOBILE FOOTER BAR ═══════════ -->
+  <div class="md:hidden fixed bottom-0 left-0 w-full z-50 border-t border-brand-light/40 bg-white/95 backdrop-blur-sm">
     <div class="grid grid-cols-2 gap-2 p-2">
-      <a href="tel:0649506402" class="flex items-center justify-center gap-2 rounded-xl bg-orange-50 text-smileOrange font-bold py-3 text-sm">
+      <a href="tel:0649506402" class="flex items-center justify-center gap-2 rounded-xl bg-brand-bg text-brand-dark font-bold py-3 text-sm">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
         電話する
       </a>
-      <a href="contact.html" class="flex items-center justify-center gap-2 rounded-xl bg-smileOrange text-white font-bold py-3 text-sm">
+      <a href="contact.html" class="flex items-center justify-center gap-2 rounded-xl bg-brand text-white font-bold py-3 text-sm">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
         相談する
       </a>
@@ -298,5 +374,15 @@
     });
   </script>
   <script src="shared-layout.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const header = document.querySelector('.sn-shared-header');
+      if (!header) return;
+      header.classList.add('lp-header-light');
+      const onScroll = () => { header.classList.toggle('is-scrolled', window.scrollY > 80); };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    });
+  </script>
 </body>
 </html>

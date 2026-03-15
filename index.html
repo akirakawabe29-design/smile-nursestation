@@ -5,401 +5,1429 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>smile訪問看護ステーション | あなたの「やりたい」を支える</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@600&display=swap" rel="stylesheet">
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&family=Zen+Kurenaido&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            smileOrange: '#F97316', /* 温かみのあるオレンジ */
-            smileGreen: '#14B8A6',  /* 清潔感のあるパステルグリーン */
-            bgLight: '#FFFBF7',     /* 優しい背景色 */
-            textMain: '#374151',
-            textMuted: '#6B7280'
+            brand: '#CB6CE6',
+            'brand-dark': '#9B4DCA',
+            'brand-light': '#DA9BEA',
+            'brand-bg': '#F3E8F9',
+            'brand-pale': '#F8F0FC',
+            accent: '#F4DF2C',
+            'accent-light': '#FBF6D0',
+            coral: '#FF9A76',
+            charcoal: '#2D2D3A',
+            'charcoal-light': '#6B6B7B',
+            'warm-white': '#FDFBFF',
+            smileOrange: '#CB6CE6',
+            smileGreen: '#9B4DCA',
+            bgLight: '#FDFBFF',
+            textMain: '#2D2D3A',
+            textMuted: '#6B6B7B',
+            orange: { 50: '#F8F0FC', 100: '#F3E8F9', 200: '#E8D4F5', 600: '#B855D4', 700: '#9B4DCA' },
+            teal: { 50: '#F8F0FC', 100: '#E8D4F5', 200: '#DA9BEA', 600: '#9B4DCA', 700: '#7B3AAF' },
+            amber: { 100: '#FBF6D0', 700: '#7a6200' },
           },
           fontFamily: {
             sans: ['"Noto Sans JP"', 'sans-serif'],
-            serif: ['"Noto Serif JP"', 'serif'],
-            rounded: ['"M PLUS Rounded 1c"', 'sans-serif'],
+            round: ['"M PLUS Rounded 1c"', 'sans-serif'],
+            hand: ['"Zen Kurenaido"', 'sans-serif'],
           }
         }
       }
     }
   </script>
   <style>
-    /* 滑らかなスクロールアニメーション */
-    .js-fade-up {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-      will-change: opacity, transform;
+    /* ═══════════════════════════════════════════
+       Design System v3 — Lavender POP
+       Fonts: M PLUS Rounded 1c / Noto Sans JP / Zen Kurenaido
+       ═══════════════════════════════════════════ */
+
+    /* --- Scroll Animations --- */
+    .js-fade-up { opacity:0; transform:translateY(20px); transition:opacity .8s cubic-bezier(.25,1,.5,1), transform .8s cubic-bezier(.25,1,.5,1); will-change:opacity,transform; }
+    .js-fade-up.is-active { opacity:1; transform:translateY(0); }
+    .anim { opacity:0; transform:translateY(30px); transition:opacity .8s ease, transform .8s ease; }
+    .anim.is-visible { opacity:1; transform:translateY(0); }
+    .anim-delay-1 { transition-delay:.15s; }
+    .anim-delay-2 { transition-delay:.3s; }
+    .anim-delay-3 { transition-delay:.45s; }
+
+    /* --- Layout --- */
+    .section-container { max-width:1200px; margin:0 auto; padding-left:1.25rem; padding-right:1.25rem; }
+    @media (min-width:768px) { .section-container { padding-left:3rem; padding-right:3rem; } }
+    body { position: relative; padding-bottom: calc(70px + env(safe-area-inset-bottom, 0px)); }
+    @media (min-width:768px) { body { padding-bottom:0; } }
+
+    /* --- Hero Photo Gallery --- */
+    .hero-gallery { position:relative; width:100%; min-height:100svh; overflow:hidden; }
+    .hero-photo-area { position:absolute; inset:0; z-index:1; }
+    @media (min-width:768px) {
+      .hero-photo-area {
+        clip-path: polygon(0 0, 100% 0, 100% 90%, 0 90%);
+      }
     }
-    .js-fade-up.is-active {
-      opacity: 1;
-      transform: translateY(0);
+    .hero-photo-slide {
+      position:absolute; inset:0;
+      background-size:cover; background-position:center 82%;
+      opacity:0; transition:opacity 1.4s ease;
     }
-    .hero-slide {
-      position: absolute;
-      inset: 0;
-      background-size: cover;
-      background-position: center;
-      opacity: 0;
-      transition: opacity 1.2s ease;
-      transform: scale(1.02);
+    @media (max-width:767px) {
+      .hero-photo-slide { background-position: 60% 78%; }
     }
-    .hero-slide.is-active {
-      opacity: 1;
+    .hero-photo-slide.is-active { opacity:1; }
+
+    /* Smile organic blob mask over photos */
+    .hero-blob-mask {
+      position:absolute; inset:0; z-index:2; pointer-events:none;
     }
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(to bottom, rgba(255,255,255,0.52), rgba(255,255,255,0.64)),
-        linear-gradient(to right, rgba(255,247,237,0.38), rgba(236,253,245,0.32));
-      z-index: 1;
+    /* Mobile: use separate simpler SVG mask */
+    @media (max-width:767px) {
+      .hero-blob-mask.desktop-blob { display:none; }
+      .hero-blob-mask.mobile-blob { display:block; }
     }
-    /* 吹き出しのしっぽ */
-    .speech-bubble::after {
+    @media (min-width:768px) {
+      .hero-blob-mask.desktop-blob { display:block; }
+      .hero-blob-mask.mobile-blob { display:none; }
+    }
+
+    /* Hero text area */
+    .hero-text-area {
+      position:relative; z-index:10;
+      display:flex; flex-direction:column; align-items:center; justify-content:flex-end;
+      min-height:100svh; text-align:center;
+      padding: 0 20px 110px;
+      box-sizing: border-box;
+    }
+    @media (min-width:768px) {
+      .hero-text-area {
+        justify-content:center;
+        align-items:flex-start;
+        text-align:left;
+        padding: 120px 0 90px 6vw;
+      }
+      .hero-text-area .max-w-4xl {
+        max-width: 640px;
+        margin-left: 0;
+        margin-right: auto;
+      }
+      .hero-text-area .mt-5,
+      .hero-text-area .mt-4,
+      .hero-text-area .mt-6 { justify-content: flex-start; margin-left: 0; margin-right: 0; }
+    }
+
+    /* Hero text backdrop */
+    .hero-text-backdrop {
+      padding: 24px 16px;
+      background: rgba(255,255,255,.55);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border-radius: 1.25rem;
+      margin: 0 4px;
+    }
+    @media (min-width:768px) {
+      .hero-text-backdrop {
+        padding: 40px 32px;
+        background: rgba(255,255,255,.35);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        border-radius: 1.5rem;
+        margin: 0;
+      }
+    }
+
+    .hero-kasure {
+      position: relative;
+      display: inline-block;
+      padding: .28em .72em;
+      border-radius: 0;
+      isolation: isolate;
+      transform: rotate(-1.2deg);
+    }
+    .hero-kasure::before {
       content: '';
       position: absolute;
-      bottom: -10px;
-      left: 30px;
-      border-width: 10px 10px 0;
-      border-style: solid;
-      border-color: #ffffff transparent transparent transparent;
-      display: block;
-      width: 0;
+      inset: 0;
+      z-index: -1;
+      border-radius: 0;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.92) 0%, rgba(255,255,255,.76) 100%);
+      border: 1px solid rgba(255,255,255,.72);
+      box-shadow: 0 4px 12px rgba(20,16,30,.08);
     }
-    /* SP用余白 */
-    body { padding-bottom: 70px; }
-    @media (min-width: 768px) { body { padding-bottom: 0; } }
+    .hero-kasure::after {
+      content: '';
+      position: absolute;
+      left: -8px;
+      right: -8px;
+      top: 50%;
+      height: 78%;
+      transform: translateY(-50%);
+      z-index: -2;
+      background: rgba(255,255,255,.24);
+    }
+
+    /* GSAP slide-in targets — smaller on mobile */
+    .gsap-from-left { opacity:0; transform:translateX(-30px); }
+    .gsap-from-right { opacity:0; transform:translateX(30px); }
+    .gsap-from-bottom { opacity:0; transform:translateY(30px); }
+    .gsap-scale-in { opacity:0; transform:scale(0.85); }
+    @media (min-width:768px) {
+      .gsap-from-left { transform:translateX(-80px); }
+      .gsap-from-right { transform:translateX(80px); }
+      .gsap-from-bottom { transform:translateY(60px); }
+      .gsap-scale-in { transform:scale(0.8); }
+    }
+
+    .hero-char-columns {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.2em;
+    }
+    .hero-char-line {
+      display: inline-flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 0.02em;
+      white-space: nowrap;
+    }
+    .hero-char-line span {
+      display: block;
+      line-height: 1.05;
+      opacity: 0;
+      transform: scale(0.72);
+      transform-origin: center;
+      animation: hero-char-zoom-in 0.52s ease-out forwards;
+      animation-delay: calc(var(--char-index) * 70ms + 900ms);
+    }
+    .hero-char-line.hero-char-line-2 span {
+      animation-delay: calc((var(--char-index) + 12) * 70ms + 900ms);
+    }
+    .hero-char-brand {
+      color: #CB6CE6;
+    }
+    @keyframes hero-char-zoom-in {
+      0% { opacity: 0; transform: scale(0.72); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    @media (min-width: 768px) {
+      .hero-char-line span {
+        transform: scale(0.68);
+      }
+    }
+    @media (min-width: 1024px) {
+      .hero-char-columns {
+        align-items: flex-start;
+      }
+      .hero-char-line {
+        justify-content: flex-start;
+      }
+    }
+
+    #light-trail-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 999;
+      overflow: hidden;
+    }
+    #light-trail-svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #light-trail-container { display: none !important; }
+    }
+
+    /* ─── Pattern Backgrounds ─── */
+
+    /* Halftone dot fade — lavender on warm-white */
+    .bg-dots-lavender {
+      position:relative;
+      background: linear-gradient(160deg, #F8F0FC 0%, #FDFBFF 60%, #F3E8F9 100%);
+    }
+    .bg-dots-lavender::before {
+      content:''; position:absolute; inset:0; pointer-events:none; z-index:0;
+      background-image:
+        radial-gradient(circle, rgba(203,108,230,.22) 1.6px, transparent 1.8px);
+      background-size: 18px 18px;
+      -webkit-mask-image: linear-gradient(140deg, #000 0%, rgba(0,0,0,.6) 40%, transparent 75%);
+      mask-image: linear-gradient(140deg, #000 0%, rgba(0,0,0,.6) 40%, transparent 75%);
+    }
+    .bg-dots-lavender > * { position:relative; z-index:1; }
+
+    /* Diagonal stripe — subtle lavender */
+    .bg-stripe-lavender {
+      position:relative;
+      background: #FDFBFF;
+    }
+    .bg-stripe-lavender::before {
+      content:''; position:absolute; inset:0; pointer-events:none; z-index:0;
+      background-image: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 8px,
+        rgba(203,108,230,.06) 8px,
+        rgba(203,108,230,.06) 9px
+      );
+    }
+    .bg-stripe-lavender > * { position:relative; z-index:1; }
+
+    /* Dense dots — for hero area */
+    .bg-dots-dense {
+      position:relative;
+    }
+    .bg-dots-dense::before {
+      content:''; position:absolute; inset:0; pointer-events:none; z-index:0;
+      background-image:
+        radial-gradient(circle, rgba(203,108,230,.24) 2px, transparent 2.2px),
+        radial-gradient(circle, rgba(244,223,44,.32) 1.2px, transparent 1.4px);
+      background-size: 20px 20px, 12px 12px;
+      background-position: 0 0, 6px 6px;
+      -webkit-mask-image: linear-gradient(135deg, #000 0%, rgba(0,0,0,.5) 50%, transparent 80%);
+      mask-image: linear-gradient(135deg, #000 0%, rgba(0,0,0,.5) 50%, transparent 80%);
+    }
+    .bg-dots-dense > * { position:relative; z-index:1; }
+
+    /* Cross-hatch pattern — for accent sections */
+    .bg-crosshatch {
+      position:relative;
+    }
+    .bg-crosshatch::before {
+      content:''; position:absolute; inset:0; pointer-events:none; z-index:0;
+      background-image:
+        repeating-linear-gradient(45deg, transparent, transparent 6px, rgba(203,108,230,.04) 6px, rgba(203,108,230,.04) 7px),
+        repeating-linear-gradient(-45deg, transparent, transparent 6px, rgba(203,108,230,.04) 6px, rgba(203,108,230,.04) 7px);
+    }
+    .bg-crosshatch > * { position:relative; z-index:1; }
+
+    /* ─── Wave Divider ─── */
+    .wave-divider { display:block; width:100%; height:auto; }
+
+    /* 対応エリアバッジ */
+    .area-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 5px 14px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #3D2057;
+      border: 1.5px solid rgba(61,32,87,.25);
+      background: rgba(255,255,255,.6);
+      font-family: 'M PLUS Rounded 1c', sans-serif;
+    }
+    .area-badge--main {
+      background: #CB6CE6;
+      border-color: #CB6CE6;
+      color: #fff;
+    }
+
+    /* ─── Hand-drawn accent (Zen Kurenaido) ─── */
+    .hand-accent {
+      font-family: "Zen Kurenaido", sans-serif;
+      color: #9B4DCA;
+      letter-spacing: .04em;
+    }
+
+    /* ─── Speech bubble ─── */
+    .speech-bubble { position:relative; }
+    .speech-bubble::after {
+      content:''; position:absolute; bottom:-10px; left:30px;
+      border-width:10px 10px 0; border-style:solid;
+      border-color:#fff transparent transparent transparent; width:0;
+    }
+
+    /* ─── POP sparkle ─── */
+    @keyframes sparkle-float {
+      0%, 100% { transform:translateY(0) rotate(0deg); opacity:.7; }
+      50% { transform:translateY(-6px) rotate(12deg); opacity:1; }
+    }
+    .sparkle { animation: sparkle-float 3s ease-in-out infinite; display:inline-block; }
+    .sparkle-delay { animation-delay: 1.5s; }
+
+    /* ─── Slant bottom ─── */
+    .section-slant-bottom { position:relative; }
+    .section-slant-bottom::after {
+      content:''; position:absolute; left:0; right:0; bottom:-1px; height:56px;
+      background: linear-gradient(135deg, transparent 46%, rgba(244,223,44,.22) 48%, rgba(203,108,230,.14) 50%, rgba(244,223,44,.2) 52%, transparent 54%);
+      pointer-events:none;
+    }
+
+    /* ═══════ shared-layout.js page-specific overrides ═══════ */
+
+    html, body { overflow-x:hidden; }
+    .sn-shared-header.sn-hero-transparent {
+      background:transparent !important; backdrop-filter:none !important;
+      box-shadow:none !important; border-bottom-color:transparent !important;
+    }
+    .sn-shared-header.sn-hero-transparent .sn-link,
+    .sn-shared-header.sn-hero-transparent .sn-dropdown-trigger,
+    .sn-shared-header.sn-hero-transparent .sn-caret {
+      color:#2D2D3A !important;
+    }
+    .sn-shared-header.sn-hero-transparent .sn-logo {
+      color:#CB6CE6 !important;
+    }
+
+    .guide-links {
+      overflow: hidden;
+    }
+    .guide-links > a {
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+
   </style>
 </head>
 <body class="font-sans text-textMain bg-bgLight antialiased">
 
-  <section id="greeting" class="pt-32 pb-16 md:pt-48 md:pb-32 px-4 relative overflow-hidden bg-gradient-to-br from-orange-50 to-green-50">
-    <div class="absolute inset-0">
-      <div class="hero-slide js-hero-slide is-active" style="background-image: linear-gradient(135deg, rgba(251,191,36,.18), rgba(244,114,182,.12)), url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1600&q=80');"></div>
-      <div class="hero-slide js-hero-slide" style="background-image: linear-gradient(135deg, rgba(56,189,248,.14), rgba(20,184,166,.16)), url('https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=1600&q=80');"></div>
-      <div class="hero-slide js-hero-slide" style="background-image: linear-gradient(135deg, rgba(251,146,60,.16), rgba(132,204,22,.14)), url('https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1600&q=80');"></div>
-      <div class="hero-overlay"></div>
+  <!-- ════════ HERO — Smile Organic Graphic ════════ -->
+  <section id="greeting" class="hero-gallery" style="background:#FFFFFF;">
+
+    <!-- Photo slides — full bleed behind everything -->
+    <div class="hero-photo-area">
+      <div class="hero-photo-slide js-hero-slide is-active" style="background-image: url('assets/img/hero1.jpeg');"></div>
+      <div class="hero-photo-slide js-hero-slide" style="background-image: url('assets/img/hero2.jpeg');"></div>
     </div>
-    <div class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 rounded-full bg-smileOrange opacity-5 blur-3xl"></div>
-    <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-smileGreen opacity-5 blur-3xl"></div>
-    
-    <div class="max-w-4xl mx-auto text-center relative z-10 js-fade-up">
-      <h1 class="font-serif text-3xl md:text-5xl lg:text-6xl font-bold leading-[1.5] md:leading-[1.55] mb-6 text-gray-800">
-        <span class="text-[0.8em]">あなたの</span><span class="text-smileOrange">「やりたい」</span><span class="text-[0.8em]">を、</span><br class="hidden md:block">
-        <span class="text-[0.8em]">確かな</span>医療<span class="text-[0.8em]">で</span>支えたい。
-      </h1>
-      <p class="text-base md:text-lg text-textMuted leading-relaxed max-w-2xl mx-auto mb-10">
-        尼崎市の「smile訪問看護ステーション」です。<br>
-        透析・育児・精神科ケアの専門知識と、家族のような温かな対話で、<br class="hidden md:block">
-        ご自宅での安心できる毎日をお約束します。
+
+    <!-- ★ Mobile blob mask — bottom wave only -->
+    <svg class="hero-blob-mask mobile-blob" viewBox="0 0 375 812" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <!-- Bottom wave -->
+      <path class="js-smile-wave" d="M0,660 C80,620 180,700 280,650 C340,625 375,660 375,660 L375,812 L0,812 Z"
+            fill="#FDFBFF" fill-opacity=".92" stroke="#E8D4F5" stroke-width="1"/>
+    </svg>
+
+    <!-- ★ Desktop blob mask — bottom wave + yellow accent only -->
+    <svg class="hero-blob-mask desktop-blob" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <!-- Bottom smile curve wave -->
+      <path class="js-smile-wave" d="M-10,720 C180,650 400,800 720,700 C1040,600 1240,740 1450,680 L1450,910 L-10,910 Z"
+            fill="#FDFBFF" fill-opacity=".96" stroke="#E8D4F5" stroke-width="1.2"/>
+
+      <!-- Accent blob — yellow sparkle -->
+      <path d="M1280,120 C1330,80 1400,110 1380,170 C1360,230 1300,220 1280,180 C1260,140 1230,160 1280,120 Z"
+            fill="#F4DF2C" fill-opacity=".25"/>
+    </svg>
+
+    <!-- Sparkle decorations -->
+    <svg class="absolute top-20 right-10 md:right-24 sparkle z-20" width="32" height="32" viewBox="0 0 24 24" fill="#F4DF2C" aria-hidden="true"><path d="M12 0L14 9.5L24 12L14 14.5L12 24L10 14.5L0 12L10 9.5Z"/></svg>
+    <svg class="absolute top-1/3 left-6 md:left-16 sparkle sparkle-delay z-20" width="22" height="22" viewBox="0 0 24 24" fill="#DA9BEA" aria-hidden="true"><path d="M12 0L14 9.5L24 12L14 14.5L12 24L10 14.5L0 12L10 9.5Z"/></svg>
+    <svg class="absolute bottom-32 right-1/4 sparkle z-20" width="16" height="16" viewBox="0 0 24 24" fill="#F4DF2C" opacity=".7" aria-hidden="true"><path d="M12 0L14 9.5L24 12L14 14.5L12 24L10 14.5L0 12L10 9.5Z"/></svg>
+    <!-- Small smile face decoration -->
+    <div class="absolute bottom-20 left-8 md:left-20 z-20 gsap-scale-in">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+        <circle cx="24" cy="24" r="22" fill="#F4DF2C" opacity=".25"/>
+        <circle cx="24" cy="24" r="18" fill="none" stroke="#CB6CE6" stroke-width="1.5" stroke-dasharray="4 4" opacity=".4"/>
+        <circle cx="18" cy="20" r="2" fill="#CB6CE6" opacity=".5"/>
+        <circle cx="30" cy="20" r="2" fill="#CB6CE6" opacity=".5"/>
+        <path d="M16,28 Q24,36 32,28" stroke="#CB6CE6" stroke-width="1.5" fill="none" stroke-linecap="round" opacity=".5"/>
+      </svg>
+    </div>
+
+    <!-- Text content — overlays everything -->
+    <div class="hero-text-area">
+      <div class="max-w-4xl mx-auto hero-text-backdrop">
+        <!-- Hero text with text-shadow for readability over photo -->
+        <p class="hero-kasure hand-accent text-[15px] md:text-[18px] mb-3 md:mb-4 gsap-from-left" style="text-shadow:0 0 20px rgba(255,255,255,.95), 0 0 40px rgba(255,255,255,.7), 0 0 60px rgba(248,240,252,.5), 0 1px 3px rgba(0,0,0,.12);">わたしたちらしい看護を、まっすぐに。</p>
+        <h1 class="font-round font-bold text-[24px] md:text-[38px] lg:text-[46px] tracking-[0.02em] md:tracking-[0.03em] text-charcoal gsap-from-bottom" style="text-shadow:0 0 24px rgba(255,255,255,.95), 0 0 48px rgba(255,255,255,.75), 0 0 72px rgba(248,240,252,.5), 0 1px 4px rgba(0,0,0,.15);" aria-label="あなたの「やりたい」を、確かな医療で支える。">
+          <span class="hero-char-columns" aria-hidden="true">
+            <span class="hero-char-line">
+              <span style="--char-index:0">あ</span>
+              <span style="--char-index:1">な</span>
+              <span style="--char-index:2">た</span>
+              <span style="--char-index:3">の</span>
+              <span class="hero-char-brand" style="--char-index:4">「</span>
+              <span class="hero-char-brand" style="--char-index:5">や</span>
+              <span class="hero-char-brand" style="--char-index:6">り</span>
+              <span class="hero-char-brand" style="--char-index:7">た</span>
+              <span class="hero-char-brand" style="--char-index:8">い</span>
+              <span class="hero-char-brand" style="--char-index:9">」</span>
+              <span style="--char-index:10">を</span>
+              <span style="--char-index:11">、</span>
+            </span>
+            <span class="hero-char-line hero-char-line-2">
+              <span style="--char-index:0">確</span>
+              <span style="--char-index:1">か</span>
+              <span style="--char-index:2">な</span>
+              <span style="--char-index:3">医</span>
+              <span style="--char-index:4">療</span>
+              <span style="--char-index:5">で</span>
+              <span style="--char-index:6">支</span>
+              <span style="--char-index:7">え</span>
+              <span style="--char-index:8">る</span>
+              <span style="--char-index:9">。</span>
+            </span>
+          </span>
+        </h1>
+        <div class="mt-5 flex items-center justify-center gap-2 gsap-scale-in">
+          <svg width="180" height="12" viewBox="0 0 180 12" aria-hidden="true"><path d="M2,8 Q45,1 90,8 Q135,14 178,6" stroke="#F4DF2C" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+          <svg class="sparkle" width="16" height="16" viewBox="0 0 16 16" fill="#F4DF2C" aria-hidden="true"><path d="M8 0L9.5 6.5L16 8L9.5 9.5L8 16L6.5 9.5L0 8L6.5 6.5Z"/></svg>
+        </div>
+        <p class="mt-4 md:mt-6 text-[12px] md:text-[16px] text-charcoal-light leading-[1.85] md:leading-[1.95] max-w-3xl mx-auto gsap-from-right" style="text-shadow:0 0 20px rgba(255,255,255,.95), 0 0 40px rgba(255,255,255,.7), 0 0 60px rgba(248,240,252,.5), 0 1px 3px rgba(0,0,0,.12);">
+          尼崎市を拠点に、透析・小児・精神科ケアの<br class="md:hidden">専門知識と<br class="hidden md:block">
+          家族のような温かな対話で、<br class="md:hidden">在宅での安心をお届けします。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hero → Brand transition wave -->
+  <svg class="wave-divider" viewBox="0 0 1440 60" preserveAspectRatio="none" style="margin-top:-2px; margin-bottom:-10px; display:block; position:relative; z-index:2;">
+    <path d="M0,30 C240,55 480,5 720,35 C960,65 1200,15 1440,40 L1440,60 L0,60Z" fill="#FDFBFF"/>
+  </svg>
+
+  <!-- ════════ BRAND STATEMENT ════════ -->
+  <section id="brand-statement" class="relative bg-warm-white py-20 md:py-28 overflow-hidden" style="margin-top:-8px; position:relative; z-index:1;">
+    <div class="section-container max-w-[860px] text-center">
+      <h2 class="anim font-round font-bold text-[22px] md:text-[34px] leading-[1.7] text-charcoal">
+        自分らしく生きる力を支え、<br>
+        共に幸せを紡ぎ続ける。
+      </h2>
+      <div class="anim anim-delay-1 mt-5 flex items-center justify-center gap-3">
+        <svg width="200" height="12" viewBox="0 0 200 12" aria-hidden="true">
+          <path d="M2,8 Q50,2 100,8 Q150,12 198,6" stroke="#F4DF2C" stroke-width="3" fill="none" stroke-linecap="round"></path>
+        </svg>
+        <svg class="sparkle" width="16" height="16" viewBox="0 0 16 16" fill="#F4DF2C" aria-hidden="true">
+          <path d="M8 0L9.5 6.5L16 8L9.5 9.5L8 16L6.5 9.5L0 8L6.5 6.5Z"></path>
+        </svg>
+      </div>
+      <p class="anim anim-delay-2 mt-3 hand-accent text-[15px] md:text-[17px]">ひとつの笑顔が、次の笑顔へ。</p>
+      <p class="anim anim-delay-2 mt-7 text-[14px] md:text-[15px] leading-[1.9] text-charcoal-light">
+        2024年4月、尼崎に開設。<br>
+        透析ケアに強みを持つ訪問看護ステーションとして、<br class="hidden md:block">
+        地域の皆さまの「その人らしい暮らし」に寄り添っています。
       </p>
     </div>
   </section>
 
-  <section class="py-14 md:py-16 bg-white border-y border-gray-100">
+  <!-- ════════ NEWS ════════ -->
+  <section class="py-14 md:py-16 bg-white relative bg-crosshatch">
     <div class="max-w-6xl mx-auto px-4 js-fade-up">
       <div class="grid lg:grid-cols-[240px_1fr] gap-6 md:gap-8 items-start">
         <div>
-          <p class="text-xs font-bold tracking-[0.16em] text-smileOrange">
-            NEWS
-          </p>
-          <h2 class="mt-3 text-2xl md:text-3xl font-bold text-gray-800">お知らせ</h2>
-          <p class="mt-2 text-sm text-textMuted leading-relaxed">
-            最新の更新情報や、連携に関するご案内を掲載しています。
-          </p>
+          <p class="text-xs font-bold tracking-[0.16em] text-brand font-round">NEWS</p>
+          <h2 class="mt-3 text-2xl md:text-3xl font-bold text-charcoal font-round">お知らせ</h2>
+          <p class="mt-2 text-sm text-textMuted leading-relaxed">最新の更新情報や、連携に関するご案内を掲載しています。</p>
           <div class="mt-5">
-            <a href="diary.html" class="inline-flex items-center gap-2 text-sm font-bold text-smileOrange hover:text-orange-600 transition-colors">
-              更新一覧を見る
-              <span aria-hidden="true">→</span>
+            <a href="diary.html" class="inline-flex items-center gap-2 text-sm font-bold text-brand hover:text-brand-dark transition-colors">
+              更新一覧を見る <span aria-hidden="true">→</span>
             </a>
           </div>
         </div>
 
         <div class="overflow-hidden">
-          <div class="divide-y divide-gray-100 border-y border-gray-100">
+          <div class="divide-y divide-brand-bg">
             <article class="group px-5 md:px-7 py-4 md:py-5">
               <div class="flex flex-col md:flex-row md:items-center gap-3 md:gap-4">
                 <div class="flex items-center gap-3 shrink-0">
                   <time class="text-sm text-textMuted font-medium whitespace-nowrap">2024.04.01</time>
-                  <span class="inline-flex items-center rounded-full bg-orange-100 text-orange-700 text-[11px] font-bold px-2.5 py-1">お知らせ</span>
+                  <span class="inline-flex items-center rounded-full bg-brand-bg text-brand-dark text-[11px] font-bold px-2.5 py-1">お知らせ</span>
                 </div>
-                <p class="font-medium text-gray-800 leading-relaxed">兵庫県尼崎市にオープンいたしました！</p>
+                <p class="font-medium text-charcoal leading-relaxed">兵庫県尼崎市にオープンいたしました！</p>
               </div>
             </article>
 
-            <article class="group px-5 md:px-7 py-4 md:py-5 hover:bg-white/80 transition-colors">
+            <article class="group px-5 md:px-7 py-4 md:py-5 hover:bg-brand-pale/40 transition-colors rounded-lg">
               <a href="diary.html" class="block">
                 <div class="flex flex-col md:flex-row md:items-center gap-3 md:gap-4">
                   <div class="flex items-center gap-3 shrink-0">
                     <time class="text-sm text-textMuted font-medium whitespace-nowrap">2024.04.10</time>
-                    <span class="inline-flex items-center rounded-full bg-amber-100 text-amber-700 text-[11px] font-bold px-2.5 py-1">diary</span>
+                    <span class="inline-flex items-center rounded-full bg-accent-light text-amber-700 text-[11px] font-bold px-2.5 py-1">diary</span>
                   </div>
-                  <p class="font-medium text-gray-800 leading-relaxed group-hover:text-smileOrange transition-colors">smileダイアリーを更新しました</p>
+                  <p class="font-medium text-charcoal leading-relaxed group-hover:text-brand transition-colors">smileダイアリーを更新しました</p>
                 </div>
               </a>
             </article>
 
-            <article class="group px-5 md:px-7 py-4 md:py-5 hover:bg-white/80 transition-colors">
+            <article class="group px-5 md:px-7 py-4 md:py-5 hover:bg-brand-pale/40 transition-colors rounded-lg">
               <a href="medical-institutions.html" class="block">
                 <div class="flex flex-col md:flex-row md:items-center gap-3 md:gap-4">
                   <div class="flex items-center gap-3 shrink-0">
                     <time class="text-sm text-textMuted font-medium whitespace-nowrap">2024.04.15</time>
-                    <span class="inline-flex items-center rounded-full bg-teal-100 text-teal-700 text-[11px] font-bold px-2.5 py-1">医療連携</span>
+                    <span class="inline-flex items-center rounded-full bg-brand-bg text-brand-dark text-[11px] font-bold px-2.5 py-1">医療連携</span>
                   </div>
-                  <p class="font-medium text-gray-800 leading-relaxed group-hover:text-smileGreen transition-colors">現在の訪問空き状況・受け入れ相談について</p>
+                  <p class="font-medium text-charcoal leading-relaxed group-hover:text-brand transition-colors">現在の訪問空き状況・受け入れ相談について</p>
                 </div>
               </a>
             </article>
           </div>
-
         </div>
       </div>
     </div>
   </section>
 
-  <section id="services" class="py-20 bg-bgLight">
+  <!-- ════════ 3 SERVICES ════════ -->
+  <section id="services" class="py-20 bg-dots-lavender">
     <div class="max-w-6xl mx-auto px-4">
-      <h2 class="text-2xl md:text-3xl font-bold text-center mb-4 text-gray-800 js-fade-up">
-        当ステーションの3つの専門ケア
-      </h2>
-      <p class="text-center text-textMuted mb-12 js-fade-up">
-        サービスページでご案内している専門ケアの要点をご紹介します。
-      </p>
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-md transition-shadow js-fade-up" style="transition-delay: 0ms;">
-          <div class="w-14 h-14 bg-blue-50 text-blue-500 rounded-2xl flex items-center justify-center mb-6">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+      <div class="text-center mb-12 js-fade-up">
+        <p class="text-xs font-bold tracking-[0.16em] text-brand font-round">SPECIALTIES</p>
+        <h2 class="mt-2 text-2xl md:text-3xl font-bold text-charcoal font-round">3つの専門ケア</h2>
+        <p class="mt-2 hand-accent text-[14px] md:text-[16px]">あなたに合った看護を、お届けします</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6 md:gap-7">
+        <!-- Care 01 -->
+        <article class="relative bg-white/90 backdrop-blur-sm border-2 border-brand-bg p-7 rounded-3xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all" style="transition-delay:0ms;">
+          <div class="absolute -top-3 -right-3 w-10 h-10 rounded-full bg-accent flex items-center justify-center shadow-md">
+            <span class="text-charcoal font-round font-bold text-xs">01</span>
           </div>
-          <h3 class="text-xl font-bold mb-3 text-gray-800">透析特化型ケア</h3>
-          <p class="text-sm text-textMuted leading-relaxed">透析治療に通いながらの在宅療養を、専門知識を持ったスタッフが安全にサポートします。シャント管理や食事・水分管理のご相談にも対応します。</p>
-        </div>
-        <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-md transition-shadow js-fade-up" style="transition-delay: 100ms;">
-          <div class="w-14 h-14 bg-orange-50 text-smileOrange rounded-2xl flex items-center justify-center mb-6">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          <div class="w-14 h-14 bg-brand-bg text-brand rounded-2xl flex items-center justify-center mb-5" aria-hidden="true">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
           </div>
-          <h3 class="text-xl font-bold mb-3 text-gray-800">小児・育児サポート</h3>
-          <p class="text-sm text-textMuted leading-relaxed">医療的ケアが必要なお子様や、ご家族の病気で育児に不安を抱える方へ、専門職としてきめ細かく伴走し、ご家族の負担軽減も支えます。</p>
-        </div>
-        <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-md transition-shadow js-fade-up" style="transition-delay: 200ms;">
-          <div class="w-14 h-14 bg-green-50 text-smileGreen rounded-2xl flex items-center justify-center mb-6">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+          <h3 class="text-lg font-bold mb-2 text-charcoal font-round">透析特化型ケア</h3>
+          <p class="inline-flex items-center rounded-full bg-brand-pale text-brand-dark text-[11px] font-bold px-3 py-1 mb-3 font-round">透析管理・生活指導</p>
+          <p class="text-sm text-textMuted leading-relaxed">透析治療に通いながらの在宅療養を、専門知識を持ったスタッフが安全にサポートします。</p>
+        </article>
+
+        <!-- Care 02 -->
+        <article class="relative bg-white/90 backdrop-blur-sm border-2 border-brand-bg p-7 rounded-3xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all" style="transition-delay:100ms;">
+          <div class="absolute -top-3 -right-3 w-10 h-10 rounded-full bg-accent flex items-center justify-center shadow-md">
+            <span class="text-charcoal font-round font-bold text-xs">02</span>
           </div>
-          <h3 class="text-xl font-bold mb-3 text-gray-800">精神科訪問看護</h3>
-          <p class="text-sm text-textMuted leading-relaxed">精神的な疾患や心の不調を抱える方が、地域で安心して暮らせるようサポートします。対話を大切にしながら生活リズムや服薬も支援します。</p>
-        </div>
+          <div class="w-14 h-14 bg-brand-bg text-brand rounded-2xl flex items-center justify-center mb-5" aria-hidden="true">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <h3 class="text-lg font-bold mb-2 text-charcoal font-round">小児・育児サポート</h3>
+          <p class="inline-flex items-center rounded-full bg-brand-pale text-brand-dark text-[11px] font-bold px-3 py-1 mb-3 font-round">お子様とご家族支援</p>
+          <p class="text-sm text-textMuted leading-relaxed">医療的ケアが必要なお子様や、ご家族の不安に、専門職としてきめ細かく伴走します。</p>
+        </article>
+
+        <!-- Care 03 -->
+        <article class="relative bg-white/90 backdrop-blur-sm border-2 border-brand-bg p-7 rounded-3xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all" style="transition-delay:200ms;">
+          <div class="absolute -top-3 -right-3 w-10 h-10 rounded-full bg-accent flex items-center justify-center shadow-md">
+            <span class="text-charcoal font-round font-bold text-xs">03</span>
+          </div>
+          <div class="w-14 h-14 bg-brand-bg text-brand rounded-2xl flex items-center justify-center mb-5" aria-hidden="true">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+          </div>
+          <h3 class="text-lg font-bold mb-2 text-charcoal font-round">精神科訪問看護</h3>
+          <p class="inline-flex items-center rounded-full bg-brand-pale text-brand-dark text-[11px] font-bold px-3 py-1 mb-3 font-round">対話・服薬・生活リズム</p>
+          <p class="text-sm text-textMuted leading-relaxed">対話を大切にしながら、地域で安心して暮らせるよう生活リズムや服薬を支援します。</p>
+        </article>
       </div>
       <div class="text-center mt-10 js-fade-up">
-        <a href="service.html" class="inline-flex items-center gap-2 text-smileOrange font-bold border-b-2 border-smileOrange hover:text-orange-600 transition-colors">
-          サービス内容を詳しく見る
-          <span aria-hidden="true">→</span>
+        <a href="service.html" class="inline-flex items-center gap-2 bg-brand text-white font-bold font-round text-sm py-3 px-8 rounded-full shadow-md hover:bg-brand-dark hover:shadow-lg transition-all">
+          サービス内容を詳しく見る <span aria-hidden="true">→</span>
         </a>
       </div>
     </div>
   </section>
 
-  <section class="py-20 md:py-28 bg-white">
-    <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-8 md:gap-10 js-fade-up">
-      <a href="service.html" class="group relative overflow-hidden border border-orange-200 p-8 md:p-10 rounded-[2rem] transition-all hover:-translate-y-1.5 shadow-sm hover:shadow-xl flex flex-col items-center text-center aspect-[4/5] justify-center bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=1200&q=80');">
-        <div class="absolute inset-0 bg-orange-50/85 group-hover:bg-orange-50/75 transition-colors"></div>
-        <span class="relative text-smileOrange font-bold text-xl md:text-2xl mb-3">▶ ご利用者様・ご家族の方へ</span>
-        <span class="relative text-base md:text-lg text-gray-600 leading-relaxed max-w-md">サービス内容・専門ケア・基本的な訪問看護サービスのご案内</span>
-        <div class="absolute -bottom-2 -right-2 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-          <svg class="w-28 h-28 md:w-36 md:h-36 text-smileOrange" fill="currentColor" viewBox="0 0 20 20"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path></svg>
-        </div>
-      </a>
-      <a href="medical-institutions.html" class="group relative overflow-hidden border border-teal-200 p-8 md:p-10 rounded-[2rem] transition-all hover:-translate-y-1.5 shadow-sm hover:shadow-xl flex flex-col items-center text-center aspect-[4/5] justify-center bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1200&q=80');">
-        <div class="absolute inset-0 bg-teal-50/85 group-hover:bg-teal-50/75 transition-colors"></div>
-        <span class="relative text-smileGreen font-bold text-xl md:text-2xl mb-3">▶ ケアマネジャー・医療機関の方へ</span>
-        <span class="relative text-base md:text-lg text-gray-600 leading-relaxed max-w-md">連携窓口・医療処置の対応目安・空き状況・資料請求のご案内</span>
-        <div class="absolute -bottom-2 -right-2 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-          <svg class="w-28 h-28 md:w-36 md:h-36 text-smileGreen" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V8z" clip-rule="evenodd"></path></svg>
-        </div>
-      </a>
+  <!-- wave -->
+  <svg class="wave-divider" viewBox="0 0 1440 40" preserveAspectRatio="none" style="margin-bottom:-1px; display:block;"><path d="M0,20 C480,40 960,0 1440,20 L1440,40 L0,40Z" fill="#F3E8F9"/></svg>
+
+  <!-- ════════ GUIDE ════════ -->
+  <section class="relative py-20 md:py-24 overflow-hidden js-fade-up bg-stripe-lavender" style="background: linear-gradient(175deg, #F3E8F9 0%, #F8F0FC 50%, #FDFBFF 100%); max-width:100vw;">
+    <svg class="absolute -bottom-8 -left-8 pointer-events-none" width="180" height="180" viewBox="0 0 180 180" aria-hidden="true">
+      <defs><pattern id="dots-guide" x="0" y="0" width="12" height="12" patternUnits="userSpaceOnUse"><circle cx="6" cy="6" r="2.5" fill="#CB6CE6"/></pattern></defs>
+      <circle cx="90" cy="90" r="80" fill="url(#dots-guide)" opacity=".08"/>
+    </svg>
+    <svg class="absolute top-12 right-12 sparkle sparkle-delay" width="22" height="22" viewBox="0 0 24 24" fill="#F4DF2C" aria-hidden="true"><path d="M12 0L14 9.5L24 12L14 14.5L12 24L10 14.5L0 12L10 9.5Z"/></svg>
+
+    <div class="section-container" style="max-width:100%;box-sizing:border-box; overflow:hidden;">
+      <div class="text-center mb-10 md:mb-12">
+        <p class="text-[13px] tracking-[0.16em] text-brand font-round font-bold">GUIDE</p>
+        <h2 class="mt-2 font-round font-bold text-[26px] md:text-[36px] text-charcoal leading-[1.45]">目的別のご案内</h2>
+      </div>
+
+      <div class="space-y-4 md:space-y-6 guide-links">
+        <a href="service.html" class="group block overflow-hidden rounded-2xl border-2 border-brand-bg bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-lg transition-all" style="max-width:100%;">
+          <div class="flex flex-col md:flex-row min-h-[220px] md:min-h-[280px]">
+            <div class="w-full md:w-[48%] px-5 py-6 md:px-10 md:py-10 flex flex-col justify-center">
+              <p class="text-[12px] tracking-[0.16em] text-brand font-round font-bold">FOR USERS</p>
+              <h3 class="mt-3 font-round font-bold text-[20px] md:text-[30px] leading-[1.4] text-charcoal">ご利用者様・ご家族の方へ</h3>
+              <p class="mt-3 text-[13px] md:text-[14px] leading-[1.85] text-charcoal-light">サービス内容・専門ケア・基本的な訪問看護サービスのご案内</p>
+              <span class="mt-4 md:mt-5 inline-flex items-center gap-2 text-[14px] font-bold text-brand group-hover:text-brand-dark transition-colors font-round">詳しく見る →</span>
+            </div>
+            <div class="w-full md:w-[52%] relative min-h-[180px] md:min-h-0 overflow-hidden md:rounded-r-2xl" style="clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); /* mobile: no clip */  ">
+              <img src="assets/img/hero1.jpeg" alt="ご利用者様・ご家族向けサービス" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
+              <div class="absolute inset-0 bg-gradient-to-r from-brand/15 via-transparent to-transparent"></div>
+            </div>
+          </div>
+        </a>
+
+        <a href="medical-institutions.html" class="group block overflow-hidden rounded-2xl border-2 border-brand-bg bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-lg transition-all" style="max-width:100%;">
+          <div class="flex flex-col md:flex-row-reverse min-h-[220px] md:min-h-[280px]">
+            <div class="w-full md:w-[48%] px-5 py-6 md:px-10 md:py-10 flex flex-col justify-center">
+              <p class="text-[12px] tracking-[0.16em] text-brand font-round font-bold">FOR PARTNERS</p>
+              <h3 class="mt-3 font-round font-bold text-[20px] md:text-[30px] leading-[1.4] text-charcoal">ケアマネジャー・医療機関の方へ</h3>
+              <p class="mt-3 text-[13px] md:text-[14px] leading-[1.85] text-charcoal-light">連携窓口・医療処置の対応目安・空き状況・資料請求のご案内</p>
+              <span class="mt-4 md:mt-5 inline-flex items-center gap-2 text-[14px] font-bold text-brand group-hover:text-brand-dark transition-colors font-round">詳しく見る →</span>
+            </div>
+            <div class="w-full md:w-[52%] relative min-h-[180px] md:min-h-0 overflow-hidden md:rounded-l-2xl" style="clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);">
+              <img src="assets/img/studysession.jpeg" alt="ケアマネジャー・医療機関向け連携案内" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
+              <div class="absolute inset-0 bg-gradient-to-l from-brand/15 via-transparent to-transparent"></div>
+            </div>
+          </div>
+        </a>
+      </div>
     </div>
   </section>
 
-  <section id="voices" class="py-20 bg-bgLight">
+  <!-- ════════ SERVICE AREA ════════ -->
+  <section id="service-area" class="relative overflow-hidden" style="background:#EEF3FA;">
+    <div class="flex flex-col md:flex-row w-full">
+      <!-- 左: 余白（1/3） -->
+      <div class="hidden md:block md:w-1/3"></div>
+      <!-- 右: 地図（2/3） -->
+      <div class="md:w-2/3 relative min-h-[360px] md:min-h-[520px] overflow-hidden">
+        <img src="assets/img/尼崎地図.png" alt="尼崎市周辺の対応エリアマップ" class="absolute inset-0 w-full h-full object-cover block" style="filter:saturate(.85) contrast(1.05); transform:scale(1.15); transform-origin:center 38%;">
+
+        <!-- SVG オーバーレイ（ラベル＋ピン） -->
+        <svg viewBox="0 0 1300 980" class="absolute inset-0 w-full h-full" aria-hidden="true" style="pointer-events:none; transform:scale(1.15); transform-origin:center 38%;">
+          <defs>
+            <filter id="label-shadow" x="-10%" y="-10%" width="120%" height="120%">
+              <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#fff" flood-opacity=".7"/>
+            </filter>
+          </defs>
+
+          <!-- 尼崎市ラベル -->
+          <g filter="url(#label-shadow)">
+            <text x="650" y="460" text-anchor="middle" fill="#CB6CE6" font-size="42" font-weight="700" font-family="'M PLUS Rounded 1c',sans-serif">尼崎市</text>
+            <text x="650" y="500" text-anchor="middle" fill="#9B4DCA" font-size="16" font-family="'Josefin Sans',sans-serif" letter-spacing="4" opacity=".7">AMAGASAKI</text>
+          </g>
+
+          <!-- ピンアイコン -->
+          <g transform="translate(650,350)">
+            <ellipse cx="0" cy="34" rx="12" ry="4" fill="rgba(0,0,0,.15)"/>
+            <path d="M0,-24 C-14,-24 -22,-12 -22,0 C-22,16 0,34 0,34 C0,34 22,16 22,0 C22,-12 14,-24 0,-24 Z" fill="#F4DF2C"/>
+            <circle cx="0" cy="-3" r="8" fill="#fff"/>
+            <text x="0" y="2" text-anchor="middle" fill="#CB6CE6" font-size="11" font-weight="700" font-family="'M PLUS Rounded 1c',sans-serif">S</text>
+          </g>
+
+          <!-- 伊丹市ラベル -->
+          <g filter="url(#label-shadow)">
+            <text x="630" y="150" text-anchor="middle" fill="#2D2D3A" font-size="28" font-weight="700" font-family="'M PLUS Rounded 1c',sans-serif" opacity=".55">伊丹市</text>
+            <text x="630" y="178" text-anchor="middle" fill="#2D2D3A" font-size="12" font-family="'Josefin Sans',sans-serif" letter-spacing="3" opacity=".3">ITAMI</text>
+          </g>
+
+          <!-- 西宮市ラベル -->
+          <g filter="url(#label-shadow)">
+            <text x="310" y="440" text-anchor="middle" fill="#2D2D3A" font-size="28" font-weight="700" font-family="'M PLUS Rounded 1c',sans-serif" opacity=".55">西宮市</text>
+            <text x="310" y="468" text-anchor="middle" fill="#2D2D3A" font-size="12" font-family="'Josefin Sans',sans-serif" letter-spacing="3" opacity=".3">NISHINOMIYA</text>
+          </g>
+
+          <!-- 大阪湾ラベル（左下） -->
+          <text x="130" y="840" fill="rgba(60,80,120,.15)" font-size="20" font-family="'Josefin Sans',sans-serif" letter-spacing="5">OSAKA BAY</text>
+
+          <!-- 大阪ラベル（右下） -->
+          <text x="900" y="780" fill="rgba(60,80,120,.18)" font-size="28" font-weight="700" font-family="'M PLUS Rounded 1c',sans-serif" letter-spacing="3">大阪</text>
+          <text x="900" y="810" fill="rgba(60,80,120,.12)" font-size="14" font-family="'Josefin Sans',sans-serif" letter-spacing="4">OSAKA</text>
+
+        </svg>
+
+        <!-- 見切れ位置の点線（陸地エッジのみ） -->
+        <!-- 上辺 -->
+        <div class="absolute top-0 left-0 right-0" style="height:0; border-top:2px dashed rgba(90,90,130,.22); z-index:2;"></div>
+        <!-- 左辺：上〜59.5% -->
+        <div class="absolute top-0 left-0" style="width:0; height:59.5%; border-left:2px dashed rgba(90,90,130,.22); z-index:2;"></div>
+        <!-- 右辺：上〜70% -->
+        <div class="absolute top-0 right-0" style="width:0; height:70%; border-right:2px dashed rgba(90,90,130,.22); z-index:2;"></div>
+        <!-- 下辺：右側49.5%〜右端 -->
+        <div class="absolute bottom-0 right-0" style="width:49.5%; height:0; border-bottom:2px dashed rgba(90,90,130,.22); z-index:2;"></div>
+      </div>
+      <!-- テキストオーバーレイ（左側に重ねる） -->
+      <div class="absolute inset-0 flex items-center pointer-events-none">
+        <div class="px-6 py-10 md:px-16 md:py-0 pointer-events-auto" style="max-width:480px;">
+          <div class="backdrop-blur-sm bg-white/80 rounded-2xl p-5 md:bg-white/70 md:rounded-2xl md:p-8">
+            <p class="text-[12px] md:text-[13px] tracking-[0.16em] font-round font-bold text-brand opacity-70">SERVICE AREA</p>
+            <h2 class="mt-2 font-round font-bold text-[22px] md:text-[30px] leading-[1.6] text-charcoal">対応エリア</h2>
+            <div class="mt-1 flex items-center gap-2">
+              <svg width="120" height="8" viewBox="0 0 120 8"><path d="M2,5 Q30,1 60,5 Q90,8 118,4" stroke="#F4DF2C" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
+            </div>
+            <h3 class="mt-5 font-round font-bold text-[15px] md:text-[19px] leading-[1.8] text-charcoal">
+              尼崎市を中心に<br>近隣エリアで訪問看護を<br>ご提供しています
+            </h3>
+            <p class="mt-3 text-[12px] md:text-[14px] leading-[1.9] text-charcoal-light">
+              尼崎市全域を中心に、西宮市・伊丹市の一部エリアにも対応しております。まずはお気軽にご相談ください。
+            </p>
+            <div class="mt-5 flex flex-wrap gap-2">
+              <span class="area-badge area-badge--main">尼崎市</span>
+              <span class="area-badge">西宮市（一部）</span>
+              <span class="area-badge">伊丹市（一部）</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Area → Values transition wave -->
+  <svg class="wave-divider" viewBox="0 0 1440 60" preserveAspectRatio="none" style="margin-top:-2px; display:block; background:#EEF3FA;">
+    <path d="M0,20 C360,50 720,5 1080,35 C1260,50 1380,25 1440,30 L1440,60 L0,60Z" fill="#FDFBFF"/>
+  </svg>
+
+  <!-- ════════ VALUES ════════ -->
+  <section id="values" class="relative py-20 md:py-24 bg-crosshatch" style="background: #FDFBFF;">
+    <div class="section-container">
+      <div class="text-center mb-12">
+        <p class="text-[13px] tracking-[0.16em] text-brand font-round font-bold">VALUES</p>
+        <h2 class="mt-2 font-round font-bold text-[22px] md:text-[28px] text-charcoal">smileが大切にしていること</h2>
+        <p class="hand-accent text-[14px] md:text-[16px] mt-2">4つの想い、すべてに笑顔を</p>
+      </div>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+        <div class="group text-center">
+          <div class="relative w-[100px] h-[100px] md:w-[120px] md:h-[120px] mx-auto">
+            <!-- Dot ring decoration -->
+            <svg class="absolute inset-0 w-full h-full" viewBox="0 0 120 120" aria-hidden="true">
+              <circle cx="60" cy="60" r="56" fill="none" stroke="#CB6CE6" stroke-width="1" stroke-dasharray="4 6" opacity=".3"/>
+            </svg>
+            <div class="absolute inset-2 rounded-full bg-white shadow-md flex items-center justify-center group-hover:scale-105 group-hover:-translate-y-1 transition-all">
+              <svg class="w-10 h-10 text-brand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M5 20c1.8-3.6 4.3-5.2 7-5.2S17.2 16.4 19 20"/><path d="M19.5 2.5l.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9z"/></svg>
+            </div>
+          </div>
+          <p class="mt-3 font-round font-bold text-[13px] md:text-[14px] text-charcoal">主体性</p>
+          <p class="mt-2 text-[13px] leading-[1.7] text-charcoal-light">自分で選び、自分で動く力を信じる</p>
+        </div>
+        <div class="group text-center">
+          <div class="relative w-[100px] h-[100px] md:w-[120px] md:h-[120px] mx-auto">
+            <svg class="absolute inset-0 w-full h-full" viewBox="0 0 120 120" aria-hidden="true">
+              <circle cx="60" cy="60" r="56" fill="none" stroke="#F4DF2C" stroke-width="1" stroke-dasharray="4 6" opacity=".4"/>
+            </svg>
+            <div class="absolute inset-2 rounded-full bg-white shadow-md flex items-center justify-center group-hover:scale-105 group-hover:-translate-y-1 transition-all">
+              <svg class="w-10 h-10 text-brand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 10c0-2.8 2.2-5 5-5 1.4 0 2.7.6 3.6 1.5C13.3 5.6 14.6 5 16 5c2.8 0 5 2.2 5 5 0 6.3-9 10.5-9 10.5S4 16.3 4 10z"/></svg>
+            </div>
+          </div>
+          <p class="mt-3 font-round font-bold text-[13px] md:text-[14px] text-charcoal">共感と協働</p>
+          <p class="mt-2 text-[13px] leading-[1.7] text-charcoal-light">異なる価値観を尊重し、共に歩む</p>
+        </div>
+        <div class="group text-center">
+          <div class="relative w-[100px] h-[100px] md:w-[120px] md:h-[120px] mx-auto">
+            <svg class="absolute inset-0 w-full h-full" viewBox="0 0 120 120" aria-hidden="true">
+              <circle cx="60" cy="60" r="56" fill="none" stroke="#CB6CE6" stroke-width="1" stroke-dasharray="4 6" opacity=".3"/>
+            </svg>
+            <div class="absolute inset-2 rounded-full bg-white shadow-md flex items-center justify-center group-hover:scale-105 group-hover:-translate-y-1 transition-all">
+              <svg class="w-10 h-10 text-brand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 20V9"/><path d="M8.5 12.5L12 9l3.5 3.5"/><path d="M7 20h10"/></svg>
+            </div>
+          </div>
+          <p class="mt-3 font-round font-bold text-[13px] md:text-[14px] text-charcoal">成長と探求</p>
+          <p class="mt-2 text-[13px] leading-[1.7] text-charcoal-light">学び続け、より良いケアを追求する</p>
+        </div>
+        <div class="group text-center">
+          <div class="relative w-[100px] h-[100px] md:w-[120px] md:h-[120px] mx-auto">
+            <svg class="absolute inset-0 w-full h-full" viewBox="0 0 120 120" aria-hidden="true">
+              <circle cx="60" cy="60" r="56" fill="none" stroke="#F4DF2C" stroke-width="1" stroke-dasharray="4 6" opacity=".4"/>
+            </svg>
+            <div class="absolute inset-2 rounded-full bg-white shadow-md flex items-center justify-center group-hover:scale-105 group-hover:-translate-y-1 transition-all">
+              <svg class="w-10 h-10 text-brand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="9" cy="9" r="3"/><circle cx="15" cy="15" r="3"/><path d="M11.2 11.2l1.6 1.6"/></svg>
+            </div>
+          </div>
+          <p class="mt-3 font-round font-bold text-[13px] md:text-[14px] text-charcoal">笑顔の連鎖</p>
+          <p class="mt-2 text-[13px] leading-[1.7] text-charcoal-light">一つの笑顔が、次の笑顔を生む</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ ABOUT / MESSAGE ════════ -->
+  <section id="voices" class="py-20 bg-dots-lavender overflow-hidden">
     <div class="max-w-6xl mx-auto px-4">
-      <section class="mb-20 py-16 md:py-24 js-fade-up relative overflow-hidden">
-        <div class="absolute inset-0 bg-white"></div>
-        <div class="absolute top-8 right-6 md:right-16 w-40 h-40 md:w-56 md:h-56 rounded-full bg-orange-100/50 blur-3xl"></div>
-        <div class="absolute bottom-6 left-4 md:left-12 w-44 h-44 md:w-64 md:h-64 rounded-full bg-teal-100/40 blur-3xl"></div>
+      <section class="mb-20 py-16 md:py-24 js-fade-up relative overflow-hidden rounded-3xl">
+        <div class="absolute inset-0 bg-white/90 backdrop-blur-sm"></div>
+        <div class="absolute top-8 right-6 md:right-16 w-40 h-40 md:w-56 md:h-56 rounded-full bg-brand-bg/60 blur-3xl"></div>
+        <div class="absolute bottom-6 left-4 md:left-12 w-44 h-44 md:w-64 md:h-64 rounded-full bg-accent-light/40 blur-3xl"></div>
         <div class="relative max-w-5xl mx-auto px-4">
-          <h2 class="font-rounded text-3xl md:text-5xl font-bold text-gray-800 leading-[1.45] md:leading-[1.5] text-center mb-8">
-            <span class="text-[0.8em]">1人1人の</span><span class="text-smileOrange">「やりたい」</span><span class="text-[0.8em]">に</span>向き合う。<br>
-            <span class="text-[0.8em]">それが、</span>smile<span class="text-[0.8em]">の</span>約束<span class="text-[0.8em]">です。</span>
+          <h2 class="font-round text-2xl md:text-4xl font-bold text-charcoal leading-[1.5] text-center mb-8">
+            <span class="text-[0.85em]">1人1人の</span><span class="text-brand">「やりたい」</span><span class="text-[0.85em]">に</span>向き合う。<br>
+            <span class="text-[0.85em]">それが、</span><span class="text-brand">smile</span><span class="text-[0.85em]">の</span>約束<span class="text-[0.85em]">です。</span>
           </h2>
-          <div class="max-w-3xl mx-auto text-sm md:text-lg text-textMuted leading-[2.1] md:leading-[2.15] space-y-5">
-            <p>
-              病気や障害があっても、「住み慣れた家で自分らしく暮らしたい」「もう一度、〇〇ができるようになりたい」——そんなお一人おひとりの想いや目標は違います。
-            </p>
-            <p>
-              私たちは、ただ医療的ケアを提供するだけでなく、ご利用者様とご家族様の「やりたい」という気持ちに寄り添い、その実現に向けて一緒に歩むパートナーでありたいと考えています。
-              尼崎市の地域に根ざし、皆さまが笑顔で毎日を過ごせるよう、温かく専門的なサポートをお届けします。
-            </p>
+          <div class="max-w-3xl mx-auto text-sm md:text-base text-textMuted leading-[2.1] space-y-5">
+            <p>病気や障害があっても、「住み慣れた家で自分らしく暮らしたい」「もう一度、〇〇ができるようになりたい」——そんなお一人おひとりの想いは違います。</p>
+            <p>私たちは、ただ医療的ケアを提供するだけでなく、ご利用者様とご家族様の「やりたい」という気持ちに寄り添い、その実現に向けて一緒に歩むパートナーでありたいと考えています。</p>
           </div>
           <div class="text-center mt-10">
-            <a href="about.html" class="inline-flex items-center gap-2 text-smileOrange font-bold border-b-2 border-smileOrange hover:text-orange-600 transition-colors">
-              about us を見る
-              <span aria-hidden="true">→</span>
+            <a href="about.html" class="inline-flex items-center gap-2 bg-brand text-white font-bold font-round text-sm py-3 px-8 rounded-full shadow-md hover:bg-brand-dark hover:shadow-lg transition-all">
+              about us を見る <span aria-hidden="true">→</span>
             </a>
           </div>
         </div>
       </section>
 
-      <div class="mb-20 max-w-5xl mx-auto px-4 grid md:grid-cols-2 gap-5 js-fade-up">
-        <a href="flow.html" class="group relative overflow-hidden rounded-3xl border border-orange-200 bg-gradient-to-br from-orange-50 to-white p-7 md:p-8 shadow-sm hover:shadow-lg transition-all hover:-translate-y-1">
-          <div class="absolute top-0 right-0 w-28 h-28 bg-orange-100/70 rounded-bl-[2rem]"></div>
-          <div class="relative">
-            <p class="text-xs font-bold tracking-wide text-smileOrange mb-2">FLOW</p>
-            <h3 class="font-rounded text-xl md:text-2xl font-bold text-gray-800 mb-2">ご利用のながれ</h3>
-            <p class="text-sm md:text-base text-textMuted leading-relaxed">初めてのご相談から、訪問看護開始までのステップをわかりやすくご案内します。</p>
-            <span class="inline-flex items-center gap-2 mt-4 text-smileOrange font-bold group-hover:translate-x-1 transition-transform">詳しく見る <span aria-hidden="true">→</span></span>
-          </div>
-        </a>
-
-        <a href="faq.html" class="group relative overflow-hidden rounded-3xl border border-teal-200 bg-gradient-to-br from-teal-50 to-white p-7 md:p-8 shadow-sm hover:shadow-lg transition-all hover:-translate-y-1">
-          <div class="absolute top-0 right-0 w-28 h-28 bg-teal-100/70 rounded-bl-[2rem]"></div>
-          <div class="relative">
-            <p class="text-xs font-bold tracking-wide text-smileGreen mb-2">FAQ</p>
-            <h3 class="font-rounded text-xl md:text-2xl font-bold text-gray-800 mb-2">よくあるご質問</h3>
-            <p class="text-sm md:text-base text-textMuted leading-relaxed">利用条件や頻度、対象となる方など、よくある疑問をまとめて確認できます。</p>
-            <span class="inline-flex items-center gap-2 mt-4 text-smileGreen font-bold group-hover:translate-x-1 transition-transform">詳しく見る <span aria-hidden="true">→</span></span>
-          </div>
-        </a>
+      <!-- FLOW / FAQ navigation -->
+      <div class="mb-20 js-fade-up">
+        <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-2">
+          <a href="flow.html" class="group relative overflow-hidden bg-gradient-to-br from-brand-dark to-purple-900 py-12 md:py-16 px-8 md:px-12 md:rounded-l-3xl rounded-t-3xl md:rounded-tr-none">
+            <div class="absolute inset-0 opacity-[.06]" style="background-image: url('assets/img/hero1.jpeg'); background-size: cover; background-position: center;"></div>
+            <div class="absolute top-6 right-8 font-round text-[5rem] md:text-[7rem] font-bold leading-none text-white/[.06] select-none">01</div>
+            <div class="relative">
+              <p class="text-xs font-bold tracking-[.2em] text-accent mb-3 font-round">FLOW</p>
+              <h3 class="font-round text-2xl md:text-3xl font-bold text-white mb-3">ご利用のながれ</h3>
+              <p class="text-sm md:text-base text-white/70 leading-relaxed max-w-sm">初めてのご相談から、訪問看護開始までのステップをわかりやすくご案内します。</p>
+              <span class="inline-flex items-center gap-3 mt-6 text-white font-bold font-round text-sm group-hover:gap-4 transition-all">
+                詳しく見る
+                <span class="w-8 h-8 rounded-full bg-white/15 flex items-center justify-center group-hover:bg-accent group-hover:text-charcoal transition-all" aria-hidden="true">→</span>
+              </span>
+            </div>
+          </a>
+          <a href="faq.html" class="group relative overflow-hidden bg-gradient-to-br from-charcoal to-gray-800 py-12 md:py-16 px-8 md:px-12 md:rounded-r-3xl rounded-b-3xl md:rounded-bl-none">
+            <div class="absolute inset-0 opacity-[.06]" style="background-image: url('assets/img/hero2.jpeg'); background-size: cover; background-position: center;"></div>
+            <div class="absolute top-6 right-8 font-round text-[5rem] md:text-[7rem] font-bold leading-none text-white/[.06] select-none">02</div>
+            <div class="relative">
+              <p class="text-xs font-bold tracking-[.2em] text-accent mb-3 font-round">FAQ</p>
+              <h3 class="font-round text-2xl md:text-3xl font-bold text-white mb-3">よくあるご質問</h3>
+              <p class="text-sm md:text-base text-white/70 leading-relaxed max-w-sm">利用条件や頻度、対象となる方など、よくある疑問をまとめて確認できます。</p>
+              <span class="inline-flex items-center gap-3 mt-6 text-white font-bold font-round text-sm group-hover:gap-4 transition-all">
+                詳しく見る
+                <span class="w-8 h-8 rounded-full bg-white/15 flex items-center justify-center group-hover:bg-accent group-hover:text-charcoal transition-all" aria-hidden="true">→</span>
+              </span>
+            </div>
+          </a>
+        </div>
       </div>
 
+      <!-- DIARY -->
+      <div class="js-fade-up max-w-6xl mx-auto px-4 mb-20">
+        <div class="text-center mb-8">
+          <p class="text-xs font-bold tracking-[0.16em] text-brand font-round">DIARY</p>
+          <h2 class="mt-2 text-2xl font-bold text-charcoal font-round">smileダイアリー</h2>
+        </div>
+        <div class="grid md:grid-cols-3 gap-6">
+          <a href="diary.html" class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all group border-2 border-brand-bg hover:-translate-y-1">
+            <div class="aspect-[4/3] bg-brand-pale overflow-hidden">
+              <img src="assets/img/new%20colleague.jpeg" alt="新しいスタッフの写真" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="p-5">
+              <time class="text-xs text-textMuted mb-2 block font-round">2024.04.10</time>
+              <h3 class="font-bold text-charcoal line-clamp-2 font-round">新しいスタッフが加わりました！研修の様子をお届けします。</h3>
+            </div>
+          </a>
+          <a href="diary.html" class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all group border-2 border-brand-bg hover:-translate-y-1">
+            <div class="aspect-[4/3] bg-brand-pale overflow-hidden">
+              <img src="assets/img/studysession.jpeg" alt="勉強会の様子の写真" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="p-5">
+              <time class="text-xs text-textMuted mb-2 block font-round">2024.04.05</time>
+              <h3 class="font-bold text-charcoal line-clamp-2 font-round">シャントケアの勉強会を実施。より質の高い透析ケアを目指して。</h3>
+            </div>
+          </a>
+          <a href="diary.html" class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all group border-2 border-brand-bg hover:-translate-y-1">
+            <div class="aspect-[4/3] bg-brand-pale overflow-hidden flex items-center justify-center">
+              <span class="text-brand-light font-round">Coming Soon</span>
+            </div>
+            <div class="p-5">
+              <time class="text-xs text-textMuted mb-2 block font-round">2024.04.01</time>
+              <h3 class="font-bold text-charcoal line-clamp-2 font-round">尼崎市にsmile訪問看護ステーションがオープンしました。</h3>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- INSTAGRAM -->
       <section class="mb-20 js-fade-up">
         <div class="max-w-6xl mx-auto px-4">
           <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
             <div>
-              <p class="text-xs font-bold tracking-[0.18em] text-smileOrange">INSTAGRAM</p>
-              <h2 class="font-rounded text-2xl md:text-3xl font-bold text-gray-800 mt-2">日々のようす</h2>
+              <p class="text-xs font-bold tracking-[0.18em] text-brand font-round">INSTAGRAM</p>
+              <h2 class="font-round text-2xl md:text-3xl font-bold text-charcoal mt-2">日々のようす</h2>
               <p class="text-sm md:text-base text-textMuted mt-2 leading-relaxed">訪問の合間の景色や、スタッフの学び、ステーションの日常を写真でお届けします。</p>
             </div>
-            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-smileOrange font-bold hover:text-orange-600 transition-colors">
-              Instagramを見る
-              <span aria-hidden="true">↗</span>
+            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-brand font-bold font-round hover:text-brand-dark transition-colors">
+              Instagramを見る <span aria-hidden="true">↗</span>
             </a>
           </div>
 
           <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="group relative aspect-[4/5] overflow-hidden rounded-2xl bg-white border border-orange-100 shadow-sm">
-              <img src="https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=800&q=80" alt="訪問看護のイメージ" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent opacity-70 group-hover:opacity-50 transition-opacity"></div>
+            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="group relative aspect-[4/5] overflow-hidden rounded-2xl bg-white border-2 border-brand-bg shadow-sm">
+              <img src="assets/img/hero2.jpeg" alt="訪問看護のイメージ" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
             </a>
-            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="group relative aspect-[4/5] overflow-hidden rounded-2xl bg-white border border-teal-100 shadow-sm">
-              <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?auto=format&fit=crop&w=800&q=80" alt="スタッフの学びのイメージ" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-70 group-hover:opacity-50 transition-opacity"></div>
+            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="group relative aspect-[4/5] overflow-hidden rounded-2xl bg-white border-2 border-brand-bg shadow-sm">
+              <img src="assets/img/instagram2.jpeg" alt="スタッフの学びのイメージ" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
             </a>
-            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="group relative aspect-[4/5] overflow-hidden rounded-2xl bg-white border border-orange-100 shadow-sm">
-              <img src="https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80" alt="ご家族との対話イメージ" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-70 group-hover:opacity-50 transition-opacity"></div>
+            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="group relative aspect-[4/5] overflow-hidden rounded-2xl bg-white border-2 border-brand-bg shadow-sm">
+              <img src="assets/img/new%20colleague.jpeg" alt="ご家族との対話イメージ" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
             </a>
-            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="group relative aspect-[4/5] overflow-hidden rounded-2xl bg-white border border-teal-100 shadow-sm">
-              <img src="https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=800&q=80" alt="ステーションの日常イメージ" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent opacity-70 group-hover:opacity-50 transition-opacity"></div>
+            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="group relative aspect-[4/5] overflow-hidden rounded-2xl bg-white border-2 border-brand-bg shadow-sm">
+              <img src="assets/img/instagram4.jpeg" alt="ステーションの日常イメージ" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
             </a>
           </div>
         </div>
       </section>
 
-      <div class="js-fade-up max-w-6xl mx-auto px-4">
-        <h2 class="text-2xl font-bold text-center mb-10 text-gray-800">smileダイアリー</h2>
-        <div class="grid md:grid-cols-3 gap-6">
-          <a href="diary.html" class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group border border-gray-50">
-            <div class="aspect-[4/3] bg-gray-200 overflow-hidden">
-              <div class="w-full h-full bg-orange-100 group-hover:scale-105 transition-transform duration-500 flex items-center justify-center text-orange-300">Image</div>
-            </div>
-            <div class="p-5">
-              <time class="text-xs text-textMuted mb-2 block">2024.04.10</time>
-              <h3 class="font-bold text-gray-800 line-clamp-2">新しいスタッフが加わりました！研修の様子をお届けします。</h3>
-            </div>
-          </a>
-          <a href="diary.html" class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group border border-gray-50">
-            <div class="aspect-[4/3] bg-gray-200 overflow-hidden">
-              <div class="w-full h-full bg-green-100 group-hover:scale-105 transition-transform duration-500 flex items-center justify-center text-green-300">Image</div>
-            </div>
-            <div class="p-5">
-              <time class="text-xs text-textMuted mb-2 block">2024.04.05</time>
-              <h3 class="font-bold text-gray-800 line-clamp-2">シャントケアの勉強会を実施。より質の高い透析ケアを目指して。</h3>
-            </div>
-          </a>
-          <a href="diary.html" class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group border border-gray-50">
-            <div class="aspect-[4/3] bg-gray-200 overflow-hidden">
-              <div class="w-full h-full bg-blue-100 group-hover:scale-105 transition-transform duration-500 flex items-center justify-center text-blue-300">Image</div>
-            </div>
-            <div class="p-5">
-              <time class="text-xs text-textMuted mb-2 block">2024.04.01</time>
-              <h3 class="font-bold text-gray-800 line-clamp-2">尼崎市にsmile訪問看護ステーションがオープンしました。</h3>
-            </div>
-          </a>
-        </div>
+
+
+    </div>
+  </section>
+
+  <!-- ════════ RECRUIT ════════ -->
+  <section id="recruit" class="relative overflow-hidden" style="min-height: 520px;">
+    <!-- Background photo -->
+    <div class="absolute inset-0" style="background: url('assets/img/hero2.jpeg') center/cover no-repeat;"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-charcoal/90 via-purple-900/80 to-brand-dark/70"></div>
+    <!-- Decorative elements -->
+    <div class="absolute top-0 right-0 w-1/3 h-full opacity-10" style="background: url('assets/img/studysession.jpeg') center/cover no-repeat;"></div>
+    <div class="absolute bottom-0 left-0 w-64 h-64 rounded-full bg-accent/10 blur-3xl"></div>
+    <div class="absolute top-10 right-20 w-48 h-48 rounded-full bg-brand/10 blur-3xl"></div>
+
+    <div class="relative z-10 max-w-6xl mx-auto px-4 py-24 md:py-32 grid md:grid-cols-[1.2fr_0.8fr] gap-10 items-center">
+      <!-- Left: Text content -->
+      <div class="js-fade-up">
+        <p class="inline-flex items-center gap-2 text-xs font-bold tracking-[.2em] text-accent mb-5 font-round">
+          <span class="w-8 h-px bg-accent inline-block"></span> RECRUIT
+        </p>
+        <h2 class="font-round text-3xl md:text-5xl font-bold text-white leading-tight mb-4">
+          私たちと一緒に、<br>地域の<span class="text-accent">「笑顔」</span>を<br class="hidden md:inline">支えませんか？
+        </h2>
+        <p class="font-hand text-lg md:text-xl text-white/80 mb-6">あなたの「やりたい看護」を、ここで。</p>
+        <p class="text-white/70 text-sm md:text-base leading-loose mb-10 max-w-lg">
+          看護師、准看護師、理学療法士、作業療法士さんを募集しています！<br>
+          育児中の方、若い方、女性が多数活躍している、アットホームな職場です。
+        </p>
+        <a href="recruit.html" class="group inline-flex items-center gap-3 bg-white text-brand-dark font-bold font-round text-base py-4 px-10 rounded-full shadow-lg hover:shadow-2xl hover:scale-105 transition-all">
+          採用特設サイトを見る
+          <span class="w-8 h-8 rounded-full bg-brand text-white flex items-center justify-center group-hover:bg-brand-dark transition-colors" aria-hidden="true">→</span>
+        </a>
       </div>
 
+      <!-- Right: Glassmorphism highlights -->
+      <div class="space-y-4 js-fade-up fade-delay-2">
+        <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-5">
+          <p class="text-accent font-bold font-round text-2xl mb-1">3つ</p>
+          <p class="text-white/80 text-sm">の専門分野で<br>スキルを磨ける環境</p>
+        </div>
+        <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-5">
+          <p class="text-accent font-bold font-round text-2xl mb-1">充実研修</p>
+          <p class="text-white/80 text-sm">未経験からでも安心の<br>ステップアップ制度</p>
+        </div>
+        <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-5">
+          <p class="text-accent font-bold font-round text-2xl mb-1">働きやすさ◎</p>
+          <p class="text-white/80 text-sm">育児中の方も活躍中<br>柔軟な勤務スタイル</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section id="recruit" class="py-24 relative overflow-hidden bg-smileOrange/5">
-    <div class="max-w-3xl mx-auto px-4 text-center relative z-10 js-fade-up">
-      <h2 class="text-2xl md:text-4xl font-bold mb-6 text-gray-800">
-        私たちと一緒に、<br class="md:hidden">地域の<span class="text-smileOrange">「笑顔」</span>を支えませんか？
-      </h2>
-      <p class="text-base text-gray-700 mb-10 leading-loose">
-        看護師、准看護師、理学療法士、作業療法士さんを募集しています！<br>
-        育児中の方、若い方、女性が多数活躍している、アットホームな職場です☆
-      </p>
-      <a href="contact.html" class="inline-flex items-center justify-center gap-2 bg-smileOrange text-white font-bold text-lg py-4 px-10 rounded-full shadow-lg hover:bg-orange-600 hover:scale-105 transition-all">
-        ▶ 採用情報・エントリーはこちら
-      </a>
-    </div>
-  </section>
-
-
-  <div class="md:hidden fixed bottom-0 left-0 w-full z-50 flex border-t border-gray-200 bg-white">
-    <a href="tel:0649506402" class="flex-1 py-4 text-center text-smileOrange font-bold text-sm flex items-center justify-center gap-2 bg-orange-50 active:bg-orange-100">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+  <!-- ═══ Mobile Fixed Footer ═══ -->
+  <div class="md:hidden fixed bottom-0 left-0 w-full z-50 flex border-t border-brand-bg bg-white shadow-[0_-2px_10px_rgba(203,108,230,.08)]" style="padding-bottom: env(safe-area-inset-bottom, 0px);">
+    <a href="tel:0649506402" class="flex-1 py-4 text-center text-brand font-bold text-sm flex items-center justify-center gap-2 bg-brand-pale active:bg-brand-bg font-round">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
       電話
     </a>
-    <a href="contact.html" class="flex-1 py-4 text-center bg-smileOrange text-white font-bold text-sm flex items-center justify-center gap-2 active:bg-orange-600">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+    <a href="contact.html" class="flex-1 py-4 text-center bg-brand text-white font-bold text-sm flex items-center justify-center gap-2 active:bg-brand-dark font-round">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
       お問い合わせ
     </a>
   </div>
 
+  <!-- ═══ Light Trail — 線状の誘導ライト（セクションの上に描画するため末尾に配置） ═══ -->
+  <div id="light-trail-container" aria-hidden="true">
+    <svg id="light-trail-svg">
+      <defs>
+        <!-- 手描き風のやわらかフィルター -->
+        <filter id="brush-glow" x="-10%" y="-10%" width="120%" height="120%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="1.2" result="blur"/>
+          <feMerge>
+            <feMergeNode in="blur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+      <path id="light-path" fill="none" stroke="none"/>
+    </svg>
+  </div>
+
+  <script src="shared-layout.js"></script>
   <script>
-    // Vanilla JS Intersection Observerによるアニメーション制御
     document.addEventListener('DOMContentLoaded', () => {
-      const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-active');
-            observer.unobserve(entry.target); // 一度発火したら監視解除で軽量化
+      /* ── Transparent header on hero ── */
+      const sharedHeader = document.querySelector('.sn-shared-header');
+      const brandStatement = document.getElementById('brand-statement');
+      const updateHeaderState = () => {
+        if (!sharedHeader || !brandStatement) return;
+        const trigger = brandStatement.offsetTop - sharedHeader.offsetHeight;
+        sharedHeader.classList.toggle('sn-hero-transparent', window.scrollY < trigger);
+      };
+      updateHeaderState();
+      window.addEventListener('scroll', updateHeaderState, { passive: true });
+      window.addEventListener('resize', updateHeaderState);
+
+      /* ── Intersection Observer for .js-fade-up / .anim ── */
+      const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add(e.target.classList.contains('anim') ? 'is-visible' : 'is-active');
+            obs.unobserve(e.target);
           }
         });
-      }, {
-        rootMargin: '0px 0px -15% 0px', // 画面下部から15%入った位置で発火
-        threshold: 0
+      }, { rootMargin: '0px 0px -12% 0px', threshold: 0 });
+      document.querySelectorAll('.js-fade-up, .anim').forEach(el => io.observe(el));
+
+      /* ── Hero auto-slide ── */
+      const heroSlides = Array.from(document.querySelectorAll('.js-hero-slide'));
+      const prefersRM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (heroSlides.length > 1 && !prefersRM) {
+        let idx = 0;
+        setInterval(() => {
+          heroSlides[idx].classList.remove('is-active');
+          idx = (idx + 1) % heroSlides.length;
+          heroSlides[idx].classList.add('is-active');
+        }, 5000);
+      }
+
+      /* ══════ GSAP Animations ══════ */
+      gsap.registerPlugin(ScrollTrigger);
+
+      /* Hero entrance — staggered timeline */
+      const heroTl = gsap.timeline({ delay: 0.3 });
+      heroTl
+        .to('.hero-text-area .gsap-from-left', {
+          x: 0, opacity: 1, duration: 0.9, ease: 'power3.out'
+        })
+        .to('.hero-text-area .gsap-from-bottom', {
+          y: 0, opacity: 1, duration: 1, ease: 'power3.out'
+        }, '-=0.5')
+        .to('.hero-text-area .gsap-scale-in', {
+          scale: 1, opacity: 1, duration: 0.8, ease: 'back.out(1.7)'
+        }, '-=0.4')
+        .to('.hero-text-area .gsap-from-right', {
+          x: 0, opacity: 1, duration: 0.9, ease: 'power3.out'
+        }, '-=0.4');
+
+      /* Smile face decoration */
+      gsap.to('#greeting .gsap-scale-in', {
+        scale: 1, opacity: 1, duration: 1.2, ease: 'elastic.out(1, 0.5)', delay: 1.5
       });
 
-      document.querySelectorAll('.js-fade-up').forEach(el => observer.observe(el));
-
-      const heroSlides = Array.from(document.querySelectorAll('.js-hero-slide'));
-      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (heroSlides.length > 1 && !prefersReducedMotion) {
-        let heroIndex = 0;
-        window.setInterval(() => {
-          heroSlides[heroIndex].classList.remove('is-active');
-          heroIndex = (heroIndex + 1) % heroSlides.length;
-          heroSlides[heroIndex].classList.add('is-active');
-        }, 4200);
+      /* Smile wave subtle float animation (responsive path) */
+      if (window.innerWidth >= 768) {
+        gsap.to('.desktop-blob .js-smile-wave', {
+          attr: { d: 'M-100,720 C200,640 400,760 720,700 C1040,600 1200,700 1540,680 L1540,950 L-100,950 Z' },
+          duration: 4,
+          ease: 'sine.inOut',
+          yoyo: true,
+          repeat: -1
+        });
+      } else {
+        gsap.to('.mobile-blob .js-smile-wave', {
+          attr: { d: 'M0,680 C80,640 180,720 280,670 C340,645 375,680 375,680 L375,812 L0,812 Z' },
+          duration: 3.6,
+          ease: 'sine.inOut',
+          yoyo: true,
+          repeat: -1
+        });
       }
+
+      /* ══════ Leading Light Trail — 線状の誘導ライト ══════ */
+      (function initLeadingLight() {
+        if (prefersRM) return;
+
+        const container = document.getElementById('light-trail-container');
+        const svgEl = document.getElementById('light-trail-svg');
+        const pathEl = document.getElementById('light-path');
+        if (!container || !svgEl || !pathEl) return;
+
+        /* 黄色い手描き風ライン（サイト内のhand-accentウェーブと同じテイスト） */
+        var ns = 'http://www.w3.org/2000/svg';
+        var brushLines = [];
+        var brushConfigs = [
+          { width: 2.8, color: '#F4DF2C', filter: 'url(#brush-glow)', dx: 0, dy: 0 },
+          { width: 1.2, color: 'rgba(244,223,44,.4)', filter: '', dx: 1.5, dy: 1.2 },
+        ];
+        brushConfigs.forEach(function(cfg) {
+          var line = document.createElementNS(ns, 'path');
+          line.setAttribute('fill', 'none');
+          line.setAttribute('stroke', cfg.color);
+          line.setAttribute('stroke-width', cfg.width);
+          line.setAttribute('stroke-linecap', 'round');
+          if (cfg.filter) line.setAttribute('filter', cfg.filter);
+          line.style.opacity = '0';
+          line.dataset.dx = cfg.dx;
+          line.dataset.dy = cfg.dy;
+          svgEl.appendChild(line);
+          brushLines.push(line);
+        });
+
+        /* きらめきスパークル（先頭に追従） */
+        var sparkle = document.createElementNS(ns, 'path');
+        sparkle.setAttribute('d', 'M0,-8 L1.5,-.5 L8,0 L1.5,.5 L0,8 L-1.5,.5 L-8,0 L-1.5,-.5 Z');
+        sparkle.setAttribute('fill', '#F4DF2C');
+        sparkle.style.opacity = '0';
+        svgEl.appendChild(sparkle);
+
+        function buildPath() {
+          var pageH = document.documentElement.scrollHeight;
+          var pageW = window.innerWidth;
+          var isMobile = pageW < 768;
+
+          svgEl.setAttribute('viewBox', '0 0 ' + pageW + ' ' + pageH);
+          svgEl.setAttribute('width', pageW);
+          svgEl.setAttribute('height', pageH);
+          svgEl.style.width = pageW + 'px';
+          svgEl.style.height = pageH + 'px';
+
+          /* ── セクション位置を取得 ── */
+          var heroEl = document.getElementById('greeting');
+          if (!heroEl) return null;
+
+          var brandEl = document.getElementById('brand-statement');
+          /* お知らせセクション（IDなし、bg-crosshatch が目印） */
+          var newsEls = document.querySelectorAll('section.bg-crosshatch');
+          var newsEl = newsEls[0]; /* 最初の bg-crosshatch がお知らせ */
+          var servicesEl = document.getElementById('services');
+          if (!brandEl || !newsEl || !servicesEl) return null;
+
+          function absTop(el) { return el.getBoundingClientRect().top + window.scrollY; }
+          var heroBottom = absTop(heroEl) + heroEl.offsetHeight;
+          var brandY = absTop(brandEl), brandH = brandEl.offsetHeight;
+          var newsY = absTop(newsEl), newsH = newsEl.offsetHeight;
+          var svcY = absTop(servicesEl), svcH = servicesEl.offsetHeight;
+
+          /* ── 大きな弧を描く優雅な軌道 ── */
+
+          /* 開始点：ニコちゃんマークの位置から */
+          var smileEl = document.querySelector('#greeting .gsap-scale-in');
+          var startX, startY;
+          if (smileEl) {
+            var smileRect = smileEl.getBoundingClientRect();
+            startX = smileRect.left + smileRect.width / 2 + window.scrollX;
+            startY = smileRect.top + smileRect.height / 2 + window.scrollY;
+          } else {
+            startX = isMobile ? pageW * 0.1 : pageW * 0.05;
+            startY = heroBottom - (isMobile ? 80 : 120);
+          }
+
+          var d = 'M' + startX + ',' + startY;
+
+          /* ── 画面内に収まる余白 ── */
+          var padL = isMobile ? pageW * 0.04 : pageW * 0.03;
+          var padR = isMobile ? pageW * 0.92 : pageW * 0.93;
+
+          /*
+           * 参考画像の黒い線に沿った軌道:
+           * 1) ニコちゃん → 右上方向へ弧を描き、ブランドステートメント右側を通過
+           * 2) 右側からブランド下端〜お知らせ上端へ大きな弧で左へスウィープ
+           * 3) お知らせ左側を弧で囲むように下降
+           * 4) お知らせ下端から右へ大きな弧でサービスセクションへ
+           * 5) フェードアウト
+           */
+
+          /* ── 1) ニコちゃんから右へ — 大きな弧でブランド右側を通過 ── */
+          var arc1EndX = isMobile ? pageW * 0.85 : pageW * 0.88;
+          var arc1EndY = brandY + brandH * 0.65;
+          d += ' C' + (startX + pageW * 0.30) + ',' + (startY - 100)
+             + ' ' + (pageW * 0.92) + ',' + (brandY + brandH * 0.05)
+             + ' ' + arc1EndX + ',' + arc1EndY;
+
+          /* ── 2) 右側から大きく左下へスウィープ — ブランド下端〜お知らせ上端 ── */
+          var arc2EndX = isMobile ? pageW * 0.10 : pageW * 0.08;
+          var arc2EndY = newsY + newsH * 0.10;
+          d += ' C' + (arc1EndX) + ',' + (arc1EndY + (brandY + brandH - arc1EndY) * 0.8)
+             + ' ' + (pageW * 0.40) + ',' + (newsY - 20)
+             + ' ' + arc2EndX + ',' + arc2EndY;
+
+          /* ── 3) お知らせ左側を弧で囲む — 左端に沿って下降 ── */
+          var newsExitX = isMobile ? pageW * 0.10 : pageW * 0.06;
+          var newsExitY = newsY + newsH * 0.92;
+          d += ' C' + (padL - pageW * 0.02) + ',' + (arc2EndY + (newsExitY - arc2EndY) * 0.3)
+             + ' ' + (padL - pageW * 0.01) + ',' + (newsExitY - (newsExitY - arc2EndY) * 0.15)
+             + ' ' + newsExitX + ',' + newsExitY;
+
+          /* ── 4) お知らせ下端から右上へ大きな弧 — サービスセクションを横断 ── */
+          var arc4EndX = isMobile ? pageW * 0.82 : pageW * 0.90;
+          var arc4EndY = svcY + svcH * 0.40;
+          d += ' C' + (newsExitX + pageW * 0.10) + ',' + (newsExitY + 60)
+             + ' ' + (pageW * 0.55) + ',' + (svcY - 30)
+             + ' ' + arc4EndX + ',' + arc4EndY;
+
+          /* ── 5) 右寄りで緩やかにフェードアウト ── */
+          var svcEndX = padR;
+          var svcEndY = svcY + svcH * 0.80;
+          d += ' C' + (arc4EndX + pageW * 0.02) + ',' + (arc4EndY + (svcEndY - arc4EndY) * 0.4)
+             + ' ' + (pageW * 0.88) + ',' + (svcEndY - 40)
+             + ' ' + svcEndX + ',' + svcEndY;
+
+          pathEl.setAttribute('d', d);
+          return d;
+        }
+
+        /* サブパスを抽出 — getPointAtLength でサンプリング */
+        function extractSubPath(refPath, startLen, endLen, samples) {
+          var pLen = refPath.getTotalLength();
+          var s = Math.max(0, Math.min(startLen, pLen));
+          var e = Math.max(0, Math.min(endLen, pLen));
+          if (e <= s) return '';
+          var n = samples || 24;
+          var step = (e - s) / n;
+          var p0 = refPath.getPointAtLength(s);
+          var d = 'M' + p0.x.toFixed(1) + ',' + p0.y.toFixed(1);
+          for (var j = 1; j <= n; j++) {
+            var p = refPath.getPointAtLength(s + step * j);
+            d += ' L' + p.x.toFixed(1) + ',' + p.y.toFixed(1);
+          }
+          return d;
+        }
+
+        function setupAnimation() {
+          var pathLength = pathEl.getTotalLength();
+          if (!pathLength) return;
+
+          var trailLen = pathLength * 0.12;
+
+          brushLines.forEach(function(l) { l.removeAttribute('d'); });
+
+          ScrollTrigger.getAll().forEach(function(trigger) {
+            if (trigger.vars && trigger.vars.id === 'leadingLight') trigger.kill();
+          });
+
+          var dummy = { val: 0 };
+          gsap.to(dummy, {
+            val: 1,
+            ease: 'none',
+            scrollTrigger: {
+              id: 'leadingLight',
+              trigger: '#greeting',
+              start: 'top top',
+              endTrigger: '#services',
+              end: 'top center',
+              scrub: 0.6,
+              onUpdate: function(self) {
+                var p = self.progress;
+                var headPos = p * pathLength;
+                var tailPos = headPos - trailLen;
+
+                /* フェードイン・フェードアウト */
+                var baseOp = 1;
+                if (p < 0.05) {
+                  baseOp = p / 0.05;
+                } else if (p > 0.85) {
+                  baseOp = 1 - (p - 0.85) / 0.15;
+                }
+
+                var subD = extractSubPath(pathEl, Math.max(tailPos, 0), Math.min(headPos, pathLength), 40);
+                brushLines.forEach(function(line) {
+                  line.style.opacity = baseOp;
+                  if (subD) {
+                    var dx = parseFloat(line.dataset.dx);
+                    var dy = parseFloat(line.dataset.dy);
+                    var offsetD = subD.replace(/([0-9.-]+),([0-9.-]+)/g, function(m, x, y) {
+                      return (parseFloat(x) + dx).toFixed(1) + ',' + (parseFloat(y) + dy).toFixed(1);
+                    });
+                    line.setAttribute('d', offsetD);
+                  } else {
+                    line.setAttribute('d', '');
+                  }
+                });
+
+                /* スパークルを先頭に配置 */
+                var headPt = pathEl.getPointAtLength(Math.min(headPos, pathLength));
+                sparkle.setAttribute('transform', 'translate(' + headPt.x + ',' + headPt.y + ')');
+                sparkle.style.opacity = baseOp * 0.7;
+              }
+            }
+          });
+        }
+
+        /* ── position:fixed のSVGをスクロールに追従させる ── */
+        function trackScroll() {
+          svgEl.style.transform = 'translateY(' + (-window.scrollY) + 'px)';
+          requestAnimationFrame(trackScroll);
+        }
+
+        function init() {
+          var pathData = buildPath();
+          if (pathData) setupAnimation();
+        }
+
+        setTimeout(init, 1000);
+        requestAnimationFrame(trackScroll);
+
+        if (document.fonts && document.fonts.ready) {
+          document.fonts.ready.then(function() { setTimeout(init, 300); });
+        }
+
+        var resizeTimer;
+        window.addEventListener('resize', function() {
+          clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(function() {
+            init();
+            ScrollTrigger.refresh();
+          }, 400);
+        });
+      })();
+
+      /* ── ScrollTrigger — slide-in from sides for sections below hero ── */
+
+      /* Brand statement */
+      gsap.fromTo('#brand-statement h2',
+        { y: 50, opacity: 0 },
+        { scrollTrigger: { trigger: '#brand-statement', start: 'top 80%' },
+          y: 0, opacity: 1, duration: 1, ease: 'power3.out' }
+      );
+
+      /* Service cards — stagger from left */
+      gsap.fromTo('#services article',
+        { x: -60, opacity: 0 },
+        { scrollTrigger: { trigger: '#services', start: 'top 75%' },
+          x: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power3.out' }
+      );
+
+      /* Guide cards — alternate left/right */
+      document.querySelectorAll('.guide-links > a').forEach((card, i) => {
+        gsap.fromTo(card,
+          { x: i % 2 === 0 ? -80 : 80, opacity: 0 },
+          { scrollTrigger: { trigger: card, start: 'top 85%' },
+            x: 0, opacity: 1, duration: 0.9, ease: 'power3.out' }
+        );
+      });
+
+      /* Service Area — fade in text overlay + map */
+      gsap.fromTo('#service-area .md\\:backdrop-blur-sm',
+        { x: -40, opacity: 0 },
+        { scrollTrigger: { trigger: '#service-area', start: 'top 75%' },
+          x: 0, opacity: 1, duration: 0.9, ease: 'power3.out' }
+      );
+      gsap.fromTo('#service-area .md\\:w-2\\/3',
+        { x: 40, opacity: 0 },
+        { scrollTrigger: { trigger: '#service-area', start: 'top 75%' },
+          x: 0, opacity: 1, duration: 0.9, delay: 0.15, ease: 'power3.out' }
+      );
+
+      /* Values circles — scale in with stagger */
+      gsap.fromTo('#values .group',
+        { scale: 0.6, opacity: 0 },
+        { scrollTrigger: { trigger: '#values', start: 'top 75%' },
+          scale: 1, opacity: 1, duration: 0.7, stagger: 0.12, ease: 'back.out(1.7)' }
+      );
+
+      /* Instagram photos — slide from right */
+      gsap.fromTo('#voices .grid.grid-cols-2 > a',
+        { x: 60, opacity: 0 },
+        { scrollTrigger: { trigger: '#voices .grid.grid-cols-2', start: 'top 80%' },
+          x: 0, opacity: 1, duration: 0.7, stagger: 0.1, ease: 'power3.out' }
+      );
+
+      /* Diary cards — slide from bottom */
+      gsap.fromTo('#voices .grid.md\\:grid-cols-3 > a',
+        { y: 50, opacity: 0 },
+        { scrollTrigger: { trigger: '#voices .grid.md\\:grid-cols-3', start: 'top 80%' },
+          y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power3.out' }
+      );
+
+      /* Recruit section */
+      gsap.fromTo('#recruit h2',
+        { y: 40, opacity: 0 },
+        { scrollTrigger: { trigger: '#recruit', start: 'top 80%' },
+          y: 0, opacity: 1, duration: 1, ease: 'power3.out' }
+      );
+      gsap.fromTo('#recruit a[href="contact.html"]',
+        { scale: 0.8, opacity: 0 },
+        { scrollTrigger: { trigger: '#recruit', start: 'top 70%' },
+        scale: 1, opacity: 1, duration: 0.8, ease: 'back.out(1.7)', delay: 0.3
+      });
     });
   </script>
-  <script src="shared-layout.js"></script>
 </body>
 </html>

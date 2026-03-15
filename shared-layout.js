@@ -41,6 +41,9 @@
         box-shadow: 0 1px 10px rgba(15,23,42,.08);
         border-bottom: 1px solid rgba(226,232,240,.8);
         font-family: "Noto Sans JP", sans-serif;
+        max-width: 100vw;
+        overflow: visible;
+        box-sizing: border-box;
       }
       .sn-shared-wrap {
         max-width: 80rem;
@@ -55,12 +58,33 @@
         gap: 12px;
       }
       .sn-logo {
-        color: #F97316;
+        color: #CB6CE6;
         text-decoration: none;
         font-family: "M PLUS Rounded 1c", sans-serif;
         font-weight: 700;
         font-size: 1.05rem;
         white-space: nowrap;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .sn-logo-mark {
+        width: 32px;
+        height: 32px;
+        border-radius: 999px;
+        flex: 0 0 32px;
+      }
+      .sn-brand-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        min-width: 0;
+        white-space: nowrap;
+      }
+      .sn-logo-text {
+        display: inline-block;
+        min-width: 0;
+        line-height: 1.2;
       }
       @media (min-width: 768px) { .sn-logo { font-size: 1.35rem; } }
       .sn-shared-header .sn-desktop-row { display: none; }
@@ -90,7 +114,7 @@
         white-space: nowrap;
         transition: color .2s ease;
       }
-      .sn-link:hover, .sn-link.sn-active { color: #F97316; }
+      .sn-link:hover, .sn-link.sn-active { color: #CB6CE6; }
       .sn-dropdown { position: relative; }
       .sn-dropdown-trigger {
         display: inline-flex;
@@ -98,7 +122,7 @@
         gap: 4px;
       }
       .sn-caret { width: 14px; height: 14px; color: #9ca3af; transition: color .2s ease, transform .2s ease; }
-      .sn-dropdown:hover .sn-caret { color: #F97316; }
+      .sn-dropdown:hover .sn-caret { color: #CB6CE6; }
       .sn-dropdown-menu {
         position: absolute;
         left: 0;
@@ -127,7 +151,7 @@
         text-decoration: none;
         transition: background .2s ease, color .2s ease;
       }
-      .sn-dropdown-panel a:hover, .sn-dropdown-panel a.sn-active { background: #FFF7ED; color: #F97316; }
+      .sn-dropdown-panel a:hover, .sn-dropdown-panel a.sn-active { background: #F3E8F9; color: #CB6CE6; }
       .sn-btn {
         display: inline-flex;
         align-items: center;
@@ -139,14 +163,14 @@
         white-space: nowrap;
         transition: all .2s ease;
       }
-      .sn-btn-users { border: 1px solid #fecdd3; background: #fff1f2; color: #e11d48; }
-      .sn-btn-users:hover { background: #ffe4e6; }
-      .sn-btn-recruit { border: 1px solid #fed7aa; background: #fff7ed; color: #F97316; }
-      .sn-btn-recruit:hover { background: #ffedd5; }
-      .sn-btn-medical { border: 1px solid rgba(20,184,166,.25); background: #f0fdfa; color: #0f766e; }
-      .sn-btn-medical:hover { background: #ccfbf1; }
-      .sn-btn-contact { background: #F97316; color: #fff; }
-      .sn-btn-contact:hover { background: #ea580c; }
+      .sn-btn-users { border: 1px solid #DA9BEA; background: #F3E8F9; color: #CB6CE6; }
+      .sn-btn-users:hover { background: #E8D4F5; }
+      .sn-btn-recruit { border: 1px solid #F4DF2C; background: #FBF6D0; color: #7a6200; }
+      .sn-btn-recruit:hover { background: #F4DF2C; color: #2D2D3A; }
+      .sn-btn-medical { border: 1px solid #DA9BEA; background: #F8F0FC; color: #9B4DCA; }
+      .sn-btn-medical:hover { background: #F3E8F9; }
+      .sn-btn-contact { background: #CB6CE6; color: #fff; }
+      .sn-btn-contact:hover { background: #b855d4; }
 
       .sn-mobile-panel {
         display: none;
@@ -162,7 +186,7 @@
         padding: 10px 12px;
         border-radius: 10px;
       }
-      .sn-mobile-links a:hover, .sn-mobile-sub a:hover { background: #f8fafc; }
+      .sn-mobile-links a:hover, .sn-mobile-sub a:hover { background: #F3E8F9; }
       .sn-mobile-group {
         border: 1px solid #e5e7eb;
         border-radius: 12px;
@@ -180,74 +204,111 @@
       .sn-mobile-btns .sn-btn { padding: 10px 12px; font-size: 13px; }
 
       .sn-shared-footer {
-        background: #1f2937;
+        background: linear-gradient(175deg, #F8F0FC 0%, #E8D5F5 18%, #CB6CE6 50%, #9B4DCA 75%, #2D2D3A 100%);
         color: #fff;
-        padding: 56px 0 56px;
+        padding: 72px 0 40px;
         font-family: "Noto Sans JP", sans-serif;
+        position: relative;
+        overflow: hidden;
       }
-      .sn-shared-footer .sn-grid { display: grid; gap: 32px; }
+      .sn-shared-footer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #CB6CE6, #F4DF2C, #CB6CE6);
+      }
+      .sn-shared-footer::after {
+        content: '';
+        position: absolute;
+        top: -80px;
+        right: -60px;
+        width: 360px;
+        height: 360px;
+        background: radial-gradient(circle, rgba(255,255,255,.08) 0%, transparent 70%);
+        pointer-events: none;
+      }
+      .sn-shared-footer .sn-grid { display: grid; gap: 48px; position: relative; z-index: 1; }
       .sn-footer-top {
         display: grid;
-        gap: 32px;
+        gap: 40px;
         align-items: start;
       }
       @media (min-width: 768px) {
-        .sn-footer-top { grid-template-columns: 340px 1fr; gap: 40px; }
+        .sn-footer-top { grid-template-columns: 360px 1fr; gap: 48px; }
       }
       @media (min-width: 1024px) {
-        .sn-footer-top { gap: 64px; }
+        .sn-footer-top { gap: 72px; }
       }
       .sn-footer-brand {
         display: inline-flex;
         align-items: center;
-        gap: 0;
-        color: #F97316;
+        gap: 10px;
+        color: #2D2D3A;
         text-decoration: none;
         font-weight: 700;
         font-family: "M PLUS Rounded 1c", sans-serif;
-        font-size: 1.05rem;
-        margin-bottom: 12px;
+        font-size: 1.1rem;
+        margin-bottom: 16px;
+        transition: color .3s;
       }
-      .sn-footer-brand:hover { color: #fb923c; }
-      @media (min-width: 768px) { .sn-footer-brand { font-size: 1.35rem; } }
-      .sn-footer-desc { color: #d1d5db; line-height: 1.7; margin-bottom: 14px; }
-      .sn-footer-company { color: #d1d5db; margin: 4px 0 8px; }
-      .sn-footer-address { color: #9ca3af; line-height: 1.7; }
+      .sn-footer-brand .sn-logo-mark {
+        width: 36px;
+        height: 36px;
+        border-radius: 999px;
+        flex: 0 0 36px;
+      }
+      .sn-footer-brand:hover { color: #9B4DCA; }
+      @media (min-width: 768px) { .sn-footer-brand { font-size: 1.4rem; } }
+      .sn-footer-desc { color: #6B6B7B; line-height: 1.8; margin-bottom: 16px; font-size: 14px; }
+      .sn-footer-company { color: #2D2D3A; margin: 4px 0 8px; font-weight: 600; }
+      .sn-footer-address { color: #6B6B7B; line-height: 1.8; font-size: 13px; }
       .sn-contact-box {
-        margin-top: 12px;
-        border: 1px solid rgba(251,191,36,.2);
-        background: rgba(55,65,81,.42);
-        border-radius: 16px;
-        padding: 14px;
+        margin-top: 16px;
+        border: 1px solid rgba(255,255,255,.20);
+        background: rgba(255,255,255,.10);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border-radius: 24px;
+        padding: 16px 18px;
+        transition: border-color .3s, background .3s;
       }
-      .sn-contact-box .sn-label { color: #fed7aa; font-size: 12px; font-weight: 700; margin-bottom: 4px; }
+      .sn-contact-box:hover {
+        border-color: rgba(255,255,255,.35);
+        background: rgba(255,255,255,.18);
+      }
+      .sn-contact-box .sn-label { color: #9B4DCA; font-size: 11px; font-weight: 700; margin-bottom: 6px; letter-spacing: .08em; text-transform: uppercase; }
       .sn-contact-box .sn-phone {
-        color: #fff;
+        color: #2D2D3A;
         font-weight: 700;
-        font-size: 1.25rem;
-        letter-spacing: .04em;
+        font-size: 1.3rem;
+        letter-spacing: .05em;
         text-decoration: none;
+        transition: color .3s;
       }
-      .sn-contact-box .sn-phone:hover { color: #fed7aa; }
-      .sn-contact-box .sn-meta { color: #9ca3af; font-size: 12px; margin-top: 4px; line-height: 1.6; }
+      .sn-contact-box .sn-phone:hover { color: #9B4DCA; }
+      .sn-contact-box .sn-meta { color: #6B6B7B; font-size: 12px; margin-top: 6px; line-height: 1.6; }
       .sn-footer-right { text-align: left; }
       @media (min-width: 768px) { .sn-footer-right { text-align: right; } }
       .sn-footer-menu {
         display: flex;
         flex-wrap: wrap;
-        gap: 14px 20px;
-        color: #9ca3af;
-        margin: 0 0 24px;
+        gap: 12px 20px;
+        color: rgba(255,255,255,.80);
+        margin: 0 0 28px;
         padding: 0;
         list-style: none;
+        font-size: 14px;
       }
-      @media (min-width: 768px) { .sn-footer-menu { justify-content: flex-end; gap: 22px 34px; } }
-      .sn-footer-menu a { color: inherit; text-decoration: none; }
-      .sn-footer-menu a:hover { color: #fff; }
+      @media (min-width: 768px) { .sn-footer-menu { justify-content: flex-end; gap: 18px 32px; } }
+      .sn-footer-menu a { color: inherit; text-decoration: none; transition: color .3s; }
+      .sn-footer-menu a:hover { color: #F4DF2C; }
       .sn-footer-actions {
         display: flex;
         flex-direction: column;
-        gap: 18px;
+        gap: 16px;
         align-items: stretch;
       }
       @media (min-width: 768px) {
@@ -260,38 +321,43 @@
       .sn-footer-buttons {
         display: flex;
         flex-wrap: wrap;
-        gap: 18px;
+        gap: 14px;
         width: 100%;
         max-width: 560px;
       }
       @media (min-width: 768px) { .sn-footer-buttons { justify-content: flex-start; width: max-content; } }
       .sn-footer-buttons .sn-btn {
-        border-radius: 12px;
-        padding: 10px 16px;
+        border-radius: 999px;
+        padding: 10px 20px;
+        font-size: 13px;
+        letter-spacing: .02em;
+        transition: all .3s;
       }
       .sn-footer-contact {
         min-width: 0;
         width: 100%;
         justify-content: center;
-        padding: 20px 34px;
-        font-size: 18px;
+        padding: 18px 34px;
+        font-size: 16px;
         font-weight: 700;
-        border-radius: 14px;
-        background: transparent;
+        border-radius: 999px;
+        background: linear-gradient(135deg, #CB6CE6, #9B4DCA);
         color: #fff;
-        border: 1px solid rgba(255,255,255,.35);
-        box-shadow: 0 8px 20px rgba(15,23,42,.18);
+        border: 2px solid rgba(255,255,255,.30);
+        box-shadow: 0 8px 24px rgba(203,108,230,.3);
+        letter-spacing: .04em;
+        transition: all .3s;
       }
       .sn-footer-contact:hover {
-        background: #F97316;
+        background: linear-gradient(135deg, #d980f0, #AB5DDA);
         color: #fff;
-        transform: translateY(-2px);
-        border-color: #F97316;
-        box-shadow: 0 16px 34px rgba(249,115,22,.34);
+        transform: translateY(-3px) scale(1.02);
+        border-color: rgba(255,255,255,.50);
+        box-shadow: 0 16px 40px rgba(203,108,230,.45);
       }
       .sn-footer-bottom {
-        border-top: 1px solid #374151;
-        padding-top: 24px;
+        border-top: 1px solid rgba(255,255,255,.12);
+        padding-top: 28px;
         display: flex;
         flex-direction: column;
         gap: 10px;
@@ -303,15 +369,36 @@
           justify-content: space-between;
         }
       }
-      .sn-footer-bottom .sn-copy { color: #6b7280; font-size: 12px; }
+      .sn-footer-bottom .sn-copy { color: rgba(255,255,255,.55); font-size: 12px; letter-spacing: .03em; }
+
+      @media (max-width: 767px) {
+        .sn-shared-header {
+          overflow-x: hidden;
+          overflow-y: visible;
+        }
+        .sn-shared-wrap {
+          max-width: 100vw;
+          padding: 0 10px;
+        }
+        .sn-logo {
+          max-width: calc(100vw - 80px);
+          overflow: hidden;
+          font-size: .95rem;
+        }
+        .sn-logo-text {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
 
       .sn-body-offset { padding-top: 72px !important; }
     `;
     document.head.appendChild(style);
   }
 
-  function iconMark() {
-    return '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>';
+  function brandLabel(className) {
+    return `<span class="${className}"><img class="sn-logo-mark" src="assets/img/smile訪問看護ステーション_logo.png" alt="" aria-hidden="true"><span class="sn-logo-text">smile訪問看護ステーション</span></span>`;
   }
 
   function caretIcon() {
@@ -339,7 +426,7 @@
       <header class="sn-shared-header" data-sn-shared-header>
         <div class="sn-shared-wrap">
           <div class="sn-row sn-mobile">
-            <a href="index.html" class="sn-logo">smile訪問看護ステーション</a>
+            <a href="index.html" class="sn-logo">${brandLabel('sn-brand-label')}</a>
             <button class="sn-mobile-toggle" type="button" aria-expanded="false" aria-label="メニューを開く" data-sn-toggle>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             </button>
@@ -360,7 +447,7 @@
             </div>
           </div>
           <div class="sn-row sn-desktop-row">
-            <a href="index.html" class="sn-logo">smile訪問看護ステーション</a>
+            <a href="index.html" class="sn-logo">${brandLabel('sn-brand-label')}</a>
             <nav class="sn-desktop-nav" aria-label="グローバルメニュー">
               <div class="sn-dropdown">
                 <a href="about.html" class="sn-link sn-dropdown-trigger ${aboutGroupActive ? 'sn-active' : ''}">私たちについて ${caretIcon()}</a>
@@ -395,7 +482,7 @@
         <div class="sn-shared-wrap sn-grid">
           <div class="sn-footer-top">
             <div>
-              <a href="index.html" class="sn-footer-brand">smile訪問看護ステーション</a>
+              <a href="index.html" class="sn-footer-brand">${brandLabel('sn-brand-label')}</a>
               <p class="sn-footer-desc">ご利用者様・ご家族の方の「やりたい」に寄り添う訪問看護を目指しています。</p>
               <p class="sn-footer-company">株式会社smile</p>
               <p class="sn-footer-address">〒661-0012<br>兵庫県尼崎市南塚口8丁目41-7<br>南塚口ハイツ101号</p>
