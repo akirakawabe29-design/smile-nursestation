@@ -139,7 +139,7 @@
       .sn-mobile-nav-links { display: flex; flex-direction: column; gap: 4px; flex: 1; }
       .sn-mobile-nav-link {
         color: #fff; text-decoration: none; font-size: 1.35rem; font-weight: 600;
-        padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,.12);
+        padding: 12px 0;
         transition: color .2s, padding-left .2s;
         font-family: "M PLUS Rounded 1c", sans-serif;
       }
@@ -152,7 +152,7 @@
       .sn-mobile-nav-sub { display: flex; flex-direction: column; gap: 0; }
       .sn-mobile-nav-sub a {
         color: rgba(255,255,255,.85); text-decoration: none; font-size: 1.1rem; font-weight: 500;
-        padding: 10px 0 10px 16px; border-bottom: 1px solid rgba(255,255,255,.08);
+        padding: 10px 0 10px 16px;
         transition: color .2s, padding-left .2s;
       }
       .sn-mobile-nav-sub a:hover { color: #F4DF2C; padding-left: 22px; }
@@ -167,13 +167,16 @@
       }
       .sn-mobile-cta-btns a:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.15); }
       .sn-mobile-cta-btns svg { width: 18px; height: 18px; flex-shrink: 0; }
+      .sn-mobile-cta-recruit {
+        background: #FBF6D0; border: 1.5px solid #F4DF2C; color: #7a6200;
+      }
+      .sn-mobile-cta-medical {
+        background: #F8F0FC; border: 1.5px solid #DA9BEA; color: #9B4DCA;
+      }
       .sn-mobile-cta-phone {
         background: rgba(255,255,255,.15); border: 1.5px solid rgba(255,255,255,.3); color: #fff;
       }
       .sn-mobile-cta-contact { background: #F4DF2C; color: #2D2D3A; }
-      .sn-mobile-info {
-        margin-top: 16px; color: rgba(255,255,255,.4); font-size: .72rem; line-height: 1.6;
-      }
 
       @media (min-width: 1280px) {
         .sn-shared-header .sn-mobile { display: none; }
@@ -640,11 +643,19 @@
           <div class="sn-mobile-nav-item"><a href="service.html" class="sn-mobile-nav-link">サービス内容</a></div>
           <div class="sn-mobile-nav-item"><p class="sn-mobile-nav-group-label">ご利用者の方へ</p></div>
           <div class="sn-mobile-nav-item sn-mobile-nav-sub"><a href="users.html">初めての方</a><a href="flow.html">ご利用のながれ</a><a href="faq.html">よくあるご質問</a><a href="user-feedback.html">ご利用者様の声</a></div>
-          <div class="sn-mobile-nav-item"><a href="recruit.html" class="sn-mobile-nav-link">採用情報</a></div>
-          <div class="sn-mobile-nav-item"><a href="medical-institutions.html" class="sn-mobile-nav-link">医療機関の方</a></div>
         </nav>
         <div class="sn-mobile-nav-item sn-mobile-cta-area">
           <div class="sn-mobile-cta-btns">
+            <a href="recruit.html" class="sn-mobile-cta-recruit">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+              採用情報
+            </a>
+            <a href="medical-institutions.html" class="sn-mobile-cta-medical">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+              医療機関の方
+            </a>
+          </div>
+          <div class="sn-mobile-cta-btns" style="margin-top:10px;">
             <a href="tel:0649506402" class="sn-mobile-cta-phone">
               <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
               電話する
@@ -654,7 +665,6 @@
               お問い合わせ
             </a>
           </div>
-          <p class="sn-mobile-info">株式会社smile｜〒661-0012 兵庫県尼崎市南塚口8丁目41-7<br>TEL 06-4950-6402</p>
         </div>
       </div>
     `;
