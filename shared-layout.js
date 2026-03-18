@@ -62,17 +62,17 @@
         text-decoration: none;
         font-family: "M PLUS Rounded 1c", sans-serif;
         font-weight: 700;
-        font-size: 1.25rem;
+        font-size: 1.45rem;
         white-space: nowrap;
         display: inline-flex;
         align-items: center;
         gap: 10px;
       }
       .sn-logo-mark {
-        width: 40px;
-        height: 40px;
+        width: 52px;
+        height: 52px;
         border-radius: 999px;
-        flex: 0 0 40px;
+        flex: 0 0 52px;
       }
       .sn-brand-label {
         display: inline-flex;
@@ -91,17 +91,17 @@
       .sn-desktop-nav { display: none; }
       .sn-mobile-toggle {
         display: inline-flex; flex-direction: column; align-items: center; justify-content: center;
-        width: 40px; height: 40px; gap: 0; padding: 0;
+        width: 52px; height: 52px; gap: 0; padding: 0;
         border: none; background: transparent; cursor: pointer; position: relative; z-index: 1000;
       }
       .sn-mobile-toggle span {
-        display: block; width: 22px; height: 2px; background: #374151;
+        display: block; width: 28px; height: 2.5px; background: #374151;
         border-radius: 2px; transition: transform .35s cubic-bezier(.4,0,.2,1), opacity .25s ease;
-        position: absolute; left: 9px;
+        position: absolute; left: 12px;
       }
-      .sn-mobile-toggle span:nth-child(1) { top: 13px; }
-      .sn-mobile-toggle span:nth-child(2) { top: 19px; }
-      .sn-mobile-toggle span:nth-child(3) { top: 25px; }
+      .sn-mobile-toggle span:nth-child(1) { top: 15px; }
+      .sn-mobile-toggle span:nth-child(2) { top: 23px; }
+      .sn-mobile-toggle span:nth-child(3) { top: 31px; }
       .sn-mobile.is-open .sn-mobile-toggle span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
       .sn-mobile.is-open .sn-mobile-toggle span:nth-child(2) { opacity: 0; }
       .sn-mobile.is-open .sn-mobile-toggle span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }

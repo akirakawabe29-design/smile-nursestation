@@ -5,284 +5,365 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>smileダイアリー | smile訪問看護ステーション</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&family=Zen+Kurenaido&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            smileOrange: '#CB6CE6',
-            smileCoral: '#F4DF2C',
-            smileGreen: '#9B4DCA',
-            bgLight: '#FDFBFF',
-            textMain: '#2D2D3A',
-            textMuted: '#5A5A68'
+            brand: '#CB6CE6',
+            'brand-dark': '#9B4DCA',
+            'brand-light': '#DA9BEA',
+            'brand-bg': '#F3E8F9',
+            'brand-pale': '#F8F0FC',
+            accent: '#F4DF2C',
+            'accent-light': '#FBF6D0',
+            charcoal: '#2D2D3A',
+            'charcoal-light': '#6B6B7B',
+            'warm-white': '#FDFBFF',
           },
           fontFamily: {
             sans: ['"Noto Sans JP"', 'sans-serif'],
             rounded: ['"M PLUS Rounded 1c"', 'sans-serif'],
+            hand: ['"Zen Kurenaido"', 'sans-serif'],
           }
         }
       }
     }
   </script>
   <style>
-    /* スクロールアニメーション */
-    .js-fade-up {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-      will-change: opacity, transform;
+    /* ── LP Header ── */
+    .sn-shared-header.lp-header {
+      background: transparent !important;
+      backdrop-filter: none !important;
+      box-shadow: none !important;
+      border-bottom: none !important;
+      transition: background .4s ease, backdrop-filter .4s ease, box-shadow .4s ease, border-color .4s ease;
     }
-    .js-fade-up.is-active {
-      opacity: 1;
-      transform: translateY(0);
+    .sn-shared-header.lp-header.is-scrolled {
+      background: rgba(255,255,255,.96) !important;
+      backdrop-filter: blur(12px) !important;
+      box-shadow: 0 1px 20px rgba(15,23,42,.08) !important;
+      border-bottom: 1px solid rgba(226,232,240,.6) !important;
     }
-    
-    /* 記事カードのホバー時の画像ズーム */
-    .article-card:hover .article-img {
-      transform: scale(1.05);
-    }
-    
-    /* JSフィルタリング時のアニメーション */
-    .article-item {
-      transition: opacity 0.4s ease, transform 0.4s ease;
-    }
-    .article-item.is-hidden {
-      opacity: 0;
-      transform: scale(0.95);
-      position: absolute;
-      pointer-events: none;
-      visibility: hidden;
-    }
+    .sn-shared-header.lp-header .sn-logo-text,
+    .sn-shared-header.lp-header .sn-desktop-nav a { color: #fff; }
+    .sn-shared-header.lp-header.is-scrolled .sn-logo-text { color: #CB6CE6; }
+    .sn-shared-header.lp-header.is-scrolled .sn-desktop-nav a { color: #2D2D3A; }
 
-    .diary-page {
-      background:
-        radial-gradient(circle at 10% 12%, rgba(203,108,230,.14), transparent 36%),
-        radial-gradient(circle at 88% 88%, rgba(244,223,44,.14), transparent 32%),
-        linear-gradient(180deg, #FDFBFF 0%, #F7F2FA 55%, #F4F4ED 100%);
+    /* ── Animations ── */
+    .js-fade-up {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity .7s cubic-bezier(.25,1,.5,1), transform .7s cubic-bezier(.25,1,.5,1);
     }
-    .comic-dots {
+    .js-fade-up.is-active { opacity: 1; transform: translateY(0); }
+
+    /* ── Hero ── */
+    .diary-hero {
       position: relative;
+      min-height: 52vh;
+      display: flex; align-items: flex-end;
+      padding: 100px 0 60px;
       overflow: hidden;
     }
-    .comic-dots::before {
+    .diary-hero::before {
       content: '';
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background-image: radial-gradient(circle, rgba(203,108,230,.14) 1.2px, transparent 1.5px);
-      background-size: 15px 15px;
-      mask-image: linear-gradient(135deg, #000 0%, rgba(0,0,0,.42) 42%, transparent 76%);
-      z-index: 0;
+      position: absolute; inset: 0;
+      background: linear-gradient(160deg, rgba(45,45,58,.88) 0%, rgba(155,77,202,.78) 50%, rgba(45,45,58,.85) 100%);
+      z-index: 2;
     }
-    .comic-dots > * { position: relative; z-index: 1; }
-    .hand-accent {
-      font-family: "M PLUS Rounded 1c", sans-serif;
-      color: #9B4DCA;
-      letter-spacing: .05em;
-      font-weight: 700;
+    .diary-hero-bg {
+      position: absolute; inset: 0;
+      background: url('assets/img/hero2.jpeg') center/cover no-repeat;
+      z-index: 1;
     }
-    .wave-divider {
-      width: min(220px, 56vw);
-      height: 10px;
-      border-radius: 999px;
-      margin: .8rem auto 0;
-      background: linear-gradient(95deg, rgba(244,223,44,.92), rgba(203,108,230,.55));
+    .diary-hero-content { position: relative; z-index: 3; }
+
+    /* ── Diagonal section transition ── */
+    .diagonal-top {
+      clip-path: polygon(0 40px, 100% 0, 100% 100%, 0 100%);
+      margin-top: -40px;
+      position: relative;
+      z-index: 2;
+    }
+    @media (min-width: 768px) {
+      .diagonal-top {
+        clip-path: polygon(0 60px, 100% 0, 100% 100%, 0 100%);
+        margin-top: -60px;
+      }
     }
 
-    /* SP用余白 */
+    /* ── Article cards ── */
+    .article-card {
+      border-radius: 20px;
+      overflow: hidden;
+      transition: transform .35s ease, box-shadow .35s ease;
+    }
+    .article-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 48px rgba(155,77,202,.15);
+    }
+    .article-card:hover .article-img {
+      transform: scale(1.08);
+    }
+    .article-img {
+      transition: transform .6s cubic-bezier(.25,1,.5,1);
+    }
+
+    /* ── Filter buttons ── */
+    .filter-btn {
+      padding: 10px 22px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      font-family: "M PLUS Rounded 1c", sans-serif;
+      transition: all .3s ease;
+      border: 2px solid transparent;
+    }
+    .filter-btn.active {
+      background: #CB6CE6;
+      color: #fff;
+      border-color: #CB6CE6;
+      box-shadow: 0 4px 16px rgba(203,108,230,.3);
+    }
+    .filter-btn:not(.active) {
+      background: #fff;
+      color: #6B6B7B;
+      border-color: #F3E8F9;
+    }
+    .filter-btn:not(.active):hover {
+      border-color: #CB6CE6;
+      color: #CB6CE6;
+      background: #F8F0FC;
+    }
+
+    /* ── Category badge colors ── */
+    .cat-daily { background: rgba(203,108,230,.1); color: #9B4DCA; }
+    .cat-tips { background: rgba(244,223,44,.2); color: #8B7A00; }
+    .cat-recruit { background: rgba(218,155,234,.15); color: #9B4DCA; }
+
+    /* ── Article item filtering ── */
+    .article-item {
+      transition: opacity .4s ease, transform .4s ease;
+    }
+    .article-item.is-hidden {
+      opacity: 0; transform: scale(.95);
+      position: absolute; pointer-events: none; visibility: hidden;
+    }
+
+    /* ── Pagination ── */
+    .pagination-btn {
+      width: 42px; height: 42px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 999px;
+      font-weight: 700; font-size: 14px;
+      transition: all .3s;
+    }
+    .pagination-btn.is-current {
+      background: #CB6CE6; color: #fff;
+      box-shadow: 0 4px 12px rgba(203,108,230,.25);
+    }
+    .pagination-btn:not(.is-current) {
+      background: #fff; color: #6B6B7B;
+      border: 1px solid #F3E8F9;
+    }
+    .pagination-btn:not(.is-current):hover {
+      background: #F8F0FC; color: #CB6CE6; border-color: #CB6CE6;
+    }
+
+    /* SP filter scroll */
+    @media (max-width: 767px) {
+      #filter-container {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding: 0 4px 8px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      #filter-container::-webkit-scrollbar { display: none; }
+      .filter-btn { white-space: nowrap; flex-shrink: 0; }
+    }
+
+    /* SP余白 */
+    html, body { overflow-x: hidden; }
     body { padding-bottom: 70px; }
     @media (min-width: 768px) { body { padding-bottom: 0; } }
   </style>
 </head>
-<body class="diary-page font-sans text-textMain bg-bgLight antialiased selection:bg-smileOrange selection:text-white">
+<body class="font-sans text-charcoal bg-warm-white antialiased selection:bg-brand selection:text-white overflow-x-hidden">
 
-  <section class="comic-dots pt-32 pb-12 bg-white border-b border-purple-100">
-    <div class="max-w-3xl mx-auto px-4 text-center js-fade-up">
-      <h1 class="font-rounded text-3xl md:text-4xl font-bold text-gray-800 mb-6 flex items-center justify-center gap-2">
-        <svg class="w-8 h-8 text-smileOrange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-        smileダイアリー
-      </h1>
-      <p class="hand-accent text-sm md:text-base mb-3">STATION DAILY STORIES</p>
-      <div class="wave-divider"></div>
-      <p class="mt-4 text-textMuted leading-loose text-sm md:text-base text-left md:text-center bg-purple-50/60 border border-purple-100 p-6 rounded-2xl">
-        smile訪問看護ステーションの日常風景や、ケアに込めるスタッフの想い、ご自宅での療養にちょっと役立つヒントなどを綴っています。<br>
-        透析や子育て、毎日の暮らしのなかで、皆さまが「笑顔」になれるような情報をお届けできれば嬉しいです。<br class="hidden md:block">
-        ぜひ、お茶でも飲みながらのんびりご覧ください！
+  <!-- ════════ HERO ════════ -->
+  <section class="diary-hero">
+    <div class="diary-hero-bg"></div>
+    <div class="diary-hero-content w-full">
+      <div class="max-w-6xl mx-auto px-5 md:px-10">
+        <p class="text-brand-light font-rounded text-[13px] md:text-[14px] tracking-[.18em] font-bold mb-3 js-fade-up">SMILE DIARY</p>
+        <h1 class="font-rounded font-bold text-white text-[28px] md:text-[44px] leading-[1.4] mb-4 js-fade-up" style="text-shadow: 0 2px 20px rgba(0,0,0,.3);">
+          smileダイアリー
+        </h1>
+        <p class="text-white/75 text-[14px] md:text-[16px] leading-[1.9] max-w-xl js-fade-up">
+          ステーションの日常風景やケアに込める想い、<br class="hidden md:block">
+          暮らしにちょっと役立つヒントを綴っています。
+        </p>
+      </div>
+    </div>
+    <!-- Hero底の波 -->
+    <svg class="absolute bottom-0 left-0 w-full" viewBox="0 0 1440 60" preserveAspectRatio="none" style="z-index:4;">
+      <path d="M0,25 C360,55 720,8 1080,38 C1260,52 1380,28 1440,32 L1440,60 L0,60Z" fill="#FDFBFF"/>
+    </svg>
+  </section>
+
+  <!-- ════════ INTRO + FILTER ════════ -->
+  <section class="relative bg-warm-white pt-10 pb-6">
+    <div class="max-w-4xl mx-auto px-5 text-center">
+      <p class="text-[13px] md:text-[15px] leading-[2] text-charcoal-light js-fade-up">
+        お茶でも飲みながら、のんびりご覧ください。<br>
+        透析や子育て、毎日の暮らしのなかで皆さまが「笑顔」になれるような情報をお届けします。
       </p>
+
+      <!-- Filter Buttons -->
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-2 md:gap-3 js-fade-up" id="filter-container">
+        <button data-filter="all" class="filter-btn active">すべて</button>
+        <button data-filter="daily" class="filter-btn">ステーションの日常</button>
+        <button data-filter="tips" class="filter-btn">お役立ち情報</button>
+        <button data-filter="recruit" class="filter-btn">採用・スタッフ紹介</button>
+      </div>
     </div>
   </section>
 
-  <main class="py-12 max-w-6xl mx-auto px-4 relative min-h-screen">
-    
-    <div class="mb-10 js-fade-up">
-      <div class="flex flex-wrap items-center justify-center gap-2 md:gap-4" id="filter-container">
-        <button data-filter="all" class="filter-btn active px-5 py-2 rounded-full text-sm font-bold transition-all bg-smileOrange text-white shadow-md">
-          すべて
-        </button>
-        <button data-filter="daily" class="filter-btn px-5 py-2 rounded-full text-sm font-bold transition-all bg-white text-textMuted border border-purple-100 hover:border-smileOrange hover:text-smileOrange">
-          ステーションの日常
-        </button>
-        <button data-filter="tips" class="filter-btn px-5 py-2 rounded-full text-sm font-bold transition-all bg-white text-textMuted border border-purple-100 hover:border-smileOrange hover:text-smileOrange">
-          お役立ち情報
-        </button>
-        <button data-filter="recruit" class="filter-btn px-5 py-2 rounded-full text-sm font-bold transition-all bg-white text-textMuted border border-purple-100 hover:border-smileOrange hover:text-smileOrange">
-          採用・スタッフ紹介
-        </button>
-      </div>
-    </div>
+  <!-- ════════ ARTICLE GRID ════════ -->
+  <main class="relative bg-warm-white pb-20">
+    <div class="max-w-6xl mx-auto px-5 md:px-10">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 md:gap-8 relative" id="article-grid">
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative" id="article-grid">
-      
-      <article class="article-item js-fade-up" data-category="daily">
-        <a href="#" class="article-card block h-full bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow border border-purple-100 flex flex-col group">
-          <div class="aspect-video bg-purple-100 overflow-hidden relative">
-            <div class="w-full h-full bg-purple-200 flex items-center justify-center text-purple-500 font-bold text-sm article-img transition-transform duration-500">
-              [スタッフの笑顔の写真]
+        <!-- Card 1 -->
+        <article class="article-item js-fade-up" data-category="daily">
+          <a href="#" class="article-card block h-full bg-white flex flex-col group shadow-sm border border-brand-bg/50">
+            <div class="aspect-[4/3] overflow-hidden relative bg-brand-bg">
+              <img src="assets/img/instagram2.jpeg" alt="スタッフの日常" class="w-full h-full object-cover article-img">
+              <span class="absolute top-3 left-3 cat-daily text-[11px] font-bold px-3 py-1 rounded-full backdrop-blur-sm">ステーションの日常</span>
             </div>
-            <span class="absolute top-3 left-3 bg-white/90 backdrop-blur text-smileOrange text-xs font-bold px-3 py-1 rounded-full shadow-sm">ステーションの日常</span>
-          </div>
-          <div class="p-6 flex flex-col flex-grow">
-            <time class="text-xs text-gray-400 mb-2 block font-mono">2024.04.15</time>
-            <h2 class="font-bold text-lg text-gray-800 mb-3 leading-snug group-hover:text-smileOrange transition-colors">新しい制服が届きました！＆ 今日のランチタイム</h2>
-            <p class="text-sm text-textMuted line-clamp-3 mb-4 flex-grow leading-relaxed">
-              こんにちは！尼崎も少しずつ暖かい日が増えてきましたね。今日はステーションに新しい制服が届いたので、みんなで試着会をしました。動きやすくてスタッフにも大好評です……
-            </p>
-            <div class="text-smileOrange text-sm font-bold flex items-center gap-1 self-end mt-auto">
-              続きを読む <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            <div class="p-5 md:p-6 flex flex-col flex-grow">
+              <time class="text-[11px] text-charcoal-light/60 mb-2 block tracking-wider font-rounded">2024.04.15</time>
+              <h2 class="font-rounded font-bold text-[16px] md:text-[17px] text-charcoal leading-[1.6] mb-3 group-hover:text-brand transition-colors">新しい制服が届きました！＆ 今日のランチタイム</h2>
+              <p class="text-[13px] text-charcoal-light line-clamp-3 leading-[1.9] flex-grow">
+                こんにちは！尼崎も少しずつ暖かい日が増えてきましたね。今日はステーションに新しい制服が届いたので、みんなで試着会をしました。動きやすくてスタッフにも大好評です……
+              </p>
+              <div class="mt-4 text-brand text-[13px] font-bold flex items-center gap-1 font-rounded">
+                続きを読む <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+              </div>
             </div>
-          </div>
-        </a>
-      </article>
-
-      <article class="article-item js-fade-up" data-category="tips">
-        <a href="#" class="article-card block h-full bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow border border-purple-100 flex flex-col group">
-          <div class="aspect-video bg-yellow-100 overflow-hidden relative">
-            <div class="w-full h-full bg-yellow-200 flex items-center justify-center text-amber-700 font-bold text-sm article-img transition-transform duration-500">
-              [手作りご飯の写真]
-            </div>
-            <span class="absolute top-3 left-3 bg-white/90 backdrop-blur text-amber-700 text-xs font-bold px-3 py-1 rounded-full shadow-sm">お役立ち情報</span>
-          </div>
-          <div class="p-6 flex flex-col flex-grow">
-            <time class="text-xs text-gray-400 mb-2 block font-mono">2024.04.10</time>
-            <h2 class="font-bold text-lg text-gray-800 mb-3 leading-snug group-hover:text-amber-700 transition-colors">【透析ケア】ご自宅で無理なくできる、水分コントロールの小さなコツ</h2>
-            <p class="text-sm text-textMuted line-clamp-3 mb-4 flex-grow leading-relaxed">
-              透析治療をされている方から、「どうしてもお水が飲みたくなってしまう」「食事の味付けが難しい」というご相談をよくいただきます。今日は、私たちが訪問時にお伝えしている……
-            </p>
-            <div class="text-amber-700 text-sm font-bold flex items-center gap-1 self-end mt-auto">
-              続きを読む <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-            </div>
-          </div>
-        </a>
-      </article>
-
-      <article class="article-item js-fade-up" data-category="tips">
-        <a href="#" class="article-card block h-full bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow border border-purple-100 flex flex-col group">
-          <div class="aspect-video bg-green-100 overflow-hidden relative">
-            <div class="w-full h-full bg-green-200 flex items-center justify-center text-green-500 font-bold text-sm article-img transition-transform duration-500">
-              [かわいい絵本の写真]
-            </div>
-            <span class="absolute top-3 left-3 bg-white/90 backdrop-blur text-green-600 text-xs font-bold px-3 py-1 rounded-full shadow-sm">お役立ち情報</span>
-          </div>
-          <div class="p-6 flex flex-col flex-grow">
-            <time class="text-xs text-gray-400 mb-2 block font-mono">2024.04.05</time>
-            <h2 class="font-bold text-lg text-gray-800 mb-3 leading-snug group-hover:text-green-600 transition-colors">訪問先で出会った素敵な笑顔と、お母さんのリフレッシュタイム</h2>
-            <p class="text-sm text-textMuted line-clamp-3 mb-4 flex-grow leading-relaxed">
-              先日、小児訪問看護で伺っている〇〇ちゃんのお宅へ。私たちがケアをしている間、お母さんには少しだけ別室でゆっくり休んでいただく「レスパイト（休息）」の時間を作りました……
-            </p>
-            <div class="text-green-600 text-sm font-bold flex items-center gap-1 self-end mt-auto">
-              続きを読む <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-            </div>
-          </div>
-        </a>
-      </article>
-
-      <article class="article-item js-fade-up" data-category="recruit">
-        <a href="#" class="article-card block h-full bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow border border-purple-100 flex flex-col group">
-          <div class="aspect-video bg-fuchsia-100 overflow-hidden relative">
-            <div class="w-full h-full bg-fuchsia-200 flex items-center justify-center text-fuchsia-600 font-bold text-sm article-img transition-transform duration-500">
-              [スタッフの集合写真]
-            </div>
-            <span class="absolute top-3 left-3 bg-white/90 backdrop-blur text-fuchsia-700 text-xs font-bold px-3 py-1 rounded-full shadow-sm">採用・スタッフ紹介</span>
-          </div>
-          <div class="p-6 flex flex-col flex-grow">
-            <time class="text-xs text-gray-400 mb-2 block font-mono">2024.04.01</time>
-            <h2 class="font-bold text-lg text-gray-800 mb-3 leading-snug group-hover:text-fuchsia-700 transition-colors">【求人】ママさんナースも活躍中！smileの働きやすさのヒミツ</h2>
-            <p class="text-sm text-textMuted line-clamp-3 mb-4 flex-grow leading-relaxed">
-              smile訪問看護ステーションでは、現在一緒に働く仲間を募集しています！「訪問看護は初めてだけど大丈夫かな？」「子どものお迎えに間に合うかな？」そんな不安をお持ちの方へ……
-            </p>
-            <div class="text-fuchsia-700 text-sm font-bold flex items-center gap-1 self-end mt-auto">
-              続きを読む <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-            </div>
-          </div>
-        </a>
-      </article>
-
-    </div>
-
-    <nav class="mt-16 flex justify-center js-fade-up" aria-label="Pagination">
-      <ul class="flex items-center gap-2">
-        <li>
-          <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-smileOrange text-white font-bold shadow-sm">1</a>
-        </li>
-        <li>
-          <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-white text-gray-500 hover:bg-purple-50 hover:text-smileOrange transition-colors border border-purple-100">2</a>
-        </li>
-        <li>
-          <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-white text-gray-500 hover:bg-purple-50 hover:text-smileOrange transition-colors border border-purple-100">3</a>
-        </li>
-        <li><span class="text-gray-400 mx-1">...</span></li>
-        <li>
-          <a href="#" class="px-4 h-10 flex items-center justify-center rounded-full bg-white text-gray-600 hover:bg-purple-50 hover:text-smileOrange transition-colors border border-purple-100 text-sm font-bold gap-1">
-            次のページへ <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
           </a>
-        </li>
-      </ul>
-    </nav>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="article-item js-fade-up" data-category="tips">
+          <a href="#" class="article-card block h-full bg-white flex flex-col group shadow-sm border border-brand-bg/50">
+            <div class="aspect-[4/3] overflow-hidden relative bg-accent-light">
+              <img src="assets/img/instagram4.jpeg" alt="お役立ち情報" class="w-full h-full object-cover article-img">
+              <span class="absolute top-3 left-3 cat-tips text-[11px] font-bold px-3 py-1 rounded-full backdrop-blur-sm">お役立ち情報</span>
+            </div>
+            <div class="p-5 md:p-6 flex flex-col flex-grow">
+              <time class="text-[11px] text-charcoal-light/60 mb-2 block tracking-wider font-rounded">2024.04.10</time>
+              <h2 class="font-rounded font-bold text-[16px] md:text-[17px] text-charcoal leading-[1.6] mb-3 group-hover:text-brand transition-colors">【透析ケア】ご自宅で無理なくできる、水分コントロールの小さなコツ</h2>
+              <p class="text-[13px] text-charcoal-light line-clamp-3 leading-[1.9] flex-grow">
+                透析治療をされている方から、「どうしてもお水が飲みたくなってしまう」「食事の味付けが難しい」というご相談をよくいただきます。今日は、私たちが訪問時にお伝えしている……
+              </p>
+              <div class="mt-4 text-brand text-[13px] font-bold flex items-center gap-1 font-rounded">
+                続きを読む <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+              </div>
+            </div>
+          </a>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="article-item js-fade-up" data-category="tips">
+          <a href="#" class="article-card block h-full bg-white flex flex-col group shadow-sm border border-brand-bg/50">
+            <div class="aspect-[4/3] overflow-hidden relative bg-brand-pale">
+              <img src="assets/img/studysession.jpeg" alt="小児訪問看護" class="w-full h-full object-cover article-img">
+              <span class="absolute top-3 left-3 cat-tips text-[11px] font-bold px-3 py-1 rounded-full backdrop-blur-sm">お役立ち情報</span>
+            </div>
+            <div class="p-5 md:p-6 flex flex-col flex-grow">
+              <time class="text-[11px] text-charcoal-light/60 mb-2 block tracking-wider font-rounded">2024.04.05</time>
+              <h2 class="font-rounded font-bold text-[16px] md:text-[17px] text-charcoal leading-[1.6] mb-3 group-hover:text-brand transition-colors">訪問先で出会った素敵な笑顔と、お母さんのリフレッシュタイム</h2>
+              <p class="text-[13px] text-charcoal-light line-clamp-3 leading-[1.9] flex-grow">
+                先日、小児訪問看護で伺っている〇〇ちゃんのお宅へ。私たちがケアをしている間、お母さんには少しだけ別室でゆっくり休んでいただく「レスパイト（休息）」の時間を作りました……
+              </p>
+              <div class="mt-4 text-brand text-[13px] font-bold flex items-center gap-1 font-rounded">
+                続きを読む <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+              </div>
+            </div>
+          </a>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="article-item js-fade-up" data-category="recruit">
+          <a href="#" class="article-card block h-full bg-white flex flex-col group shadow-sm border border-brand-bg/50">
+            <div class="aspect-[4/3] overflow-hidden relative bg-brand-bg">
+              <img src="assets/img/new colleague.jpeg" alt="スタッフ紹介" class="w-full h-full object-cover article-img">
+              <span class="absolute top-3 left-3 cat-recruit text-[11px] font-bold px-3 py-1 rounded-full backdrop-blur-sm">採用・スタッフ紹介</span>
+            </div>
+            <div class="p-5 md:p-6 flex flex-col flex-grow">
+              <time class="text-[11px] text-charcoal-light/60 mb-2 block tracking-wider font-rounded">2024.04.01</time>
+              <h2 class="font-rounded font-bold text-[16px] md:text-[17px] text-charcoal leading-[1.6] mb-3 group-hover:text-brand transition-colors">【求人】ママさんナースも活躍中！smileの働きやすさのヒミツ</h2>
+              <p class="text-[13px] text-charcoal-light line-clamp-3 leading-[1.9] flex-grow">
+                smile訪問看護ステーションでは、現在一緒に働く仲間を募集しています！「訪問看護は初めてだけど大丈夫かな？」「子どものお迎えに間に合うかな？」そんな不安をお持ちの方へ……
+              </p>
+              <div class="mt-4 text-brand text-[13px] font-bold flex items-center gap-1 font-rounded">
+                続きを読む <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+              </div>
+            </div>
+          </a>
+        </article>
+
+      </div>
+
+      <!-- Pagination -->
+      <nav class="mt-16 flex justify-center js-fade-up" aria-label="ページネーション">
+        <ul class="flex items-center gap-2">
+          <li><button class="pagination-btn is-current">1</button></li>
+          <li><a href="#" class="pagination-btn">2</a></li>
+          <li><a href="#" class="pagination-btn">3</a></li>
+          <li><span class="text-charcoal-light/40 mx-1">…</span></li>
+          <li>
+            <a href="#" class="pagination-btn !w-auto px-5 flex items-center gap-1 text-[13px]">
+              次へ <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
   </main>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // 1. スクロールアニメーション (Intersection Observer)
-      const observer = new IntersectionObserver((entries, observer) => {
+      // Scroll animation
+      const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('is-active');
             observer.unobserve(entry.target);
           }
         });
-      }, { rootMargin: '0px 0px -10% 0px', threshold: 0 });
-
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0 });
       document.querySelectorAll('.js-fade-up').forEach(el => observer.observe(el));
 
-      // 2. カテゴリ絞り込み機能 (Vanilla JS)
+      // Category filter
       const filterBtns = document.querySelectorAll('.filter-btn');
       const articles = document.querySelectorAll('.article-item');
-
       filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-          // ボタンのActive状態を切り替え
-          filterBtns.forEach(b => {
-            b.classList.remove('bg-smileOrange', 'text-white', 'shadow-md');
-            b.classList.add('bg-white', 'text-textMuted', 'border-purple-100');
-          });
-          btn.classList.remove('bg-white', 'text-textMuted', 'border-purple-100');
-          btn.classList.add('bg-smileOrange', 'text-white', 'shadow-md');
-
-          const targetCategory = btn.getAttribute('data-filter');
-
-          // 記事の表示/非表示を切り替え
-          articles.forEach(article => {
-            const articleCategory = article.getAttribute('data-category');
-            
-            if (targetCategory === 'all' || targetCategory === articleCategory) {
-              article.classList.remove('is-hidden');
-              // 絞り込み後に再度ふわっと表示させるための小技
-              article.style.opacity = '0';
-              setTimeout(() => { article.style.opacity = '1'; }, 50);
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const cat = btn.dataset.filter;
+          articles.forEach(a => {
+            if (cat === 'all' || a.dataset.category === cat) {
+              a.classList.remove('is-hidden');
+              a.style.opacity = '0';
+              setTimeout(() => { a.style.opacity = '1'; }, 50);
             } else {
-              article.classList.add('is-hidden');
+              a.classList.add('is-hidden');
             }
           });
         });
@@ -290,5 +371,17 @@
     });
   </script>
   <script src="shared-layout.js"></script>
+  <script>
+    /* LP Header: transparent → scroll → solid */
+    window.addEventListener('load', () => {
+      const hdr = document.querySelector('.sn-shared-header');
+      if (hdr) {
+        hdr.classList.add('lp-header');
+        const onScroll = () => hdr.classList.toggle('is-scrolled', window.scrollY > 60);
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+      }
+    });
+  </script>
 </body>
 </html>
