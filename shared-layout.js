@@ -520,6 +520,301 @@
     document.head.appendChild(style);
   }
 
+  function buildPageSeo() {
+    const pageSeo = {
+      home: {
+        description: '尼崎市のsmile訪問看護ステーション。透析・小児・精神科訪問看護に対応し、ご利用者様とご家族の「やりたい」を支えます。',
+        image: 'assets/img/HERO1.jpeg',
+        keywords: '尼崎 訪問看護, 尼崎市 訪問看護, 在宅医療, 透析看護, 小児訪問看護, 精神科訪問看護',
+      },
+      about: {
+        description: '尼崎市のsmile訪問看護ステーションの理念・想い・代表メッセージをご紹介します。',
+        image: 'assets/img/代表挨拶.png',
+        keywords: '尼崎 訪問看護, 訪問看護ステーション 尼崎, 地域密着 訪問看護',
+      },
+      diary: {
+        description: '尼崎市の訪問看護ステーションsmileの日々の取り組みやお知らせを発信するsmileダイアリーです。',
+        image: 'assets/img/instagram2.jpeg',
+        keywords: '尼崎 訪問看護, 訪問看護 ブログ, 在宅看護 情報',
+      },
+      users: {
+        description: 'ご利用者様・ご家族の方向けに、訪問看護の内容やご利用開始までの流れをわかりやすくご案内します。',
+        image: 'assets/img/forusers.jpeg',
+        keywords: '尼崎 訪問看護 利用方法, 訪問看護 初めて, 在宅ケア 尼崎',
+      },
+      voices: {
+        description: '尼崎市のsmile訪問看護ステーションをご利用いただいた方の声をご紹介します。',
+        image: 'assets/img/forusers.jpeg',
+        keywords: '尼崎 訪問看護 口コミ, 訪問看護 利用者の声',
+      },
+      service: {
+        description: '透析ケア、小児看護、精神科訪問看護など、smile訪問看護ステーションのサービス内容をご紹介します。',
+        image: 'assets/img/hero2.jpeg',
+        keywords: '尼崎 透析看護, 小児訪問看護 尼崎, 精神科訪問看護 尼崎',
+      },
+      flow: {
+        description: 'お問い合わせから訪問看護開始までの流れを、初めての方にもわかりやすくご案内します。',
+        image: 'assets/img/hero1.jpeg',
+        keywords: '訪問看護 利用の流れ, 訪問看護指示書, 尼崎 訪問看護 相談',
+      },
+      faq: {
+        description: '訪問看護の費用や対象者、サービス内容についてのよくあるご質問をまとめています。',
+        image: 'assets/img/hero2.jpeg',
+        keywords: '訪問看護 よくある質問, 訪問看護 費用, 尼崎 訪問看護 Q&A',
+      },
+      recruit: {
+        description: '尼崎市のsmile訪問看護ステーションの採用情報です。働き方や募集要項、職場の雰囲気をご紹介します。',
+        image: 'assets/img/RECRUIT_background.jpeg',
+        keywords: '尼崎 訪問看護 求人, 訪問看護師 採用, 尼崎 看護師 転職',
+      },
+      medical: {
+        description: 'ケアマネジャー様・医療機関様向けに、連携方法やサービス提供体制をご案内します。',
+        image: 'assets/img/studysession.jpeg',
+        keywords: '尼崎 訪問看護 連携, ケアマネ 訪問看護, 医療機関 連携',
+      },
+      contact: {
+        description: '尼崎市の訪問看護に関するご相談・お問い合わせはこちら。smile訪問看護ステーションが電話・フォームで受け付けています。',
+        image: 'assets/img/smile_logo.png',
+        keywords: '尼崎 訪問看護 問い合わせ, 訪問看護 相談, smile訪問看護ステーション',
+      },
+      entry: {
+        description: '採用エントリー・見学お申し込みはこちら。お気軽にご応募ください。',
+        image: 'assets/img/smile_logo.png',
+        keywords: '訪問看護 採用 エントリー, 尼崎 看護師 エントリー',
+      },
+      other: {
+        description: 'smile訪問看護ステーションの公式サイトです。',
+        image: 'assets/img/smile_logo.png',
+        keywords: '尼崎 訪問看護, smile訪問看護ステーション',
+      },
+    };
+    return pageSeo[pageKey] || pageSeo.other;
+  }
+
+  function ensureMetaByName(name, content) {
+    let node = document.head.querySelector(`meta[name="${name}"]`);
+    if (!node) {
+      node = document.createElement('meta');
+      node.setAttribute('name', name);
+      document.head.appendChild(node);
+    }
+    node.setAttribute('content', content);
+  }
+
+  function ensureMetaByProperty(property, content) {
+    let node = document.head.querySelector(`meta[property="${property}"]`);
+    if (!node) {
+      node = document.createElement('meta');
+      node.setAttribute('property', property);
+      document.head.appendChild(node);
+    }
+    node.setAttribute('content', content);
+  }
+
+  function ensureLink(rel, href, extraAttrs) {
+    const selector = `link[rel="${rel}"][href="${href}"]`;
+    let node = document.head.querySelector(selector);
+    if (!node) {
+      node = document.createElement('link');
+      node.setAttribute('rel', rel);
+      node.setAttribute('href', href);
+      document.head.appendChild(node);
+    }
+    if (extraAttrs) {
+      Object.keys(extraAttrs).forEach(function (key) {
+        node.setAttribute(key, extraAttrs[key]);
+      });
+    }
+  }
+
+  function absoluteUrl(relativePath) {
+    const safePath = relativePath.startsWith('/') ? relativePath : `/${relativePath}`;
+    if (!location.origin || location.origin === 'null') return safePath.replace(/^\//, '');
+    return `${location.origin}${safePath}`;
+  }
+
+  function inferCanonicalPath() {
+    const cleanPath = (path || 'index.html').trim() || 'index.html';
+    return cleanPath === 'index.html' ? '/' : `/${cleanPath}`;
+  }
+
+  function buildFaqEntities() {
+    if (pageKey !== 'faq') return [];
+    const items = Array.from(document.querySelectorAll('.faq-item')).slice(0, 10);
+    return items.map(function (item) {
+      const q = item.querySelector('.faq-question h3');
+      const a = item.querySelector('.faq-answer-inner p');
+      return {
+        question: q ? q.textContent.trim() : '',
+        answer: a ? a.textContent.trim() : '',
+      };
+    }).filter(function (entry) {
+      return entry.question && entry.answer;
+    }).map(function (entry) {
+      return {
+        '@type': 'Question',
+        name: entry.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: entry.answer,
+        },
+      };
+    });
+  }
+
+  function injectStructuredData(canonicalUrl, imageUrl) {
+    const existing = document.getElementById('sn-structured-data');
+    if (existing) existing.remove();
+
+    const siteUrl = absoluteUrl('/');
+    const data = [{
+      '@context': 'https://schema.org',
+      '@type': 'MedicalBusiness',
+      name: 'smile訪問看護ステーション',
+      image: imageUrl,
+      telephone: '06-4950-6402',
+      url: siteUrl,
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: '南塚口8丁目41-7 南塚口ハイツ101号',
+        addressLocality: '尼崎市',
+        addressRegion: '兵庫県',
+        postalCode: '661-0012',
+        addressCountry: 'JP',
+      },
+      openingHours: 'Mo-Fr 09:00-18:00',
+      areaServed: [{ '@type': 'City', name: '尼崎市' }, { '@type': 'AdministrativeArea', name: '兵庫県' }],
+      serviceType: ['訪問看護', '透析看護', '小児看護', '精神科訪問看護'],
+      sameAs: ['https://www.instagram.com/smile_houmonkango/'],
+    }];
+
+    if (pageKey === 'home') {
+      data.push({
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        name: 'smile訪問看護ステーション',
+        url: siteUrl,
+      });
+    }
+
+    if (pageKey === 'faq') {
+      const faqEntities = buildFaqEntities();
+      if (faqEntities.length > 0) {
+        data.push({
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: faqEntities,
+        });
+      }
+    }
+
+    data.push({
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: document.title,
+      url: canonicalUrl,
+      inLanguage: 'ja-JP',
+      primaryImageOfPage: {
+        '@type': 'ImageObject',
+        url: imageUrl,
+      },
+    });
+
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.id = 'sn-structured-data';
+    script.textContent = JSON.stringify(data);
+    document.head.appendChild(script);
+  }
+
+  function injectSeoMetadata() {
+    const seo = buildPageSeo();
+    const isLegacyTop = path === 'index-new.html';
+    const canonicalPath = isLegacyTop ? '/' : inferCanonicalPath();
+    const canonicalUrl = absoluteUrl(canonicalPath);
+    const imageUrl = absoluteUrl(seo.image);
+
+    ensureMetaByName('description', seo.description);
+    ensureMetaByName('keywords', seo.keywords || '尼崎 訪問看護, smile訪問看護ステーション');
+    ensureMetaByName('robots', isLegacyTop ? 'noindex,follow' : 'index,follow,max-image-preview:large');
+    ensureMetaByName('theme-color', '#CB6CE6');
+    ensureMetaByName('twitter:card', 'summary_large_image');
+    ensureMetaByName('twitter:title', document.title);
+    ensureMetaByName('twitter:description', seo.description);
+    ensureMetaByName('twitter:image', imageUrl);
+
+    ensureMetaByProperty('og:type', 'website');
+    ensureMetaByProperty('og:site_name', 'smile訪問看護ステーション');
+    ensureMetaByProperty('og:locale', 'ja_JP');
+    ensureMetaByProperty('og:title', document.title);
+    ensureMetaByProperty('og:description', seo.description);
+    ensureMetaByProperty('og:url', canonicalUrl);
+    ensureMetaByProperty('og:image', imageUrl);
+
+    ensureLink('canonical', canonicalUrl);
+    ensureLink('icon', absoluteUrl('assets/img/smile_logo.png'), { type: 'image/png' });
+    ensureLink('apple-touch-icon', absoluteUrl('assets/img/smile_logo.png'));
+    ensureLink('preconnect', 'https://fonts.googleapis.com');
+    ensureLink('preconnect', 'https://fonts.gstatic.com', { crossorigin: '' });
+
+    if (pageKey === 'home') {
+      ensureLink('preload', absoluteUrl('assets/img/HERO1.jpeg'), { as: 'image', fetchpriority: 'high' });
+    }
+
+    injectStructuredData(canonicalUrl, imageUrl);
+  }
+
+  function optimizeInlineMedia() {
+    const images = Array.from(document.querySelectorAll('img'));
+    images.forEach(function (img, index) {
+      if (!img.hasAttribute('decoding')) img.setAttribute('decoding', 'async');
+      if (!img.hasAttribute('fetchpriority')) {
+        img.setAttribute('fetchpriority', index <= 1 ? 'high' : 'low');
+      }
+
+      const nearViewport = img.getBoundingClientRect().top < window.innerHeight * 1.2;
+      const shouldLazy = index > 1 && !nearViewport;
+      if (!img.hasAttribute('loading')) {
+        img.setAttribute('loading', shouldLazy ? 'lazy' : 'eager');
+      }
+    });
+
+    const videos = Array.from(document.querySelectorAll('video'));
+    videos.forEach(function (video) {
+      if (!video.hasAttribute('playsinline')) video.setAttribute('playsinline', '');
+      if (!video.hasAttribute('preload')) video.setAttribute('preload', 'metadata');
+    });
+  }
+
+  function optimizeBackgroundImages() {
+    if (!('IntersectionObserver' in window)) return;
+    const targets = Array.from(document.querySelectorAll('.photo-section-bg, .parallax-wrap, .service-hero-bg, .recruit-hero-bg'));
+    const observer = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const bg = el.dataset.snLazyBg;
+        if (bg) {
+          el.style.backgroundImage = bg;
+          delete el.dataset.snLazyBg;
+        }
+        obs.unobserve(el);
+      });
+    }, { rootMargin: '250px 0px' });
+
+    targets.forEach(function (el, index) {
+      const bg = getComputedStyle(el).backgroundImage;
+      if (!bg || bg === 'none' || bg.indexOf('assets/img/') === -1) return;
+
+      const isNearViewport = el.getBoundingClientRect().top < window.innerHeight * 1.2;
+      if (index === 0 || isNearViewport) return;
+
+      el.dataset.snLazyBg = bg;
+      el.style.backgroundImage = 'none';
+      observer.observe(el);
+    });
+  }
+
   function brandLabel(className) {
     return `<span class="${className}"><img class="sn-logo-mark" src="assets/img/smile_logo.png" alt="" aria-hidden="true"><span class="sn-logo-text">smile訪問看護ステーション</span></span>`;
   }
@@ -778,11 +1073,14 @@
   }
 
   function init() {
+    injectSeoMetadata();
     injectStyles();
     replaceHeader();
     replaceFooter();
     if (needsBodyOffset) document.body.classList.add('sn-body-offset');
     initMobileMenu();
+    optimizeInlineMedia();
+    optimizeBackgroundImages();
   }
 
   if (document.readyState === 'loading') {
