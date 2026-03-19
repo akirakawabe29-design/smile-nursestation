@@ -84,9 +84,12 @@
       will-change: transform;
     }
     @media (max-width:767px) {
-      .hero-photo-slide { background-position: center center; }
+      .hero-photo-slide { top:0; bottom:0; background-position: center top; background-size: cover; }
+      .hero-photo-slide.hero-has-mobile { background-size: cover; background-position: center center; }
+      .hero-photo-slide.hero-mobile-2 { background-size: cover; background-position: center 40%; }
       .hero-photo-slide.hero-mobile-main { background-position: 80% center; }
       .hero-photo-slide.hero-mob-left { background-position: left center; }
+      .hero-photo-slide.hero-mobile-hide { display:none !important; }
     }
     .hero-photo-slide.is-active { opacity:1; }
     .hero-photo-slide.hero-slide-dark::after {
@@ -441,8 +444,8 @@
     <!-- Photo slides — full bleed behind everything -->
     <div class="hero-photo-area">
       <div class="hero-photo-slide js-hero-slide is-active hero-has-mobile" style="background-image: url('assets/img/HERO1.jpeg');" data-mobile-bg="url('assets/img/HERO_Mobile1.jpeg')"></div>
-      <div class="hero-photo-slide hero-slide-dark hero-mob-left js-hero-slide hero-has-mobile" style="background-image: url('assets/img/HERO2.jpeg');" data-mobile-bg="url('assets/img/HERO_Mobile2.jpeg')"></div>
-      <div class="hero-photo-slide hero-slide-darker js-hero-slide" style="background-image: url('assets/img/RECRUIT_background.jpeg'); background-position: 30% center;"></div>
+      <div class="hero-photo-slide hero-slide-dark hero-mob-left js-hero-slide hero-has-mobile hero-mobile-2" style="background-image: url('assets/img/HERO2.jpeg');" data-mobile-bg="url('assets/img/HERO_Mobile2.jpeg')"></div>
+      <div class="hero-photo-slide hero-slide-darker js-hero-slide hero-mobile-hide" style="background-image: url('assets/img/RECRUIT_background.jpeg'); background-position: 30% center;"></div>
       <!-- Left-side white gradient overlay for text readability (PC only) -->
       <div class="hidden md:block absolute inset-0 z-[2]" style="background: linear-gradient(to right, rgba(255,255,255,.55) 0%, rgba(255,255,255,.35) 30%, rgba(255,255,255,.10) 50%, transparent 65%);"></div>
     </div>
@@ -1295,7 +1298,7 @@
       document.querySelectorAll('.js-fade-up, .anim').forEach(el => io.observe(el));
 
       /* ── Hero auto-slide ── */
-      const heroSlides = Array.from(document.querySelectorAll('.js-hero-slide'));
+      const heroSlides = Array.from(document.querySelectorAll('.js-hero-slide')).filter(el => getComputedStyle(el).display !== 'none');
       const prefersRM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (heroSlides.length > 1 && !prefersRM) {
         let idx = 0;
