@@ -361,6 +361,7 @@
         padding: 56px 0 48px;
         position: relative;
         z-index: 1;
+        align-items: start;
       }
       @media (min-width: 768px) {
         .sn-footer-main { grid-template-columns: 280px 1fr; gap: 56px; }
@@ -387,13 +388,13 @@
       }
       .sn-footer-brand:hover { opacity: .8; }
       @media (min-width: 768px) { .sn-footer-brand { font-size: 1.25rem; } }
-      .sn-footer-desc { color: rgba(255,255,255,.7); line-height: 1.8; margin-bottom: 28px; font-size: 13px; }
+      .sn-footer-desc { color: rgba(255,255,255,.7); line-height: 1.8; margin-bottom: 28px; font-size: 14px; }
       .sn-footer-info-item {
         display: flex;
         align-items: flex-start;
         gap: 10px;
         color: rgba(255,255,255,.7);
-        font-size: 13px;
+        font-size: 14px;
         line-height: 1.7;
         margin-bottom: 18px;
       }
@@ -420,7 +421,7 @@
       .sn-footer-guide-btn {
         flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
         padding: 14px 12px; border-radius: 999px;
-        font-weight: 700; font-size: 13px; text-decoration: none;
+        font-weight: 700; font-size: 15px; text-decoration: none;
         font-family: "M PLUS Rounded 1c", sans-serif;
         transition: all .3s;
       }
@@ -443,7 +444,7 @@
       .sn-footer-nav-heading {
         display: block;
         color: #F4DF2C;
-        font-size: 12px;
+        font-size: 13px;
         font-weight: 700;
         letter-spacing: .1em;
         margin-bottom: 16px;
@@ -461,7 +462,7 @@
       .sn-footer-nav-list a {
         color: rgba(255,255,255,.75);
         text-decoration: none;
-        font-size: 13px;
+        font-size: 14px;
         transition: color .25s, padding-left .25s;
         display: inline-flex;
         align-items: center;

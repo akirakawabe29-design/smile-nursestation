@@ -78,18 +78,25 @@
       }
     }
     .hero-photo-slide {
-      position:absolute; inset:0;
-      background-size:cover; background-position:center 82%;
+      position:absolute; left:0; right:0; top:-15%; bottom:-15%;
+      background-size:cover; background-position:center 60%;
       opacity:0; transition:opacity 1.4s ease;
+      will-change: transform;
     }
     @media (max-width:767px) {
       .hero-photo-slide { background-position: center center; }
       .hero-photo-slide.hero-mobile-main { background-position: 80% center; }
+      .hero-photo-slide.hero-mob-left { background-position: left center; }
     }
     .hero-photo-slide.is-active { opacity:1; }
     .hero-photo-slide.hero-slide-dark::after {
       content:''; position:absolute; inset:0;
-      background: rgba(0,0,0,.18);
+      background: rgba(0,0,0,.25);
+      pointer-events:none;
+    }
+    .hero-photo-slide.hero-slide-darker::after {
+      content:''; position:absolute; inset:0;
+      background: rgba(0,0,0,.42);
       pointer-events:none;
     }
 
@@ -433,9 +440,9 @@
 
     <!-- Photo slides — full bleed behind everything -->
     <div class="hero-photo-area">
-      <div class="hero-photo-slide hero-mobile-main js-hero-slide is-active" style="background-image: url('assets/img/HERO1.jpeg'); --mob-pos: 70% center;"></div>
-      <div class="hero-photo-slide hero-slide-dark js-hero-slide" style="background-image: url('assets/img/HERO2.jpeg');"></div>
-      <div class="hero-photo-slide js-hero-slide" style="background-image: url('assets/img/RECRUIT_background.jpeg'); background-position: 30% center;"></div>
+      <div class="hero-photo-slide js-hero-slide is-active hero-has-mobile" style="background-image: url('assets/img/HERO1.jpeg');" data-mobile-bg="url('assets/img/HERO_Mobile1.jpeg')"></div>
+      <div class="hero-photo-slide hero-slide-dark hero-mob-left js-hero-slide hero-has-mobile" style="background-image: url('assets/img/HERO2.jpeg');" data-mobile-bg="url('assets/img/HERO_Mobile2.jpeg')"></div>
+      <div class="hero-photo-slide hero-slide-darker js-hero-slide" style="background-image: url('assets/img/RECRUIT_background.jpeg'); background-position: 30% center;"></div>
       <!-- Left-side white gradient overlay for text readability (PC only) -->
       <div class="hidden md:block absolute inset-0 z-[2]" style="background: linear-gradient(to right, rgba(255,255,255,.55) 0%, rgba(255,255,255,.35) 30%, rgba(255,255,255,.10) 50%, transparent 65%);"></div>
     </div>
@@ -457,7 +464,7 @@
     <svg class="hero-blob-mask desktop-blob" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
       <!-- Bottom smile curve wave -->
       <path class="js-smile-wave" d="M-10,720 C180,650 400,800 720,700 C1040,600 1240,740 1450,680 L1450,910 L-10,910 Z"
-            fill="#FDFBFF" fill-opacity=".96" stroke="#E8D4F5" stroke-width="1.2"/>
+            fill="#FDFBFF" fill-opacity="1" stroke="#E8D4F5" stroke-width="1.2"/>
 
       <!-- Accent blob — yellow sparkle -->
       <path d="M1280,120 C1330,80 1400,110 1380,170 C1360,230 1300,220 1280,180 C1260,140 1230,160 1280,120 Z"
@@ -916,8 +923,13 @@
   </svg>
 
   <!-- ════════ VALUES ════════ -->
-  <section id="values" class="relative py-20 md:py-24 bg-crosshatch" style="background: #FDFBFF;">
-    <div class="section-container">
+  <section id="values" class="relative py-20 md:py-24 bg-crosshatch overflow-hidden" style="background: #FDFBFF;">
+    <!-- パララックス背景画像 -->
+    <div class="absolute inset-0 overflow-hidden">
+      <img src="assets/img/studysession.jpeg" alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover will-change-transform js-values-parallax" style="top:-10%; height:120%;">
+      <div class="absolute inset-0 bg-white/75"></div>
+    </div>
+    <div class="section-container relative z-10">
       <div class="text-center mb-12">
         <p class="text-[13px] tracking-[0.16em] text-brand font-round font-bold">VALUES</p>
         <h2 class="mt-2 font-round font-bold text-[22px] md:text-[28px] text-charcoal">smileが大切にしていること</h2>
@@ -1138,15 +1150,15 @@
   </section>
 
   <!-- ════════ RECRUIT ════════ -->
-  <section id="recruit" class="relative overflow-hidden py-16 md:py-20">
+  <section id="recruit" class="relative overflow-hidden py-10 md:py-14">
     <!-- Background photo -->
-    <div class="absolute inset-0" style="background: url('assets/img/RECRUIT_background.jpeg') 35% center/cover no-repeat;"></div>
+    <div class="absolute inset-0" style="background: url('assets/img/HERO1.jpeg') center center/cover no-repeat;"></div>
     <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(155,77,202,.92) 0%, rgba(203,108,230,.75) 40%, rgba(244,223,44,.55) 100%);"></div>
     <!-- Decorative elements -->
     <div class="absolute bottom-0 left-0 w-64 h-64 rounded-full bg-accent/10 blur-3xl"></div>
     <div class="absolute top-10 right-20 w-48 h-48 rounded-full bg-brand/10 blur-3xl"></div>
 
-    <div class="relative z-10 max-w-6xl mx-auto px-4 py-24 md:py-32 grid md:grid-cols-[1.2fr_0.8fr] gap-10 items-center">
+    <div class="relative z-10 max-w-6xl mx-auto px-4 py-16 md:py-22 grid md:grid-cols-[1.2fr_0.8fr] gap-10 items-center">
       <!-- Left: Text content -->
       <div class="js-fade-up">
         <p class="inline-flex items-center gap-2 text-[13px] font-bold tracking-[.2em] text-accent mb-5 font-round">
@@ -1252,6 +1264,13 @@
   <script src="shared-layout.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+      /* ── Mobile hero images ── */
+      if (window.innerWidth < 768) {
+        document.querySelectorAll('.hero-has-mobile[data-mobile-bg]').forEach(el => {
+          el.style.backgroundImage = el.dataset.mobileBg;
+        });
+      }
+
       /* ── Transparent header on hero ── */
       const sharedHeader = document.querySelector('.sn-shared-header');
       const brandStatement = document.getElementById('brand-statement');
@@ -1289,6 +1308,20 @@
 
       /* ══════ GSAP Animations ══════ */
       gsap.registerPlugin(ScrollTrigger);
+
+      /* ── Hero parallax ── */
+      if (!prefersRM) {
+        gsap.to('.js-hero-slide', {
+          y: '18%',
+          ease: 'none',
+          scrollTrigger: {
+            trigger: '.hero-gallery',
+            start: 'top top',
+            end: 'bottom top',
+            scrub: true
+          }
+        });
+      }
 
       /* Hero entrance — staggered timeline */
       const heroTl = gsap.timeline({ delay: 0.3 });
@@ -1577,6 +1610,18 @@
         { scrollTrigger: { trigger: '#service-area', start: 'top 75%' },
           x: 0, opacity: 1, duration: 0.9, delay: 0.15, ease: 'power3.out' }
       );
+
+      /* Values parallax background */
+      gsap.to('.js-values-parallax', {
+        y: '15%',
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '#values',
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true
+        }
+      });
 
       /* Values circles — scale in with stagger */
       gsap.fromTo('#values .group',

@@ -43,8 +43,7 @@
 
     /* ── Hero (gradient + illustrations — no photo) ── */
     .user-hero {
-      position:relative; min-height:100svh; overflow:hidden; display:flex; align-items:center;
-      background: linear-gradient(150deg, #F3E8F9 0%, #E8D5F5 35%, #F8F0FC 65%, #FBF6D0 100%);
+      position:relative; min-height:80svh; overflow:hidden; display:flex; align-items:center;
     }
     .user-hero-illust {
       position:absolute; pointer-events:none; opacity:.12;
@@ -91,6 +90,11 @@
 
   <!-- ═══════════ HERO ═══════════ -->
   <section class="user-hero">
+    <!-- Background photo -->
+    <div class="absolute inset-0">
+      <img src="assets/img/foruser_hero.jpeg" alt="" aria-hidden="true" class="w-full h-full object-cover">
+      <div class="absolute inset-0" style="background: linear-gradient(150deg, rgba(243,232,249,.88) 0%, rgba(232,213,245,.82) 35%, rgba(248,240,252,.85) 65%, rgba(251,246,208,.8) 100%);"></div>
+    </div>
     <!-- Illustrative SVG decorations -->
     <svg class="user-hero-illust w-[220px] md:w-[320px] top-12 right-[5%] md:right-[8%]" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="100" cy="100" r="90" stroke="#CB6CE6" stroke-width="2.5" fill="none"/>
@@ -177,7 +181,7 @@
       <!-- zig-zag: benefit-oriented, not service list -->
       <div class="grid md:grid-cols-2 gap-8 md:gap-14 items-center mb-16 md:mb-20 js-fade-up">
         <div class="relative rounded-3xl overflow-hidden shadow-xl aspect-[4/3]">
-          <img src="assets/img/hero2.jpeg" alt="ご自宅での健康チェック" class="w-full h-full object-cover">
+          <img src="assets/img/forusers.jpeg" alt="ご自宅での健康チェック" class="w-full h-full object-cover">
         </div>
         <div>
           <p class="text-brand font-bold text-sm mb-2">安心の健康管理</p>
@@ -189,7 +193,7 @@
 
       <div class="grid md:grid-cols-2 gap-8 md:gap-14 items-center mb-16 md:mb-20 js-fade-up">
         <div class="md:order-2 relative rounded-3xl overflow-hidden shadow-xl aspect-[4/3]">
-          <img src="assets/img/studysession.jpeg" alt="スタッフとの対話" class="w-full h-full object-cover">
+          <img src="assets/img/hero2.jpeg" alt="スタッフとの対話" class="w-full h-full object-cover">
         </div>
         <div class="md:order-1">
           <p class="text-brand font-bold text-sm mb-2">温かいコミュニケーション</p>
