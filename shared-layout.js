@@ -46,16 +46,16 @@
         box-sizing: border-box;
       }
       .sn-shared-wrap {
-        max-width: 80rem;
+        max-width: 88rem;
         margin: 0 auto;
-        padding: 0 16px;
+        padding: 0 22px;
       }
       .sn-shared-header .sn-row {
-        min-height: 68px;
+        min-height: 78px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 12px;
+        gap: 20px;
       }
       .sn-logo {
         color: #CB6CE6;
@@ -66,13 +66,13 @@
         white-space: nowrap;
         display: inline-flex;
         align-items: center;
-        gap: 10px;
+        gap: 12px;
       }
       .sn-logo-mark {
-        width: 52px;
-        height: 52px;
+        width: 58px;
+        height: 58px;
         border-radius: 999px;
-        flex: 0 0 52px;
+        flex: 0 0 58px;
       }
       .sn-brand-label {
         display: inline-flex;
@@ -185,13 +185,14 @@
           display: flex;
           align-items: center;
           justify-content: space-between;
-          gap: 12px;
+          gap: 28px;
+          min-height: 88px;
         }
         .sn-desktop-nav {
           display: flex;
           align-items: center;
-          gap: 12px;
-          font-size: 13px;
+          gap: 18px;
+          font-size: 14px;
           font-weight: 500;
           color: #374151;
         }
@@ -200,6 +201,7 @@
         color: #374151;
         text-decoration: none;
         white-space: nowrap;
+        padding: 10px 2px;
         transition: color .2s ease;
       }
       .sn-link:hover, .sn-link.sn-active { color: #CB6CE6; }
@@ -207,7 +209,7 @@
       .sn-dropdown-trigger {
         display: inline-flex;
         align-items: center;
-        gap: 4px;
+        gap: 6px;
       }
       .sn-caret { width: 14px; height: 14px; color: #9ca3af; transition: color .2s ease, transform .2s ease; }
       .sn-dropdown:hover .sn-caret { color: #CB6CE6; }
@@ -244,8 +246,8 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        padding: 8px 12px;
-        border-radius: 12px;
+        padding: 12px 18px;
+        border-radius: 16px;
         font-weight: 700;
         text-decoration: none;
         white-space: nowrap;
@@ -290,7 +292,7 @@
 
       /* Bold CTA below right nav */
       .sn-footer-cta-compact {
-        margin-top: 36px;
+        margin-top: 48px;
         grid-column: 1 / -1;
       }
       .sn-footer-cta-msg {
@@ -298,13 +300,13 @@
         font-family: "M PLUS Rounded 1c", sans-serif;
         font-size: 1.1rem;
         font-weight: 700;
-        margin-bottom: 16px;
+        margin-bottom: 20px;
         text-shadow: 0 1px 6px rgba(100,30,140,.15);
       }
       .sn-footer-cta-row {
         display: flex;
         flex-wrap: wrap;
-        gap: 14px;
+        gap: 18px;
         align-items: center;
       }
       .sn-footer-cta-phone {
@@ -314,7 +316,7 @@
         background: rgba(255,255,255,.18);
         border: 2px solid rgba(255,255,255,.4);
         border-radius: 999px;
-        padding: 14px 30px;
+        padding: 16px 34px;
         color: #fff;
         text-decoration: none;
         font-weight: 800;
@@ -338,7 +340,7 @@
         background: #F4DF2C;
         color: #2D2D3A;
         border-radius: 999px;
-        padding: 14px 30px;
+        padding: 16px 34px;
         font-weight: 800;
         font-size: 1.2rem;
         text-decoration: none;
@@ -357,17 +359,17 @@
       /* Footer Main */
       .sn-footer-main {
         display: grid;
-        gap: 40px;
-        padding: 56px 0 48px;
+        gap: 52px;
+        padding: 84px 0 72px;
         position: relative;
         z-index: 1;
         align-items: start;
       }
       @media (min-width: 768px) {
-        .sn-footer-main { grid-template-columns: 280px 1fr; gap: 56px; }
+        .sn-footer-main { grid-template-columns: 300px 1fr; gap: 72px; }
       }
       @media (min-width: 1024px) {
-        .sn-footer-main { grid-template-columns: 300px 1fr; gap: 80px; }
+        .sn-footer-main { grid-template-columns: 340px 1fr; gap: 96px; }
       }
       .sn-footer-brand {
         display: inline-flex;
@@ -378,7 +380,7 @@
         font-weight: 700;
         font-family: "M PLUS Rounded 1c", sans-serif;
         font-size: 1.1rem;
-        margin-bottom: 16px;
+        margin-bottom: 24px;
         transition: opacity .3s;
       }
       .sn-footer-brand .sn-logo-mark {
@@ -388,15 +390,15 @@
       }
       .sn-footer-brand:hover { opacity: .8; }
       @media (min-width: 768px) { .sn-footer-brand { font-size: 1.25rem; } }
-      .sn-footer-desc { color: rgba(255,255,255,.7); line-height: 1.8; margin-bottom: 28px; font-size: 14px; }
+      .sn-footer-desc { color: rgba(255,255,255,.74); line-height: 2; margin-bottom: 36px; font-size: 15px; }
       .sn-footer-info-item {
         display: flex;
         align-items: flex-start;
-        gap: 10px;
+        gap: 14px;
         color: rgba(255,255,255,.7);
         font-size: 14px;
-        line-height: 1.7;
-        margin-bottom: 18px;
+        line-height: 1.9;
+        margin-bottom: 22px;
       }
       .sn-footer-info-item svg {
         width: 16px; height: 16px;
@@ -407,12 +409,12 @@
       .sn-footer-right {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 24px;
+        gap: 32px;
       }
       @media (min-width: 768px) {
-        .sn-footer-right { grid-template-columns: repeat(3, 1fr); gap: 32px; }
+        .sn-footer-right { grid-template-columns: repeat(3, 1fr); gap: 44px; }
       }
-      @media (min-width: 1024px) { .sn-footer-right { gap: 40px; } }
+      @media (min-width: 1024px) { .sn-footer-right { gap: 56px; } }
       /* スマホ用フッターボタン */
       .sn-footer-guide-btns {
         display: flex; gap: 10px; margin-top: 20px;
@@ -447,8 +449,8 @@
         font-size: 13px;
         font-weight: 700;
         letter-spacing: .1em;
-        margin-bottom: 16px;
-        padding-bottom: 10px;
+        margin-bottom: 22px;
+        padding-bottom: 14px;
         border-bottom: 1px solid rgba(244,223,44,.25);
         font-family: "M PLUS Rounded 1c", sans-serif;
       }
@@ -457,12 +459,12 @@
         margin: 0; padding: 0;
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: 16px;
       }
       .sn-footer-nav-list a {
         color: rgba(255,255,255,.75);
         text-decoration: none;
-        font-size: 14px;
+        font-size: 15px;
         transition: color .25s, padding-left .25s;
         display: inline-flex;
         align-items: center;
@@ -487,7 +489,7 @@
       /* Footer Bottom */
       .sn-footer-bottom {
         border-top: 1px solid rgba(255,255,255,.15);
-        padding: 20px 0;
+        padding: 28px 0;
         text-align: center;
         position: relative;
         z-index: 1;
@@ -499,14 +501,17 @@
           overflow-x: hidden;
           overflow-y: visible;
         }
+        .sn-shared-header .sn-row {
+          min-height: 76px;
+        }
         .sn-shared-wrap {
           max-width: 100vw;
-          padding: 0 10px;
+          padding: 0 18px;
         }
         .sn-logo {
-          max-width: calc(100vw - 80px);
+          max-width: calc(100vw - 96px);
           overflow: hidden;
-          font-size: .95rem;
+          font-size: 1rem;
         }
         .sn-logo-text {
           overflow: hidden;
