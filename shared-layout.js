@@ -529,52 +529,52 @@
     const pageSeo = {
       home: {
         description: '尼崎市のsmile訪問看護ステーション。透析・小児・精神科訪問看護に対応し、ご利用者様とご家族の「やりたい」を支えます。',
-        image: 'assets/img/HERO1.jpeg',
+        image: 'assets/img/HERO1.webp',
         keywords: '尼崎 訪問看護, 尼崎市 訪問看護, 在宅医療, 透析看護, 小児訪問看護, 精神科訪問看護',
       },
       about: {
         description: '尼崎市のsmile訪問看護ステーションの理念・想い・代表メッセージをご紹介します。',
-        image: 'assets/img/代表挨拶.png',
+        image: 'assets/img/代表挨拶.webp',
         keywords: '尼崎 訪問看護, 訪問看護ステーション 尼崎, 地域密着 訪問看護',
       },
       diary: {
         description: '尼崎市の訪問看護ステーションsmileの日々の取り組みやお知らせを発信するsmileダイアリーです。',
-        image: 'assets/img/instagram2.jpeg',
+        image: 'assets/img/instagram2.webp',
         keywords: '尼崎 訪問看護, 訪問看護 ブログ, 在宅看護 情報',
       },
       users: {
         description: 'ご利用者様・ご家族の方向けに、訪問看護の内容やご利用開始までの流れをわかりやすくご案内します。',
-        image: 'assets/img/forusers.jpeg',
+        image: 'assets/img/forusers.webp',
         keywords: '尼崎 訪問看護 利用方法, 訪問看護 初めて, 在宅ケア 尼崎',
       },
       voices: {
         description: '尼崎市のsmile訪問看護ステーションをご利用いただいた方の声をご紹介します。',
-        image: 'assets/img/forusers.jpeg',
+        image: 'assets/img/forusers.webp',
         keywords: '尼崎 訪問看護 口コミ, 訪問看護 利用者の声',
       },
       service: {
         description: '透析ケア、小児看護、精神科訪問看護など、smile訪問看護ステーションのサービス内容をご紹介します。',
-        image: 'assets/img/hero2.jpeg',
+        image: 'assets/img/HERO2.webp',
         keywords: '尼崎 透析看護, 小児訪問看護 尼崎, 精神科訪問看護 尼崎',
       },
       flow: {
         description: 'お問い合わせから訪問看護開始までの流れを、初めての方にもわかりやすくご案内します。',
-        image: 'assets/img/hero1.jpeg',
+        image: 'assets/img/HERO1.webp',
         keywords: '訪問看護 利用の流れ, 訪問看護指示書, 尼崎 訪問看護 相談',
       },
       faq: {
         description: '訪問看護の費用や対象者、サービス内容についてのよくあるご質問をまとめています。',
-        image: 'assets/img/hero2.jpeg',
+        image: 'assets/img/HERO2.webp',
         keywords: '訪問看護 よくある質問, 訪問看護 費用, 尼崎 訪問看護 Q&A',
       },
       recruit: {
         description: '尼崎市のsmile訪問看護ステーションの採用情報です。働き方や募集要項、職場の雰囲気をご紹介します。',
-        image: 'assets/img/RECRUIT_background.jpeg',
+        image: 'assets/img/RECRUIT_background.webp',
         keywords: '尼崎 訪問看護 求人, 訪問看護師 採用, 尼崎 看護師 転職',
       },
       medical: {
         description: 'ケアマネジャー様・医療機関様向けに、連携方法やサービス提供体制をご案内します。',
-        image: 'assets/img/studysession.jpeg',
+        image: 'assets/img/studysession.webp',
         keywords: '尼崎 訪問看護 連携, ケアマネ 訪問看護, 医療機関 連携',
       },
       contact: {
@@ -763,7 +763,7 @@
     ensureLink('preconnect', 'https://fonts.gstatic.com', { crossorigin: '' });
 
     if (pageKey === 'home') {
-      ensureLink('preload', absoluteUrl('assets/img/HERO1.jpeg'), { as: 'image', fetchpriority: 'high' });
+      ensureLink('preload', absoluteUrl('assets/img/HERO1.webp'), { as: 'image', fetchpriority: 'high' });
     }
 
     injectStructuredData(canonicalUrl, imageUrl);
