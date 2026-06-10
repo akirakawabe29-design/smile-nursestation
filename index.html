@@ -69,7 +69,7 @@
     .hero-photo-area { position:absolute; inset:0; z-index:1; }
     .hero-photo-area::after {
       content:''; position:absolute; inset:0; z-index:2;
-      background: rgba(0,0,0,.12);
+      background: rgba(0,0,0,.08);
       pointer-events:none;
     }
     @media (min-width:768px) {
@@ -632,6 +632,229 @@
       }
     }
 
+    /* ─── 2026 visual refresh ─── */
+    .section-kicker {
+      color: #9B4DCA;
+      font-family: "M PLUS Rounded 1c", sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .16em;
+    }
+    .instagram-modern-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr 1fr;
+      gap: 18px;
+    }
+    .instagram-modern-item {
+      position: relative;
+      min-height: 360px;
+      overflow: hidden;
+      border-radius: 8px;
+      background: #2D2D3A;
+    }
+    .instagram-modern-item:first-child { min-height: 440px; }
+    .instagram-modern-item img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .8s ease;
+    }
+    .instagram-modern-item:hover img { transform: scale(1.035); }
+    .instagram-modern-item::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(30,22,36,.82), rgba(30,22,36,0) 62%);
+    }
+    .instagram-modern-copy {
+      position: absolute;
+      z-index: 1;
+      left: 22px;
+      right: 22px;
+      bottom: 22px;
+      color: #fff;
+    }
+    @media (max-width: 767px) {
+      .home-modern-flow :is(#services, #why-smile, #staff, #news-diary) {
+        padding-top: 72px !important;
+        padding-bottom: 72px !important;
+      }
+      .instagram-modern-grid {
+        display: flex;
+        gap: 14px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        margin: 0 -20px;
+        padding: 0 20px 10px;
+        scrollbar-width: none;
+      }
+      .instagram-modern-grid::-webkit-scrollbar { display: none; }
+      .instagram-modern-item,
+      .instagram-modern-item:first-child {
+        min-width: min(78vw, 310px);
+        min-height: 390px;
+        scroll-snap-align: start;
+      }
+    }
+
+    /* Existing section markup, visually simplified without changing its content model. */
+    #services .grid.md\:grid-cols-3 {
+      gap: 0 !important;
+      border-top: 1px solid rgba(155,77,202,.18);
+      border-bottom: 1px solid rgba(155,77,202,.18);
+    }
+    #services .grid.md\:grid-cols-3 > article {
+      border: 0 !important;
+      border-right: 1px solid rgba(155,77,202,.16) !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      padding: 34px 30px !important;
+    }
+    #services .grid.md\:grid-cols-3 > article:last-child { border-right: 0 !important; }
+    #services .grid.md\:grid-cols-3 > article > .absolute { display: none; }
+    #why-smile .grid {
+      gap: 0 !important;
+      border-top: 1px solid rgba(155,77,202,.18);
+      border-bottom: 1px solid rgba(155,77,202,.18);
+    }
+    #why-smile .grid > div {
+      border: 0 !important;
+      border-right: 1px solid rgba(155,77,202,.16) !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      padding: 30px 24px !important;
+    }
+    #why-smile .grid > div:last-child { border-right: 0 !important; }
+    #staff > .max-w-4xl > .bg-white {
+      border: 0 !important;
+      border-radius: 0 !important;
+      border-top: 1px solid rgba(155,77,202,.18) !important;
+      border-bottom: 1px solid rgba(155,77,202,.18) !important;
+      background: transparent !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+    #flow .grid {
+      gap: 0 !important;
+      border-top: 1px solid rgba(155,77,202,.18);
+      border-bottom: 1px solid rgba(155,77,202,.18);
+    }
+    #flow .grid > div {
+      border: 0 !important;
+      border-right: 1px solid rgba(155,77,202,.16) !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      padding: 30px 24px !important;
+    }
+    #flow .grid > div:last-child { border-right: 0 !important; }
+    #flow .grid > div > div:first-child {
+      width: auto !important;
+      height: auto !important;
+      justify-content: flex-start !important;
+      background: transparent !important;
+      color: #9B4DCA !important;
+      box-shadow: none !important;
+      font-size: 13px !important;
+      margin-bottom: 16px !important;
+    }
+    #flow .grid > div > div:first-child::before { content: "STEP "; }
+    #faq .grid > article:nth-child(3),
+    #faq .grid > article:nth-child(4),
+    #faq .grid > article:nth-child(5),
+    #faq .grid > article:nth-child(8) { display: none; }
+    #faq .faq-item {
+      border-width: 0 0 1px !important;
+      border-color: rgba(155,77,202,.2) !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      background: transparent !important;
+    }
+    #news-diary > .max-w-6xl > div.js-fade-up { display: none; }
+    #news-diary {
+      background: #FDFBFF !important;
+    }
+    #news-diary > .max-w-6xl > section {
+      margin-bottom: 0 !important;
+    }
+    @media (max-width: 767px) {
+      #services .grid.md\:grid-cols-3,
+      #why-smile .grid,
+      #flow .grid { border-bottom: 0; }
+      #services .grid.md\:grid-cols-3 > article,
+      #why-smile .grid > div,
+      #flow .grid > div {
+        border-right: 0 !important;
+        border-bottom: 1px solid rgba(155,77,202,.16) !important;
+        padding: 24px 0 !important;
+      }
+      #services .grid.md\:grid-cols-3 > article {
+        display: grid;
+        grid-template-columns: 48px minmax(0,1fr);
+        column-gap: 14px;
+        align-items: start;
+      }
+      #services .grid.md\:grid-cols-3 > article > div:not(.absolute) {
+        grid-column: 1;
+        grid-row: 1 / span 5;
+        width: 44px !important;
+        height: 44px !important;
+        margin: 0 !important;
+        border-radius: 12px !important;
+      }
+      #services .grid.md\:grid-cols-3 > article > h3,
+      #services .grid.md\:grid-cols-3 > article > p,
+      #services .grid.md\:grid-cols-3 > article > a {
+        grid-column: 2;
+      }
+      #services .grid.md\:grid-cols-3 > article > h3 { margin-top: 0 !important; }
+      #services .grid.md\:grid-cols-3 > article > a { margin-top: 10px !important; }
+      #why-smile .grid { grid-template-columns: 1fr !important; }
+      #why-smile .grid > div {
+        display: grid;
+        grid-template-columns: 74px minmax(0,1fr);
+        text-align: left !important;
+        align-items: center;
+        column-gap: 16px;
+      }
+      #why-smile .grid > div > div:first-child {
+        grid-row: 1 / span 2;
+        width: 70px !important;
+        height: 70px !important;
+        margin: 0 !important;
+      }
+      #why-smile .grid > div > p { margin-top: 0 !important; }
+      #flow .grid { grid-template-columns: 1fr !important; }
+      #faq .grid { gap: 0 !important; }
+    }
+    @media (min-width: 768px) {
+      .guide-links {
+        display: grid !important;
+        grid-template-columns: repeat(2,minmax(0,1fr));
+        gap: 24px !important;
+      }
+      .guide-links > a > div {
+        display: flex !important;
+        flex-direction: column !important;
+        min-height: 0 !important;
+      }
+      .guide-links > a > div > div:first-child {
+        width: 100% !important;
+        padding: 30px 32px !important;
+      }
+      .guide-links > a > div > div:last-child {
+        order: -1;
+        width: 100% !important;
+        height: 230px;
+        border-radius: 0 !important;
+      }
+      .guide-links h3 { font-size: 24px !important; }
+    }
+
   </style>
 </head>
 <body class="home-modern-flow font-sans text-textMain bg-bgLight antialiased">
@@ -644,7 +867,7 @@
       <div class="hero-photo-slide js-hero-slide is-active hero-has-mobile" style="background-image: url('assets/img/HERO1.webp');" data-mobile-bg="url('assets/img/HERO_Mobile1.webp')"></div>
       <div class="hero-photo-slide hero-slide-dark hero-mob-left js-hero-slide hero-has-mobile hero-mobile-2" style="background-image: url('assets/img/HERO2.webp');" data-mobile-bg="url('assets/img/HERO_Mobile2.webp')"></div>
       <div class="hero-photo-slide hero-slide-darker js-hero-slide hero-mobile-hide" style="background-image: url('assets/img/smile-team/team-group.webp'); background-position: center 38%;"></div>
-      <div class="hidden md:block absolute inset-0 z-[2]" style="background: linear-gradient(to right, rgba(255,255,255,.55) 0%, rgba(255,255,255,.35) 30%, rgba(255,255,255,.10) 50%, transparent 65%);"></div>
+      <div class="hidden md:block absolute inset-0 z-[2]" style="background: linear-gradient(to right, rgba(255,255,255,.40) 0%, rgba(255,255,255,.22) 30%, rgba(255,255,255,.06) 52%, transparent 68%);"></div>
     </div>
 
     <!-- Mobile blob mask -->
@@ -731,7 +954,7 @@
         </div>
 
         <!-- ★ Hero CTA（提案①③） -->
-        <div class="mt-6 flex flex-wrap gap-3 gsap-from-bottom" style="text-shadow:none;">
+        <div class="mt-6 hidden md:flex flex-wrap gap-3 gsap-from-bottom" style="text-shadow:none;">
           <a href="tel:0649506402" class="inline-flex items-center gap-2 bg-white text-brand font-bold font-round text-sm py-3 px-6 rounded-full shadow-lg hover:shadow-xl transition-all border-2 border-brand">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
             06-4950-6402
@@ -845,7 +1068,7 @@
   </section>
 
   <!-- ════════ CTA BANNER（中間）（提案③） ════════ -->
-  <section class="py-10 md:py-12 bg-brand-bg">
+  <section class="hidden">
     <div class="max-w-4xl mx-auto px-4 text-center js-fade-up">
       <p class="font-round font-bold text-[18px] md:text-[22px] text-charcoal mb-2">まずはお気軽にご相談ください</p>
       <p class="text-[14px] text-charcoal-light mb-6">ご本人様・ご家族様からの直接のご相談も大歓迎です</p>
@@ -1562,32 +1785,28 @@
       <!-- INSTAGRAM -->
       <section class="mb-8 js-fade-up">
         <div class="max-w-6xl mx-auto">
-          <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
+          <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-8 md:mb-10">
             <div>
-              <p class="text-[13px] font-bold tracking-[0.18em] text-brand font-round">INSTAGRAM</p>
-              <h2 class="font-round text-2xl md:text-3xl font-bold text-charcoal mt-2">日々のようす</h2>
-              <p class="text-[15px] md:text-base text-textMuted mt-2 leading-relaxed">訪問の合間の景色や、スタッフの学び、ステーションの日常を写真でお届けします。</p>
+              <p class="section-kicker">FROM INSTAGRAM</p>
+              <h2 class="font-round text-[28px] md:text-[40px] font-bold text-charcoal mt-3">smileの日々</h2>
+              <p class="text-[14px] md:text-[15px] text-textMuted mt-3 leading-relaxed max-w-2xl">ケアの工夫やスタッフの働き方、利用者さんとの温かな時間を公式Instagramで発信しています。</p>
             </div>
-            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-brand font-bold font-round hover:text-brand-dark transition-colors">
-              Instagramを見る <span aria-hidden="true">↗</span>
+            <a href="https://www.instagram.com/smile_houmonkango/?hl=ja" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-brand font-bold font-round hover:text-brand-dark transition-colors">
+              @smile_houmonkango <span aria-hidden="true">↗</span>
             </a>
           </div>
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="group relative aspect-[4/5] overflow-hidden rounded-2xl bg-white border-2 border-brand-bg shadow-sm">
-              <img src="assets/img/HERO2.webp" alt="訪問看護のイメージ" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
+          <div class="instagram-modern-grid">
+            <a href="https://www.instagram.com/p/DZM6cJPD5OQ/" target="_blank" rel="noopener noreferrer" class="instagram-modern-item group">
+              <img src="assets/img/smile-team/staff-consultation.webp" alt="訪問看護バッグやケア用品について話すスタッフ">
+              <div class="instagram-modern-copy"><p class="text-[11px] tracking-[.14em] font-bold text-accent font-round">CARE TOOLS</p><h3 class="mt-2 text-[19px] md:text-[22px] font-bold font-round">訪問バッグの中身をご紹介</h3><p class="mt-2 text-[13px] text-white/75">日々のケアを支える道具と準備。</p></div>
             </a>
-            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="group relative aspect-[4/5] overflow-hidden rounded-2xl bg-white border-2 border-brand-bg shadow-sm">
-              <img src="assets/img/instagram2.webp" alt="スタッフの学びのイメージ" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
+            <a href="https://www.instagram.com/p/DY3dGSaigTU/" target="_blank" rel="noopener noreferrer" class="instagram-modern-item group">
+              <img src="assets/img/smile-team/team-chat-wide.webp" alt="利用者様とのつながりを大切にするスタッフ">
+              <div class="instagram-modern-copy"><p class="text-[11px] tracking-[.14em] font-bold text-accent font-round">CONNECTION</p><h3 class="mt-2 text-[18px] font-bold font-round">人と人とのつながりを大切に</h3><p class="mt-2 text-[13px] text-white/75">医療だけではない、smileらしい関わり。</p></div>
             </a>
-            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="group relative aspect-[4/5] overflow-hidden rounded-2xl bg-white border-2 border-brand-bg shadow-sm">
-              <img src="assets/img/new%20colleague.webp" alt="ご家族との対話イメージ" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
-            </a>
-            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="group relative aspect-[4/5] overflow-hidden rounded-2xl bg-white border-2 border-brand-bg shadow-sm">
-              <img src="assets/img/instagram4.webp" alt="ステーションの日常イメージ" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
+            <a href="https://www.instagram.com/p/DYuA5krlGO0/" target="_blank" rel="noopener noreferrer" class="instagram-modern-item group">
+              <img src="assets/img/smile-team/team-group.webp" alt="笑顔で働くsmile訪問看護ステーションのスタッフ">
+              <div class="instagram-modern-copy"><p class="text-[11px] tracking-[.14em] font-bold text-accent font-round">WORK STYLE</p><h3 class="mt-2 text-[18px] font-bold font-round">スタッフの幸せから、いい看護を</h3><p class="mt-2 text-[13px] text-white/75">自分らしく働けるチームづくり。</p></div>
             </a>
           </div>
         </div>
@@ -1649,7 +1868,7 @@
   </section>
 
   <!-- Recruit merits (mobile only) -->
-  <section class="md:hidden bg-brand-pale py-8">
+  <section class="hidden">
     <div class="max-w-6xl mx-auto px-4 space-y-4">
       <div class="bg-white border border-brand-bg rounded-2xl p-5 shadow-sm">
         <div class="flex items-center gap-3 mb-3">
@@ -1809,18 +2028,18 @@
           y: 0, opacity: 1, duration: 1, ease: 'power3.out' }
       );
 
-      /* Service cards — stagger from left */
+      /* Service items */
       gsap.fromTo('#services article',
-        { x: -60, opacity: 0 },
+        { y: 28, opacity: 0 },
         { scrollTrigger: { trigger: '#services', start: 'top 75%' },
-          x: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power3.out' }
+          y: 0, opacity: 1, duration: 0.75, stagger: 0.12, ease: 'power3.out' }
       );
 
-      /* Why Smile cards — scale in */
+      /* Why Smile items */
       gsap.fromTo('#why-smile .group',
-        { scale: 0.6, opacity: 0 },
+        { y: 24, opacity: 0 },
         { scrollTrigger: { trigger: '#why-smile', start: 'top 75%' },
-          scale: 1, opacity: 1, duration: 0.7, stagger: 0.12, ease: 'back.out(1.7)' }
+          y: 0, opacity: 1, duration: 0.65, stagger: 0.1, ease: 'power3.out' }
       );
 
       /* Flow steps — stagger */
@@ -1853,25 +2072,11 @@
         );
       });
 
-      /* Service Area */
-      gsap.fromTo('#service-area .md\\:backdrop-blur-sm',
-        { x: -40, opacity: 0 },
-        { scrollTrigger: { trigger: '#service-area', start: 'top 75%' },
-          x: 0, opacity: 1, duration: 0.9, ease: 'power3.out' }
-      );
-
-      /* Instagram photos — slide from right */
-      gsap.fromTo('#news-diary .grid.grid-cols-2 > a',
-        { x: 60, opacity: 0 },
-        { scrollTrigger: { trigger: '#news-diary .grid.grid-cols-2', start: 'top 80%' },
-          x: 0, opacity: 1, duration: 0.7, stagger: 0.1, ease: 'power3.out' }
-      );
-
-      /* Diary cards — slide from bottom */
-      gsap.fromTo('#news-diary .grid.md\\:grid-cols-3 > a',
-        { y: 50, opacity: 0 },
-        { scrollTrigger: { trigger: '#news-diary .grid.md\\:grid-cols-3', start: 'top 80%' },
-          y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power3.out' }
+      /* Instagram posts */
+      gsap.fromTo('#news-diary .instagram-modern-item',
+        { y: 36, opacity: 0 },
+        { scrollTrigger: { trigger: '#news-diary .instagram-modern-grid', start: 'top 82%' },
+          y: 0, opacity: 1, duration: 0.75, stagger: 0.12, ease: 'power3.out' }
       );
 
       /* Recruit section */
