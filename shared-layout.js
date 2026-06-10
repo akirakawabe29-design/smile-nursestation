@@ -534,7 +534,7 @@
       },
       about: {
         description: '尼崎市のsmile訪問看護ステーションの理念・想い・代表メッセージをご紹介します。',
-        image: 'assets/img/代表挨拶.webp',
+        image: 'assets/img/smile-team/representative.webp',
         keywords: '尼崎 訪問看護, 訪問看護ステーション 尼崎, 地域密着 訪問看護',
       },
       diary: {
@@ -569,7 +569,7 @@
       },
       recruit: {
         description: '尼崎市のsmile訪問看護ステーションの採用情報です。働き方や募集要項、職場の雰囲気をご紹介します。',
-        image: 'assets/img/RECRUIT_background.webp',
+        image: 'assets/img/smile-team/team-group.webp',
         keywords: '尼崎 訪問看護 求人, 訪問看護師 採用, 尼崎 看護師 転職',
       },
       medical: {
