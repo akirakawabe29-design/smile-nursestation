@@ -539,7 +539,7 @@
       },
       diary: {
         description: '尼崎市の訪問看護ステーションsmileの日々の取り組みやお知らせを発信するsmileダイアリーです。',
-        image: 'assets/img/instagram2.webp',
+        image: 'assets/img/generated-care/peritoneal-dialysis-support.webp',
         keywords: '尼崎 訪問看護, 訪問看護 ブログ, 在宅看護 情報',
       },
       users: {
