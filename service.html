@@ -96,6 +96,10 @@
     /* ── Photo Section ── */
     .photo-section { position: relative; overflow: hidden; }
     .photo-section-bg { position: absolute; inset: 0; background-size: cover; background-position: center; }
+    .basic-care-photo { background-position: center right; }
+    @media (max-width: 767px) {
+      .basic-care-photo { background-position: 66% center; }
+    }
     .photo-section-overlay { position: absolute; inset: 0; }
 
     /* ── Diagonal ── */
@@ -229,8 +233,8 @@
 
   <!-- ═══════════ BASIC CARE (Photo Overlay) ═══════════ -->
   <section class="photo-section py-24 md:py-32">
-    <div class="photo-section-bg" style="background-image: url('assets/img/instagram2.webp');"></div>
-    <div class="photo-section-overlay bg-gradient-to-r from-charcoal/85 via-charcoal/70 to-charcoal/40"></div>
+    <div class="photo-section-bg basic-care-photo" style="background-image: url('assets/img/generated-care/basic-care-home-greeting-faithful.webp');"></div>
+    <div class="photo-section-overlay bg-gradient-to-r from-charcoal/90 via-charcoal/72 to-charcoal/25"></div>
     <div class="relative z-10 max-w-6xl mx-auto px-4">
       <div class="mb-12 js-fade-up">
         <p class="font-hand text-accent text-sm md:text-base tracking-wider mb-3">BASIC CARE</p>
