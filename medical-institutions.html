@@ -146,6 +146,29 @@
       flex-shrink: 0;
     }
 
+    @media (max-width: 767px) {
+      .medical-flow-line { display: none; }
+      .medical-flow-track {
+        display: flex;
+        gap: 16px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        overscroll-behavior-inline: contain;
+        margin-inline: -20px;
+        padding: 4px 20px 18px;
+        scrollbar-width: none;
+      }
+      .medical-flow-track::-webkit-scrollbar { display: none; }
+      .medical-flow-track > :not([hidden]) ~ :not([hidden]) { margin-top: 0 !important; }
+      .medical-flow-step {
+        min-width: min(82vw, 330px);
+        scroll-snap-align: center;
+        display: block !important;
+      }
+      .medical-flow-dot { display: none; }
+      .medical-flow-card { min-height: 270px; display: flex; flex-direction: column; justify-content: center; }
+    }
+
     /* ── Mobile footer ── */
     body { padding-bottom: 84px; }
     @media (min-width: 768px) { body { padding-bottom: 0; } }
@@ -349,20 +372,21 @@
           <p class="text-xs font-bold tracking-[.2em] text-brand-dark mb-3 font-rounded">ONBOARDING FLOW</p>
           <h2 class="font-rounded text-2xl md:text-3xl font-bold text-charcoal">ご利用開始までの流れ</h2>
           <p class="text-sm text-charcoal-light mt-3">退院直後の調整や在宅移行のご相談も、お気軽にご連絡ください。</p>
+          <p class="md:hidden mt-4 text-xs font-bold tracking-wider text-brand-dark">横にスワイプして4つのステップを確認</p>
         </div>
 
         <div class="relative">
           <!-- Timeline line -->
-          <div class="timeline-line absolute left-[22px] md:left-1/2 md:-translate-x-1/2 top-0 bottom-0"></div>
+          <div class="medical-flow-line timeline-line absolute left-[22px] md:left-1/2 md:-translate-x-1/2 top-0 bottom-0"></div>
 
-          <div class="space-y-10 md:space-y-14">
+          <div class="medical-flow-track space-y-10 md:space-y-14">
             <!-- Step 1 -->
-            <div class="relative flex items-start gap-6 md:gap-0 js-fade-up">
-              <div class="flex-shrink-0 md:absolute md:left-1/2 md:-translate-x-1/2 z-10">
+            <div class="medical-flow-step relative flex items-start gap-6 md:gap-0 js-fade-up">
+              <div class="medical-flow-dot flex-shrink-0 md:absolute md:left-1/2 md:-translate-x-1/2 z-10">
                 <div class="timeline-dot"></div>
               </div>
               <div class="md:w-[calc(50%-40px)] md:pr-8">
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 md:p-6">
+                <div class="medical-flow-card bg-white rounded-xl shadow-sm border border-gray-100 p-5 md:p-6">
                   <p class="font-rounded text-3xl font-bold text-brand-dark/20 mb-1">01</p>
                   <h3 class="font-rounded text-lg font-bold text-charcoal mb-2">ご相談・お問い合わせ</h3>
                   <p class="text-sm text-charcoal-light leading-loose">お電話、またはFAXでご連絡ください。受け入れ可否や初回訪問までの流れをご案内します。</p>
@@ -371,12 +395,12 @@
             </div>
 
             <!-- Step 2 -->
-            <div class="relative flex items-start gap-6 md:gap-0 js-fade-up fade-delay-1">
-              <div class="flex-shrink-0 md:absolute md:left-1/2 md:-translate-x-1/2 z-10">
+            <div class="medical-flow-step relative flex items-start gap-6 md:gap-0 js-fade-up fade-delay-1">
+              <div class="medical-flow-dot flex-shrink-0 md:absolute md:left-1/2 md:-translate-x-1/2 z-10">
                 <div class="timeline-dot" style="background: #CB6CE6;"></div>
               </div>
               <div class="md:w-[calc(50%-40px)] md:ml-auto md:pl-8">
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 md:p-6">
+                <div class="medical-flow-card bg-white rounded-xl shadow-sm border border-gray-100 p-5 md:p-6">
                   <p class="font-rounded text-3xl font-bold text-brand/20 mb-1">02</p>
                   <h3 class="font-rounded text-lg font-bold text-charcoal mb-2">事前面談・情報共有</h3>
                   <p class="text-sm text-charcoal-light leading-loose">ご本人様・ご家族様、関係機関と必要情報を共有し、在宅療養の課題と支援方針を確認します。</p>
@@ -385,12 +409,12 @@
             </div>
 
             <!-- Step 3 -->
-            <div class="relative flex items-start gap-6 md:gap-0 js-fade-up fade-delay-2">
-              <div class="flex-shrink-0 md:absolute md:left-1/2 md:-translate-x-1/2 z-10">
+            <div class="medical-flow-step relative flex items-start gap-6 md:gap-0 js-fade-up fade-delay-2">
+              <div class="medical-flow-dot flex-shrink-0 md:absolute md:left-1/2 md:-translate-x-1/2 z-10">
                 <div class="timeline-dot" style="background: #DA9BEA;"></div>
               </div>
               <div class="md:w-[calc(50%-40px)] md:pr-8">
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 md:p-6">
+                <div class="medical-flow-card bg-white rounded-xl shadow-sm border border-gray-100 p-5 md:p-6">
                   <p class="font-rounded text-3xl font-bold text-brand-light/30 mb-1">03</p>
                   <h3 class="font-rounded text-lg font-bold text-charcoal mb-2">サービス担当者会議・訪問計画調整</h3>
                   <p class="text-sm text-charcoal-light leading-loose">ケアマネジャー様を中心に、頻度・役割分担・注意点を整理し、支援内容を具体化します。</p>
@@ -399,12 +423,12 @@
             </div>
 
             <!-- Step 4 -->
-            <div class="relative flex items-start gap-6 md:gap-0 js-fade-up fade-delay-3">
-              <div class="flex-shrink-0 md:absolute md:left-1/2 md:-translate-x-1/2 z-10">
+            <div class="medical-flow-step relative flex items-start gap-6 md:gap-0 js-fade-up fade-delay-3">
+              <div class="medical-flow-dot flex-shrink-0 md:absolute md:left-1/2 md:-translate-x-1/2 z-10">
                 <div class="timeline-dot" style="background: #F4DF2C; box-shadow: 0 0 0 3px rgba(244,223,44,.3);"></div>
               </div>
               <div class="md:w-[calc(50%-40px)] md:ml-auto md:pl-8">
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 md:p-6">
+                <div class="medical-flow-card bg-white rounded-xl shadow-sm border border-gray-100 p-5 md:p-6">
                   <p class="font-rounded text-3xl font-bold text-accent/30 mb-1">04</p>
                   <h3 class="font-rounded text-lg font-bold text-charcoal mb-2">ご契約・ご利用開始</h3>
                   <p class="text-sm text-charcoal-light leading-loose">契約手続き完了後、計画に沿ってサービス提供を開始します。開始後も状態変化に応じて調整します。</p>

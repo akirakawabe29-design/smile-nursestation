@@ -13,6 +13,7 @@
     if (path === 'recruit.html') return 'recruit';
     if (path === 'medical-institutions.html') return 'medical';
     if (path === 'contact.html') return 'contact';
+    if (path === 'entry.html') return 'entry';
     return 'other';
   })();
 
@@ -176,6 +177,20 @@
       }
       .sn-mobile-cta-phone { background: rgba(255,255,255,.15); color: #fff; }
       .sn-mobile-cta-contact { background: #F4DF2C; color: #2D2D3A; }
+
+      /* ── Page-level mobile action bars ── */
+      .sn-mobile-action-bar {
+        transition: transform .28s cubic-bezier(.4,0,.2,1), opacity .24s ease;
+        will-change: transform, opacity;
+      }
+      .sn-mobile-action-bar.sn-is-hidden {
+        transform: translateY(calc(100% + 28px));
+        opacity: 0;
+        pointer-events: none;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .sn-mobile-action-bar { transition: none; }
+      }
 
       @media (min-width: 1280px) {
         .sn-shared-header .sn-mobile { display: none; }
@@ -886,7 +901,19 @@
 
   function footerHtml() {
     const recruitHref = pageKey === 'home' ? '#recruit' : 'recruit.html';
-    const hasOwnCta = new Set(['about', 'users', 'recruit', 'contact']).has(pageKey);
+    const hasOwnCta = new Set([
+      'home',
+      'about',
+      'users',
+      'voices',
+      'service',
+      'flow',
+      'faq',
+      'recruit',
+      'medical',
+      'contact',
+      'entry'
+    ]).has(pageKey);
 
     const ctaCompact = hasOwnCta ? '' : `
               <div class="sn-footer-cta-compact">
@@ -1077,6 +1104,63 @@
     });
   }
 
+  function initMobileActionBars() {
+    const bars = Array.from(document.body.children).filter(function (el) {
+      if (!(el instanceof HTMLElement)) return false;
+      return el.classList.contains('md:hidden')
+        && el.classList.contains('fixed')
+        && (el.classList.contains('bottom-0') || el.classList.contains('bottom-4'));
+    });
+    if (!bars.length) return;
+
+    bars.forEach(function (bar) {
+      bar.classList.add('sn-mobile-action-bar');
+    });
+
+    let lastY = window.scrollY;
+    let footerVisible = false;
+    let ticking = false;
+
+    function setHidden(hidden) {
+      bars.forEach(function (bar) {
+        bar.classList.toggle('sn-is-hidden', hidden);
+      });
+    }
+
+    function update() {
+      const currentY = window.scrollY;
+      const delta = currentY - lastY;
+
+      if (footerVisible) {
+        setHidden(true);
+      } else if (currentY < 120 || delta < -8) {
+        setHidden(false);
+      } else if (delta > 8 && currentY > 180) {
+        setHidden(true);
+      }
+
+      lastY = currentY;
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', function () {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(update);
+    }, { passive: true });
+
+    const footer = document.querySelector('.sn-shared-footer');
+    if (footer && 'IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(function (entries) {
+        footerVisible = entries.some(function (entry) {
+          return entry.isIntersecting;
+        });
+        setHidden(footerVisible);
+      }, { threshold: 0.02 });
+      observer.observe(footer);
+    }
+  }
+
   function init() {
     injectSeoMetadata();
     injectStyles();
@@ -1084,6 +1168,7 @@
     replaceFooter();
     if (needsBodyOffset) document.body.classList.add('sn-body-offset');
     initMobileMenu();
+    initMobileActionBars();
     optimizeInlineMedia();
     optimizeBackgroundImages();
   }

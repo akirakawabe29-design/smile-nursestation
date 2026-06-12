@@ -112,6 +112,72 @@
       .diagonal-top { margin-top: -4vw; padding-top: calc(4vw + 4rem); }
     }
 
+    /* ── Editorial specialty chapters on mobile ── */
+    @media (max-width: 767px) {
+      .specialty-care-section {
+        clip-path: none;
+        margin-top: 0;
+        padding-top: 4.5rem;
+        padding-bottom: 0 !important;
+        background: #fff;
+      }
+      .specialty-care-inner { padding: 0; }
+      .specialty-care-intro { padding: 0 1.25rem 3.5rem; margin-bottom: 0 !important; }
+      .specialty-chapter {
+        position: relative;
+        min-height: 92svh;
+        margin: 0 !important;
+        display: flex !important;
+        align-items: flex-end;
+        overflow: hidden;
+        isolation: isolate;
+      }
+      .specialty-image {
+        position: absolute !important;
+        inset: 0;
+        z-index: -2;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        aspect-ratio: auto !important;
+      }
+      .specialty-image::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        background: linear-gradient(180deg, rgba(45,45,58,.08) 12%, rgba(45,45,58,.42) 48%, rgba(45,45,58,.96) 100%);
+      }
+      .specialty-chapter--pediatric .specialty-image::after {
+        background: linear-gradient(180deg, rgba(155,77,202,.05) 10%, rgba(92,55,106,.42) 48%, rgba(63,43,67,.96) 100%);
+      }
+      .specialty-chapter--mental .specialty-image::after {
+        background: linear-gradient(180deg, rgba(74,45,122,.04) 10%, rgba(74,45,122,.44) 48%, rgba(36,31,58,.97) 100%);
+      }
+      .specialty-image img { position: absolute; inset: 0; }
+      .specialty-image > div { z-index: 2; }
+      .specialty-copy {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        padding: 6.5rem 1.35rem 5.25rem;
+      }
+      .specialty-copy h3 { color: #fff !important; font-size: 1.75rem !important; }
+      .specialty-copy > p { color: rgba(255,255,255,.82) !important; }
+      .specialty-copy > p:nth-of-type(1) { color: #F4DF2C !important; }
+      .specialty-points {
+        margin-top: 1.5rem;
+        border-top: 1px solid rgba(255,255,255,.28);
+      }
+      .specialty-points > div {
+        padding: .85rem 0 !important;
+        border-bottom: 1px solid rgba(255,255,255,.22);
+        border-radius: 0 !important;
+        background: transparent !important;
+      }
+      .specialty-points p:first-child { color: #fff !important; }
+      .specialty-points p:last-child { color: rgba(255,255,255,.7) !important; }
+    }
+
     /* ── Scroll indicator ── */
     @keyframes scroll-bounce { 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(8px); } }
     .scroll-indicator { animation: scroll-bounce 2s infinite; }
@@ -140,25 +206,25 @@
   </section>
 
   <!-- ═══════════ 3 SPECIALTY CARE (zig-zag) ═══════════ -->
-  <section class="diagonal-top bg-gradient-to-b from-brand-pale to-white pb-20 md:pb-28">
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="text-center mb-14 md:mb-20 js-fade-up">
+  <section class="specialty-care-section diagonal-top bg-gradient-to-b from-brand-pale to-white pb-20 md:pb-28">
+    <div class="specialty-care-inner max-w-6xl mx-auto px-4">
+      <div class="specialty-care-intro text-center mb-14 md:mb-20 js-fade-up">
         <p class="font-hand text-brand-dark text-sm md:text-base tracking-wider mb-3">SPECIALTY CARE</p>
         <h2 class="font-rounded text-2xl md:text-4xl font-bold text-charcoal mb-4">当ステーションの3つの専門ケア</h2>
         <p class="text-charcoal-light text-sm md:text-base max-w-xl mx-auto">腹膜透析・小児/育児・精神科の専門性を軸に、在宅療養を丁寧にサポートします。</p>
       </div>
 
       <!-- Reason 1: Image Left -->
-      <div class="grid md:grid-cols-2 gap-8 md:gap-14 items-center mb-20 md:mb-28 js-fade-up">
-        <div class="relative rounded-3xl overflow-hidden shadow-xl aspect-[4/3]">
+      <div class="specialty-chapter specialty-chapter--dialysis grid md:grid-cols-2 gap-8 md:gap-14 items-center mb-20 md:mb-28 js-fade-up">
+        <div class="specialty-image relative rounded-3xl overflow-hidden shadow-xl aspect-[4/3]">
           <img src="assets/img/generated-care/peritoneal-dialysis-support.webp" alt="腹膜透析の物品と手順を確認する訪問看護師" class="w-full h-full object-cover">
           <div class="absolute top-4 left-4 bg-brand text-white font-rounded font-bold text-lg w-12 h-12 rounded-full flex items-center justify-center shadow-lg">01</div>
         </div>
-        <div>
+        <div class="specialty-copy">
           <h3 class="font-rounded text-xl md:text-3xl font-bold text-charcoal mb-2">腹膜透析に強いケア</h3>
           <p class="text-brand-dark font-bold text-sm mb-4">腹膜透析・在宅透析と在宅生活の両立を支えます</p>
           <p class="text-charcoal-light text-sm md:text-base leading-loose mb-6">日本腹膜透析医学会指導看護師を中心に、腹膜透析や在宅透析を続ける方の療養生活を安全にサポートします。</p>
-          <div class="space-y-3">
+          <div class="specialty-points space-y-3">
             <div class="bg-brand-bg rounded-xl p-4 js-fade-up fade-delay-1">
               <p class="font-bold text-brand-dark text-sm mb-1">腹膜透析の管理と生活支援</p>
               <p class="text-charcoal-light text-sm leading-relaxed">清潔操作や体調変化の観察、ご自宅での不安に寄り添いながら日々の療養を支えます。</p>
@@ -176,16 +242,16 @@
       </div>
 
       <!-- Reason 2: Image Right -->
-      <div class="grid md:grid-cols-2 gap-8 md:gap-14 items-center mb-20 md:mb-28 js-fade-up">
-        <div class="md:order-2 relative rounded-3xl overflow-hidden shadow-xl aspect-[4/3]">
+      <div class="specialty-chapter specialty-chapter--pediatric grid md:grid-cols-2 gap-8 md:gap-14 items-center mb-20 md:mb-28 js-fade-up">
+        <div class="specialty-image md:order-2 relative rounded-3xl overflow-hidden shadow-xl aspect-[4/3]">
           <img src="assets/img/generated-care/pediatric-parenting-support.webp" alt="育児用品について説明する訪問看護師" class="w-full h-full object-cover">
           <div class="absolute top-4 right-4 bg-brand text-white font-rounded font-bold text-lg w-12 h-12 rounded-full flex items-center justify-center shadow-lg">02</div>
         </div>
-        <div class="md:order-1">
+        <div class="specialty-copy md:order-1">
           <h3 class="font-rounded text-xl md:text-3xl font-bold text-charcoal mb-2">小児・育児サポート</h3>
           <p class="text-amber-700 font-bold text-sm mb-4">ご家族と一緒に、子どもの成長と暮らしを見守ります</p>
           <p class="text-charcoal-light text-sm md:text-base leading-loose mb-6">医療的ケアが必要なお子様や、双子の育児で不安を抱えるご家族へ、専門職としてきめ細かく伴走します。</p>
-          <div class="space-y-3">
+          <div class="specialty-points space-y-3">
             <div class="bg-accent-light rounded-xl p-4 js-fade-up fade-delay-1">
               <p class="font-bold text-amber-700 text-sm mb-1">健康状態の観察とケア</p>
               <p class="text-charcoal-light text-sm leading-relaxed">日々の体調管理や必要な医療処置（吸引、経管栄養など）をご自宅で行います。</p>
@@ -203,16 +269,16 @@
       </div>
 
       <!-- Reason 3: Image Left -->
-      <div class="grid md:grid-cols-2 gap-8 md:gap-14 items-center js-fade-up">
-        <div class="relative rounded-3xl overflow-hidden shadow-xl aspect-[4/3]">
+      <div class="specialty-chapter specialty-chapter--mental grid md:grid-cols-2 gap-8 md:gap-14 items-center js-fade-up">
+        <div class="specialty-image relative rounded-3xl overflow-hidden shadow-xl aspect-[4/3]">
           <img src="assets/img/generated-care/mental-health-home-visit.webp" alt="ご自宅で対話を大切にする精神科訪問看護" class="w-full h-full object-cover">
           <div class="absolute top-4 left-4 bg-brand text-white font-rounded font-bold text-lg w-12 h-12 rounded-full flex items-center justify-center shadow-lg">03</div>
         </div>
-        <div>
+        <div class="specialty-copy">
           <h3 class="font-rounded text-xl md:text-3xl font-bold text-charcoal mb-2">精神科訪問看護</h3>
           <p class="text-fuchsia-700 font-bold text-sm mb-4">心に寄り添い、あなたらしいペースの生活を支えます</p>
           <p class="text-charcoal-light text-sm md:text-base leading-loose mb-6">精神科訪問看護研修を受けたスタッフが、精神的な疾患や心の不調を抱える方の地域生活を支えます。</p>
-          <div class="space-y-3">
+          <div class="specialty-points space-y-3">
             <div class="bg-brand-bg rounded-xl p-4 js-fade-up fade-delay-1">
               <p class="font-bold text-brand-dark text-sm mb-1">対話を通じた心のケア</p>
               <p class="text-charcoal-light text-sm leading-relaxed">じっくりお話を伺い、不安や悩みを共有しながら心の安定を図ります。</p>
